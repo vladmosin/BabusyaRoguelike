@@ -13,5 +13,9 @@ abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
     /**
      * Moves creature
      * */
-    abstract fun chooseMove(): Cell
+    abstract fun chooseMove(): Cell // Вроде лишнее, есть actionController
+
+    open fun getAttack(): Int {
+        return creatureCharacteristics.attack
+    }
 }

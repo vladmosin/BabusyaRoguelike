@@ -20,4 +20,9 @@ abstract class GameElement(val id: String, var elementStatus: ElementStatus) {
      * Decreases GameElement's hit points. If hit points become less or equal than 0, game element dies
      * */
     abstract fun bePunched(damage: Int)
+
+    /**
+     * Checks that current game element is not empty and ALIVE
+     * */
+    abstract fun isActive(): Boolean
 }

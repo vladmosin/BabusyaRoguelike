@@ -16,4 +16,8 @@ class Stairs(id: String, elementStatus: ElementStatus) : StaticElement(id, eleme
     }
 
     override fun bePunched(damage: Int) {}
+
+    override fun isActive(): Boolean {
+        return elementStatus == ElementStatus.ALIVE
+    }
 }

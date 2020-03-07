@@ -13,4 +13,8 @@ class EmptyGameElement : GameElement(".", ElementStatus.ALIVE) {
     override fun act(gameElement: GameElement) {}
 
     override fun bePunched(damage: Int) {}
+
+    override fun isActive(): Boolean {
+        return false
+    }
 }

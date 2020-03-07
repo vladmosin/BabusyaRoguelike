@@ -31,4 +31,8 @@ class Hero(creatureCharacteristics: CreatureCharacteristics, actionController: A
             elementStatus = ElementStatus.DEAD
         }
     }
+
+    override fun isActive(): Boolean {
+        return elementStatus == ElementStatus.ALIVE
+    }
 }

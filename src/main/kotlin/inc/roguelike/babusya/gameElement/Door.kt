@@ -12,4 +12,8 @@ class Door(id: String, elementStatus: ElementStatus) : StaticElement(id, element
     }
 
     override fun bePunched(damage: Int) {}
+
+    override fun isActive(): Boolean {
+        return elementStatus == ElementStatus.ALIVE
+    }
 }

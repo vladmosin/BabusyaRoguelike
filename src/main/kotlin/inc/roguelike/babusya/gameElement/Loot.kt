@@ -15,4 +15,8 @@ class Loot(id: String, elementStatus: ElementStatus) : StaticElement(id, element
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun isActive(): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

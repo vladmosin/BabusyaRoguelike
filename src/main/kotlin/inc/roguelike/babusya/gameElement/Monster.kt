@@ -31,4 +31,8 @@ class Monster(creatureCharacteristics: CreatureCharacteristics, actionController
             elementStatus = ElementStatus.DEAD
         }
     }
+
+    override fun isActive(): Boolean {
+        return elementStatus == ElementStatus.ALIVE
+    }
 }
