@@ -1,8 +1,8 @@
 package inc.roguelike.babusya.gameElement
 
-import inc.roguelike.babusya.ActionController
 import inc.roguelike.babusya.Cell
 import inc.roguelike.babusya.Visitor
+import inc.roguelike.babusya.controllers.ActionController
 import kotlin.math.max
 
 class Monster(creatureCharacteristics: CreatureCharacteristics, actionController: ActionController,

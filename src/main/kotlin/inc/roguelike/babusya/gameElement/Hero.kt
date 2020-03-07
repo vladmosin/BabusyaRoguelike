@@ -1,12 +1,12 @@
 package inc.roguelike.babusya.gameElement
 
-import inc.roguelike.babusya.ActionController
 import inc.roguelike.babusya.Cell
 import inc.roguelike.babusya.Visitor
+import inc.roguelike.babusya.controllers.ActionController
 import kotlin.math.max
 
 class Hero(creatureCharacteristics: CreatureCharacteristics, actionController: ActionController,
-           id: String, elementStatus: ElementStatus):
+           id: String, elementStatus: ElementStatus, var experience: Int):
     Creature(creatureCharacteristics, actionController, id, elementStatus) {
 
     override fun chooseMove(): Cell {

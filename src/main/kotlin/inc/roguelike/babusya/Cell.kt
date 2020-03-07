@@ -1,5 +1,6 @@
 package inc.roguelike.babusya
 
-class Cell {
+import inc.roguelike.babusya.gameElement.GameElement
 
+class Cell(var storedItem: GameElement) {
 }

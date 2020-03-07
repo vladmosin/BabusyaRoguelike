@@ -7,6 +7,7 @@ interface Visitor<T> {
     fun visitDoor(door: Door): T
     fun visitWall(wall: Wall): T
     fun visitLoot(loot: Loot): T
+    fun visitEmptyGameElement(emptyGameElement: EmptyGameElement): T
 
     fun visitHero(hero: Hero): T
     fun visitMonster(monster: Monster): T

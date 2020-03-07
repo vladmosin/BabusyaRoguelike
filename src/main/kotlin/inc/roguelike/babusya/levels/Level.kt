@@ -1,6 +1,6 @@
 package inc.roguelike.babusya.levels
-import inc.roguelike.babusya.Map
+import inc.roguelike.babusya.GameMap
 
-class Level(map: Map) {
+class Level(map: GameMap) {
 
 }
