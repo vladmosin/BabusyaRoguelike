@@ -4,7 +4,7 @@ import inc.roguelike.babusya.Visitor
 
 class Door: StaticElement {
     override fun <T> accept(visitor: Visitor<T>): T {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return visitor.visitDoor(this)
     }
 
     override fun act(gameElement: GameElement) {

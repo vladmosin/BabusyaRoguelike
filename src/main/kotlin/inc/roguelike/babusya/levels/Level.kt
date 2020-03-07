@@ -1,4 +1,4 @@
-package inc.roguelike.babusya
+package inc.roguelike.babusya.levels
 
 class Level {
 }
