@@ -5,6 +5,10 @@ import inc.roguelike.babusya.Visitor
 import inc.roguelike.babusya.controllers.ActionController
 import kotlin.math.max
 
+
+/**
+ * Implements monster
+ * */
 class Monster(creatureCharacteristics: CreatureCharacteristics, actionController: ActionController,
               id: String, elementStatus: ElementStatus):
     Creature(creatureCharacteristics, actionController, id, elementStatus) {

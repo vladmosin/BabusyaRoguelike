@@ -5,7 +5,13 @@ import inc.roguelike.babusya.gameElement.CreatureCharacteristics
 import inc.roguelike.babusya.gameElement.ElementStatus
 import inc.roguelike.babusya.gameElement.EmptyGameElement
 import inc.roguelike.babusya.gameElement.Hero
+import java.util.Random
 
+
+/**
+ * Implements simple rectangular game map.
+ * Cells ordered in 2D rectangular
+ * */
 class RectangularMap(private val height: Int, private val width: Int): GameMap {
     companion object {
         fun loadFromFile(filePath: String): RectangularMap? {
@@ -17,12 +23,17 @@ class RectangularMap(private val height: Int, private val width: Int): GameMap {
     private val indexByCell = HashMap<Cell, Pair<Int, Int>>()
 
     init {
+        initIndexByCell()
         generateMap()
     }
 
     private fun generateMap() {
         val actionController = HeroActionController()
-        map[0][0].storedItem = Hero(
+        val random = Random()
+        val i = random.nextInt(height)
+        val j = random.nextInt(width)
+
+        map[i][j].storedItem = Hero(
             actionController = actionController,
             creatureCharacteristics = CreatureCharacteristics.createBasic(),
             elementStatus = ElementStatus.ALIVE,

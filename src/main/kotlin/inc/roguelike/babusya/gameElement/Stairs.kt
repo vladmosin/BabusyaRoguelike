@@ -2,6 +2,10 @@ package inc.roguelike.babusya.gameElement
 
 import inc.roguelike.babusya.Visitor
 
+/**
+ * Implements stairs.
+ * Using stairs creatures can move between floors.
+ * */
 class Stairs(id: String, elementStatus: ElementStatus) : StaticElement(id, elementStatus) {
     override fun <T> accept(visitor: Visitor<T>): T {
         return visitor.visitStairs(this)

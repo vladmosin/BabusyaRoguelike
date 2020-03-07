@@ -5,6 +5,10 @@ import inc.roguelike.babusya.Visitor
 import inc.roguelike.babusya.controllers.ActionController
 import kotlin.math.max
 
+
+/**
+ * Implements hero for player
+ * */
 class Hero(creatureCharacteristics: CreatureCharacteristics, actionController: ActionController,
            id: String, elementStatus: ElementStatus, var experience: Int):
     Creature(creatureCharacteristics, actionController, id, elementStatus) {

@@ -2,7 +2,10 @@ package inc.roguelike.babusya.gameElement
 
 import inc.roguelike.babusya.Visitor
 
-class EmptyGameElement() : GameElement(".", ElementStatus.ALIVE) {
+/**
+ * If cell doesn't store real game object, than it stores EmptyGameElement
+ * */
+class EmptyGameElement : GameElement(".", ElementStatus.ALIVE) {
     override fun <T> accept(visitor: Visitor<T>): T {
         return visitor.visitEmptyGameElement(this)
     }

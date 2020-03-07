@@ -2,5 +2,8 @@ package inc.roguelike.babusya
 
 import inc.roguelike.babusya.gameElement.GameElement
 
-class Cell(var storedItem: GameElement) {
-}
+/**
+ * Implement a cell for game map.
+ * Stores one game element.
+ * */
+class Cell(var storedItem: GameElement)

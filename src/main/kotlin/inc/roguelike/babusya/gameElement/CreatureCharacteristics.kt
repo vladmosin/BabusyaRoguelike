@@ -1,5 +1,8 @@
 package inc.roguelike.babusya.gameElement
 
+/**
+ * Stores different characteristics of create
+ * */
 data class CreatureCharacteristics(var hitPoints: Int, var maxHitPoints: Int, var attack: Int) {
     companion object {
         fun createBasic(): CreatureCharacteristics {
