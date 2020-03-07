@@ -2,7 +2,7 @@ package inc.roguelike.babusya.gameElement
 
 import inc.roguelike.babusya.Visitor
 
-class Stairs: StaticElement {
+class Stairs(id: String, elementStatus: ElementStatus) : StaticElement(id, elementStatus) {
     override fun <T> accept(visitor: Visitor<T>): T {
         return visitor.visitStairs(this)
     }
@@ -11,7 +11,5 @@ class Stairs: StaticElement {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun bePunched(damage: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun bePunched(damage: Int) {}
 }

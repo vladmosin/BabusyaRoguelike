@@ -1,4 +1,3 @@
 package inc.roguelike.babusya.gameElement
 
-interface StaticElement: GameElement {
-}
+abstract class StaticElement(id: String, elementStatus: ElementStatus) : GameElement(id, elementStatus)

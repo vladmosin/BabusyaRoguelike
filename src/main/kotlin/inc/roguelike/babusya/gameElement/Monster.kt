@@ -1,9 +1,14 @@
 package inc.roguelike.babusya.gameElement
 
+import inc.roguelike.babusya.ActionController
 import inc.roguelike.babusya.Cell
 import inc.roguelike.babusya.Visitor
+import kotlin.math.max
 
-class Monster: Creature {
+class Monster(creatureCharacteristics: CreatureCharacteristics, actionController: ActionController,
+              id: String, elementStatus: ElementStatus):
+    Creature(creatureCharacteristics, actionController, id, elementStatus) {
+
     override fun chooseMove(): Cell {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -13,10 +18,13 @@ class Monster: Creature {
     }
 
     override fun act(gameElement: GameElement) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        gameElement.bePunched(creatureCharacteristics.attack)
     }
 
     override fun bePunched(damage: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        creatureCharacteristics.hitPoints = max(0, creatureCharacteristics.hitPoints - damage)
+        if (creatureCharacteristics.hitPoints == 0) {
+            elementStatus = ElementStatus.DEAD
+        }
     }
 }
