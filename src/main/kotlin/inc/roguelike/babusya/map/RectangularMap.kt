@@ -1,4 +1,4 @@
-package inc.roguelike.babusya
+package inc.roguelike.babusya.map
 
 import inc.roguelike.babusya.controllers.HeroActionController
 import inc.roguelike.babusya.gameElement.CreatureCharacteristics
@@ -12,21 +12,31 @@ import java.util.Random
  * Implements simple rectangular game map.
  * Cells ordered in 2D rectangular
  * */
-class RectangularMap(private val height: Int, private val width: Int): GameMap {
+class RectangularMap(private val height: Int, private val width: Int):
+    GameMap {
     companion object {
         fun loadFromFile(filePath: String): RectangularMap? {
             TODO("not implemented")
         }
     }
 
-    private val map = Array(height) { Array(width) {Cell(EmptyGameElement())} }
+    private val map = Array(height) { Array(width) { Cell(EmptyGameElement()) } }
     private val indexByCell = HashMap<Cell, Pair<Int, Int>>()
+
+    private fun initIndexByCell() {
+        for (i in 0 until height) {
+            for (j in 0 until width) {
+                indexByCell[map[i][j]] = Pair(i, j)
+            }
+        }
+    }
 
     init {
         initIndexByCell()
         generateMap()
     }
 
+    // TODO move to level creator? probably builder will be useful
     private fun generateMap() {
         val actionController = HeroActionController()
         val random = Random()
@@ -39,14 +49,6 @@ class RectangularMap(private val height: Int, private val width: Int): GameMap {
             elementStatus = ElementStatus.ALIVE,
             experience = 0,
             id = "h")
-    }
-
-    private fun initIndexByCell() {
-        for (i in 0..height) {
-            for (j in 0..width) {
-                indexByCell[map[i][j]] = Pair(i, j)
-            }
-        }
     }
 
     override fun getLefterCell(cell: Cell): Cell? {
@@ -95,5 +97,25 @@ class RectangularMap(private val height: Int, private val width: Int): GameMap {
         } else {
             map[i + 1][j]
         }
+    }
+
+    override fun iterator(): Iterator<Cell> = object: Iterator<Cell> {
+        var i = 0
+        var j = 0
+
+        override fun hasNext(): Boolean {
+            return i < height
+        }
+
+        override fun next(): Cell {
+            return map[i][j].also {
+                j++
+                if (j == width) {
+                    i++
+                    j = 0
+                }
+            }
+        }
+
     }
 }

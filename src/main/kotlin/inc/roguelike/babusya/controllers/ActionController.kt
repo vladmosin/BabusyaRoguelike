@@ -1,6 +1,6 @@
 package inc.roguelike.babusya.controllers
 
-import inc.roguelike.babusya.Cell
+import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.gameElement.Creature
 
 interface ActionController {

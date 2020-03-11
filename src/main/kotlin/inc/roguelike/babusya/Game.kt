@@ -1,14 +1,12 @@
 package inc.roguelike.babusya
 
-import inc.roguelike.babusya.gameElement.ElementStatus
-import inc.roguelike.babusya.gameElement.GameElement
-import inc.roguelike.babusya.gameElement.Wall
-import java.util.*
+import inc.roguelike.babusya.UI.RenderSystem
+import inc.roguelike.babusya.levels.LevelCreator
 
-class Game {
+class Game(renderSystem: RenderSystem, levelCreator: LevelCreator) {
 
-    private val engine = Engine(RenderSystem(Arrays.asList(Wall("lol", ElementStatus.ALIVE))), ActionSystem())
-    private val gameState = GameState()
+    private val engine = Engine(renderSystem, ActionSystem())
+    private val gameState = GameState(levelCreator)
 
     fun launch() {
         while (!gameState.didGameEnd()) {
