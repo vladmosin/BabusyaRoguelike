@@ -18,6 +18,7 @@ class ConsoleRenderSystem: RenderSystem {
     val screen: Screen = TerminalScreen(terminal)
 
     init {
+        screen.cursorPosition = null
         screen.startScreen()
     }
 
