@@ -7,4 +7,6 @@ fun main() {
     val renderSystem = ConsoleRenderSystem()
     val levelCreator = LevelCreator()
     Game(renderSystem, levelCreator).launch()
+
+    renderSystem.close()
 }

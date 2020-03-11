@@ -36,6 +36,10 @@ class RectangularMap(private val height: Int, private val width: Int):
         generateMap()
     }
 
+    override fun positionOfCell(cell: Cell): Pair<Int, Int> {
+        return indexByCell[cell]!!
+    }
+
     // TODO move to level creator? probably builder will be useful
     private fun generateMap() {
         val actionController = HeroActionController()
