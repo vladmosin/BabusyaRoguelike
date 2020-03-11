@@ -1,5 +1,6 @@
 package inc.roguelike.babusya.UI
 
+import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.TextCharacter
 import com.googlecode.lanterna.TextColor
 import com.googlecode.lanterna.screen.Screen
@@ -14,7 +15,10 @@ class ConsoleRenderSystem: RenderSystem {
 
     private val showVisitor = ShowConsoleVisitor()
 
-    val terminal = DefaultTerminalFactory().createTerminal()
+    val terminal = DefaultTerminalFactory()
+        .setInitialTerminalSize(TerminalSize(100, 30))
+        //.addTerminalEmulatorFrameAutoCloseTrigger() // TODO close game when frame closes
+        .createTerminalEmulator()
     val screen: Screen = TerminalScreen(terminal)
 
     init {
