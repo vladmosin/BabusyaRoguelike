@@ -7,10 +7,9 @@ import inc.roguelike.babusya.map.Cell
 /**
  * Implements players controller
  * */
-class HeroActionController(private val inputListener: InputListener): ActionController {
+class HeroActionController: ActionController {
 
     override fun makeTurn() {
-        var inputData = inputListener.readInput()
 
     }
 }
