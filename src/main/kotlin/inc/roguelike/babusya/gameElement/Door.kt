@@ -1,6 +1,6 @@
 package inc.roguelike.babusya.gameElement
 
-import inc.roguelike.babusya.Visitor
+import inc.roguelike.babusya.visitors.Visitor
 
 class Door(id: String, elementStatus: ElementStatus) : StaticElement(id, elementStatus) {
     override fun <T> accept(visitor: Visitor<T>): T {

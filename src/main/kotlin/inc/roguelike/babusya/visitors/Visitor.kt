@@ -1,4 +1,4 @@
-package inc.roguelike.babusya
+package inc.roguelike.babusya.visitors
 
 import inc.roguelike.babusya.gameElement.*
 

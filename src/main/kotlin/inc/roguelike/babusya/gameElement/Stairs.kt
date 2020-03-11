@@ -1,6 +1,6 @@
 package inc.roguelike.babusya.gameElement
 
-import inc.roguelike.babusya.Visitor
+import inc.roguelike.babusya.visitors.Visitor
 
 /**
  * Implements stairs.
