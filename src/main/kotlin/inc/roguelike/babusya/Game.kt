@@ -14,4 +14,8 @@ class Game(renderSystem: RenderSystem, val inputListener: InputListener, levelCr
             engine.tick(gameState)
         }
     }
+
+    fun endGame() {
+        gameState.endGame()
+    }
 }

@@ -35,8 +35,9 @@ class ConsoleKeyboardListener(val terminal: Terminal): InputListener {
 
     fun start() {
         job = GlobalScope.launch {
+            var cnt = 0
             while (true) {
-                println("LOL")
+                println("LOL " + cnt++ + " " + readInput())
             }
         }
     }
