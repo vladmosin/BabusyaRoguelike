@@ -10,11 +10,12 @@ fun main() {
     // TODO disable resize??
     val terminal = DefaultTerminalFactory()
         .setInitialTerminalSize(TerminalSize(100, 30))
-        //.addTerminalEmulatorFrameAutoCloseTrigger() // TODO close game when frame closes
+        //.setTerminalEmulatorFrameAutoCloseTrigger() // TODO close game when frame closes
         .createTerminalEmulator()
 
     val renderSystem = ConsoleRenderSystem(terminal)
     val inputListener = ConsoleKeyboardListener(terminal)
+    inputListener.start()
 
     val levelCreator = LevelCreator()
 

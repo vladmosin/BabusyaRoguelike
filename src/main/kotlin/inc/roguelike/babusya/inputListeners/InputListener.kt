@@ -1,5 +1,5 @@
 import inc.roguelike.babusya.inputListeners.InputData
 
 interface InputListener {
-    fun readInput(): InputData
+    fun registerCommand(command: (InputData) -> Unit)
 }

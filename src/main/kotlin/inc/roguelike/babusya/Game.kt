@@ -10,7 +10,6 @@ class Game(renderSystem: RenderSystem, val inputListener: InputListener, levelCr
     private val gameState = GameState(levelCreator)
 
     fun launch() {
-        println(inputListener.readInput())
         while (!gameState.didGameEnd()) {
             engine.tick(gameState)
         }
