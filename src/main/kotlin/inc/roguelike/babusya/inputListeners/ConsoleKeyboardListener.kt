@@ -5,9 +5,14 @@ import com.googlecode.lanterna.input.KeyStroke
 import com.googlecode.lanterna.input.KeyType
 import com.googlecode.lanterna.terminal.Terminal
 import kotlinx.coroutines.*
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.concurrent.thread
 
 class ConsoleKeyboardListener(val terminal: Terminal): InputListener {
+
+    var commandId = AtomicInteger(0)
+    val commandMap = ConcurrentHashMap<Int, (InputData) -> Unit>()
 
     private fun keyStrokeToInputData(keyStroke: KeyStroke?): InputData? {
         return when(keyStroke?.keyType) {
@@ -27,17 +32,25 @@ class ConsoleKeyboardListener(val terminal: Terminal): InputListener {
         return inputData
     }
 
-    override fun registerCommand(command: (InputData) -> Unit) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addCommand(command: (InputData) -> Unit): Int {
+        val id = commandId.getAndIncrement()
+        commandMap[id] = command
+        return id
+    }
+
+    override fun removeCommand(id: Int) {
+        commandMap.remove(id)
     }
 
     var job: Job? = null
 
     fun start() {
         job = GlobalScope.launch {
-            var cnt = 0
             while (true) {
-                println("LOL " + cnt++ + " " + readInput())
+                val inputData = readInput()
+                for ((_, command) in commandMap) {
+                    command(inputData)
+                }
             }
         }
     }

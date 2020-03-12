@@ -12,6 +12,9 @@ import inc.roguelike.babusya.visitors.ShowConsoleVisitor
 
 class ConsoleRenderSystem(val terminal: Terminal): RenderSystem {
 
+    private val LEFT_FRAME = 20
+    private val UP_FRAME = 10
+
     private val showVisitor = ShowConsoleVisitor()
 
     val screen: Screen = TerminalScreen(terminal)
@@ -24,7 +27,7 @@ class ConsoleRenderSystem(val terminal: Terminal): RenderSystem {
     override fun render(level: Level) {
         val textGraphics = screen.newTextGraphics()
         textGraphics.foregroundColor = TextColor.ANSI.GREEN
-        textGraphics.putString(0, 0, level.getName())
+        textGraphics.putString(LEFT_FRAME, UP_FRAME, level.getName())
 
         showMap(level.getMap())
         screen.refresh()
@@ -35,7 +38,7 @@ class ConsoleRenderSystem(val terminal: Terminal): RenderSystem {
         for (cell in map) {
             val cellChar = cell.storedItem.accept(showVisitor)
             val (i, j) = map.positionOfCell(cell)
-            screen.setCharacter(j, i + 1, TextCharacter(cellChar))
+            screen.setCharacter(j + LEFT_FRAME, i + UP_FRAME + 1, TextCharacter(cellChar))
         }
     }
 

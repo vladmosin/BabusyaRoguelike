@@ -8,7 +8,6 @@ import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
 import inc.roguelike.babusya.levels.LevelCreator
 
 fun main() {
-    // TODO disable resize??
     val terminal = DefaultTerminalFactory()
         .setInitialTerminalSize(TerminalSize(100, 30))
         .createTerminalEmulator()
