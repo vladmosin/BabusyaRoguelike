@@ -7,7 +7,11 @@ import inc.roguelike.babusya.map.Cell
 /**
  * Implements players controller
  * */
-class HeroActionController: ActionController {
+class HeroActionController(inputListener: InputListener): ActionController {
+
+    init {
+        
+    }
 
     override fun makeTurn() {
 
