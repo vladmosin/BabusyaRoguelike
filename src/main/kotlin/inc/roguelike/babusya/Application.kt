@@ -16,7 +16,7 @@ fun main() {
     val inputListener = ConsoleKeyboardListener(terminal)
     inputListener.start()
 
-    val levelCreator = LevelCreator()
+    val levelCreator = LevelCreator(inputListener)
 
     Game(renderSystem, inputListener, levelCreator).launch()
 

@@ -10,7 +10,11 @@ class Game(renderSystem: RenderSystem, val inputListener: InputListener, levelCr
     private val gameState = GameState(levelCreator)
 
     fun launch() {
-        //inputListener.addCommand { gameState. }
+        for (cell in gameState.getLevel().getMap()) {
+            if (cell.storesActiveItem()) {
+                engine.actionSystem.addElement(cell.storedItem)
+            }
+        }
         while (!gameState.didGameEnd()) {
             engine.tick(gameState)
         }
