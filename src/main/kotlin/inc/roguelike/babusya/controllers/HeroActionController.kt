@@ -23,7 +23,9 @@ class HeroActionController(cell: Cell, inputListener: InputListener, val map: Ga
         }
     }
 
-
+    /**
+     * Receives command from inputListener and makes move to the target cell
+     */
     override fun makeTurn() {
         var data: InputData? = null
         runBlocking {

@@ -4,11 +4,15 @@ import InputListener
 import inc.roguelike.babusya.UI.RenderSystem
 import inc.roguelike.babusya.levels.LevelCreator
 
-class Game(renderSystem: RenderSystem, val inputListener: InputListener, levelCreator: LevelCreator) {
+/**
+ * Initializes and starts game
+ */
+class Game(renderSystem: RenderSystem, inputListener: InputListener) {
 
     private val engine = Engine(renderSystem, ActionSystem())
+    private val levelCreator = LevelCreator(inputListener)
     private val gameState = GameState(levelCreator)
-
+    
     fun launch() {
         for (cell in gameState.getLevel().getMap()) {
             if (cell.storesActiveItem()) {

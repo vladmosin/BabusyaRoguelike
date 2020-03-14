@@ -7,6 +7,6 @@ class LevelGenerator(val inputListener: InputListener) {
     fun generateLevel(id: Int): Level {
         val map = RectangularMap(3, 3)
         map.generateMap(inputListener)
-        return Level(map, "Level: " + id)
+        return Level(map, "Level: " + id, id)
     }
 }

@@ -41,6 +41,8 @@ class RectangularMap(private val height: Int, private val width: Int):
     }
 
     // TODO move to level creator? probably builder will be useful
+    // At least for creating gameElements or Characteristics
+    // More patterns!!! :)
     fun generateMap(inputListener: InputListener) {
         val random = Random()
         val i = random.nextInt(height)
