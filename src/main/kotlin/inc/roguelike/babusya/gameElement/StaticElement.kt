@@ -3,4 +3,21 @@ package inc.roguelike.babusya.gameElement
 /**
  * Base class for elements which cannot move
  * */
-abstract class StaticElement(id: String, elementStatus: ElementStatus) : GameElement(id, elementStatus)
+abstract class StaticElement(id: String, elementStatus: ElementStatus) : GameElement(id, elementStatus) {
+    companion object {
+        fun deserialize(string: String): StaticElement? {
+            val deserializers = listOf(
+                { s: String -> Wall.deserialize(s)},
+                { s: String -> EmptyGameElement.deserialize(s)})
+
+            for (deserializer in deserializers) {
+                val gameElement = deserializer(string)
+                if (gameElement != null) {
+                    return gameElement
+                }
+            }
+
+            return null;
+        }
+    }
+}

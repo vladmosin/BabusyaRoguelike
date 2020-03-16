@@ -35,4 +35,26 @@ class Hero(creatureCharacteristics: CreatureCharacteristics, actionController: A
     override fun isActive(): Boolean {
         return elementStatus == ElementStatus.ALIVE
     }
+
+    override fun serialize(): String {
+        return 
+    }
+
+    companion object {
+        fun deserialize(string: String): Hero? {
+            val parts = string.split("#")
+            return if (parts.size != 3) {
+                null
+            } else {
+                val elementStatus = ElementStatus.deserialize(parts[2])
+                if (elementStatus == null || parts[0] != name) {
+                    null
+                } else {
+                    Wall(parts[1], elementStatus)
+                }
+            }
+        }
+
+        private const val name = "h"
+    }
 }

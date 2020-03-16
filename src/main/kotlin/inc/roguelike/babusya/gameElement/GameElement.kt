@@ -25,4 +25,27 @@ abstract class GameElement(val id: String, var elementStatus: ElementStatus) {
      * Checks that current game element is not empty and ALIVE
      * */
     abstract fun isActive(): Boolean
+
+    /**
+     * Converts game element to string
+     * Doesn't contain || as a subsequence
+     * */
+    abstract fun serialize(): String
+
+    companion object {
+        fun deserialize(string: String): GameElement? {
+            val deserializers = listOf(
+                { s: String -> Creature.deserialize(s)},
+                { s: String -> StaticElement.deserialize(s)})
+
+            for (deserializer in deserializers) {
+                val gameElement = deserializer(string)
+                if (gameElement != null) {
+                    return gameElement
+                }
+            }
+
+            return null;
+        }
+    }
 }

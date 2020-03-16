@@ -12,14 +12,7 @@ import java.util.Random
  * Implements simple rectangular game map.
  * Cells ordered in 2D rectangular
  * */
-class RectangularMap(private val height: Int, private val width: Int):
-    GameMap {
-    companion object {
-        fun loadFromFile(filePath: String): RectangularMap? {
-            TODO("not implemented")
-        }
-    }
-
+class RectangularMap(private val height: Int, private val width: Int): GameMap {
     private val map = Array(height) { Array(width) { Cell(EmptyGameElement()) } }
     private val indexByCell = HashMap<Cell, Pair<Int, Int>>()
 
@@ -38,6 +31,27 @@ class RectangularMap(private val height: Int, private val width: Int):
 
     override fun positionOfCell(cell: Cell): Pair<Int, Int> {
         return indexByCell[cell]!!
+    }
+
+    /** Format:
+     * RectangularMap
+     * height width
+     * _ .. _
+     * _ .. _
+     * ......
+     * _ .. _
+     *
+     *
+     * First line is a name of concrete GameMap implementation
+     * Second line is board parameters (height and width)
+     * Next height lines contains width number of serialized GameElements
+     * */
+    override fun serialize(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deserialize(string: String): GameMap {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     // TODO move to level creator? probably builder will be useful

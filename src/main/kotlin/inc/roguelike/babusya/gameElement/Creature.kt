@@ -18,4 +18,20 @@ abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
     open fun getAttack(): Int {
         return creatureCharacteristics.attack
     }
+
+    companion object {
+        fun deserialize(string: String): Creature? {
+            val deserializers = listOf(
+                { s: String -> Hero.deserialize(s)})
+
+            for (deserializer in deserializers) {
+                val gameElement = deserializer(string)
+                if (gameElement != null) {
+                    return gameElement
+                }
+            }
+
+            return null;
+        }
+    }
 }
