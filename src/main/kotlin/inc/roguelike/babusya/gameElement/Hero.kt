@@ -37,7 +37,7 @@ class Hero(creatureCharacteristics: CreatureCharacteristics, actionController: A
     }
 
     override fun serialize(): String {
-        return 
+        return
     }
 
     companion object {

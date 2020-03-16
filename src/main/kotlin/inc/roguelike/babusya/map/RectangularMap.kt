@@ -1,5 +1,6 @@
 package inc.roguelike.babusya.map
 
+import InputListener
 import inc.roguelike.babusya.controllers.HeroActionController
 import inc.roguelike.babusya.gameElement.CreatureCharacteristics
 import inc.roguelike.babusya.gameElement.ElementStatus
@@ -26,7 +27,6 @@ class RectangularMap(private val height: Int, private val width: Int): GameMap {
 
     init {
         initIndexByCell()
-        generateMap()
     }
 
     override fun positionOfCell(cell: Cell): Pair<Int, Int> {
@@ -55,11 +55,13 @@ class RectangularMap(private val height: Int, private val width: Int): GameMap {
     }
 
     // TODO move to level creator? probably builder will be useful
-    private fun generateMap() {
-        val actionController = HeroActionController()
+    // At least for creating gameElements or Characteristics
+    // More patterns!!! :)
+    fun generateMap(inputListener: InputListener) {
         val random = Random()
         val i = random.nextInt(height)
         val j = random.nextInt(width)
+        val actionController = HeroActionController(map[i][j], inputListener, this)
 
         map[i][j].storedItem = Hero(
             actionController = actionController,

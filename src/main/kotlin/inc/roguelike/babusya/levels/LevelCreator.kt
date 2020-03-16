@@ -1,8 +1,10 @@
 package inc.roguelike.babusya.levels
 
-class LevelCreator {
+import InputListener
 
-    private val levelGenerator = LevelGenerator()
+class LevelCreator(val inputListener: InputListener) {
+
+    private val levelGenerator = LevelGenerator(inputListener)
     private val levelLoader = LevelLoader()
 
     fun createLevel(id: Int): Level {

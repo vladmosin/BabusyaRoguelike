@@ -19,6 +19,10 @@ abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
         return creatureCharacteristics.attack
     }
 
+    override fun makeTurn() {
+        actionController.makeTurn()
+    }
+
     companion object {
         fun deserialize(string: String): Creature? {
             val deserializers = listOf(

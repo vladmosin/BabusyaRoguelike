@@ -7,6 +7,9 @@ import inc.roguelike.babusya.UI.ConsoleRenderSystem
 import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
 import inc.roguelike.babusya.levels.LevelCreator
 
+/**
+ * Initializes and starts game
+ */
 fun main() {
     val terminal = DefaultTerminalFactory()
         .setInitialTerminalSize(TerminalSize(100, 30))
@@ -16,9 +19,7 @@ fun main() {
     val inputListener = ConsoleKeyboardListener(terminal)
     inputListener.start()
 
-    val levelCreator = LevelCreator()
-
-    Game(renderSystem, inputListener, levelCreator).launch()
+    Game(renderSystem, inputListener).launch()
 
     renderSystem.close()
 }
