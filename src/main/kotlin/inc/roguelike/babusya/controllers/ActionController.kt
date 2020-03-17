@@ -25,7 +25,6 @@ abstract class ActionController(var cell: Cell) {
             toCell.storedItem = fromItem
             cell = toCell
         }
-
     }
 
     /**
