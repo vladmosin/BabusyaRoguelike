@@ -6,9 +6,11 @@ import inc.roguelike.babusya.map.Cell
 /**
  * Creature is a game element, which can move and has characteristics
  * */
-abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
-                        protected var actionController: ActionController?,
-                        id: String, elementStatus: ElementStatus) : GameElement(id, elementStatus) {
+abstract class Creature(
+    val creatureCharacteristics: CreatureCharacteristics,
+    protected var actionController: ActionController?,
+    id: String, elementStatus: ElementStatus
+) : GameElement(id, elementStatus) {
 
     /**
      * Moves creature
@@ -28,8 +30,7 @@ abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
 
     companion object {
         fun deserialize(string: String): Creature? {
-            val deserializers = listOf(
-                { s: String -> Hero.deserialize(s)})
+            val deserializers = listOf { s: String -> Hero.deserialize(s) }
 
             for (deserializer in deserializers) {
                 val gameElement = deserializer(string)
@@ -40,6 +41,5 @@ abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
 
             return null
         }
-
     }
 }

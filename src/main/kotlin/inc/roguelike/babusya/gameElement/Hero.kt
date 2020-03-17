@@ -12,8 +12,10 @@ import kotlin.math.max
 /**
  * Implements hero for player
  * */
-class Hero(creatureCharacteristics: CreatureCharacteristics, actionController: ActionController?,
-           id: String, elementStatus: ElementStatus, var experience: Int):
+class Hero(
+    creatureCharacteristics: CreatureCharacteristics, actionController: ActionController?,
+    id: String, elementStatus: ElementStatus, var experience: Int
+) :
     Creature(creatureCharacteristics, actionController, id, elementStatus) {
 
     override fun chooseMove(): Cell {
@@ -70,6 +72,4 @@ class Hero(creatureCharacteristics: CreatureCharacteristics, actionController: A
 
         private const val name = "h"
     }
-
-
 }
