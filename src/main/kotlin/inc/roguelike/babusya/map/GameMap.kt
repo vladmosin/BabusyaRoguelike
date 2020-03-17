@@ -28,7 +28,4 @@ interface GameMap : Iterable<Cell> {
     fun positionOfCell(cell: Cell): Pair<Int, Int>
 
     fun serialize(): String
-
-    fun deserialize(string: String): GameMap
-
 }

@@ -37,20 +37,27 @@ class Hero(creatureCharacteristics: CreatureCharacteristics, actionController: A
     }
 
     override fun serialize(): String {
-        return
+        return "${name}#${creatureCharacteristics}#${id}#${elementStatus}#${experience}"
     }
 
     companion object {
         fun deserialize(string: String): Hero? {
             val parts = string.split("#")
-            return if (parts.size != 3) {
+            return if (parts.size != 5) {
                 null
             } else {
-                val elementStatus = ElementStatus.deserialize(parts[2])
-                if (elementStatus == null || parts[0] != name) {
+                val elementStatus = ElementStatus.deserialize(parts[3])
+                val creatureCharacteristics = CreatureCharacteristics.deserialize(parts[1])
+
+                if (elementStatus == null || creatureCharacteristics == null || parts[0] != name) {
                     null
                 } else {
-                    Wall(parts[1], elementStatus)
+                    return try {
+                        val actionController = null
+                        Hero(creatureCharacteristics, ActionController.getController()!!, parts[2], elementStatus, parts[4].toInt())
+                    } catch (e: NumberFormatException) {
+                        null
+                    }
                 }
             }
         }

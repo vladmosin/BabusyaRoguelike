@@ -11,4 +11,8 @@ class Cell(var storedItem: GameElement) {
     fun storesActiveItem(): Boolean {
         return storedItem.isActive()
     }
+
+    fun serialize(): String {
+        return storedItem.serialize()
+    }
 }

@@ -24,7 +24,7 @@ class EmptyGameElement : StaticElement(name, ElementStatus.ALIVE) {
 
     companion object {
         fun deserialize(string: String): EmptyGameElement? {
-            return if (string == n) {
+            return if (string == name) {
                 EmptyGameElement()
             } else {
                 null
