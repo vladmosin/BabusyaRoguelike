@@ -5,20 +5,6 @@ import inc.roguelike.babusya.gameElement.Creature
 import inc.roguelike.babusya.gameElement.EmptyGameElement
 
 abstract class ActionController(var cell: Cell) {
-    companion object {
-        private val controllers = mapOf<ControllerType, ActionController>(
-            ControllerType.HeroController to HeroActionController()
-        )
-
-        fun getController(controllerType: ControllerType): ActionController? {
-            return if (controllerType in controllers) {
-                controllers[controllerType]
-            } else {
-                null
-            }
-        }
-    }
-
     /**
      * Moves item from first cell to the second cell if possible, otherwise makes other necessary operations.
      * */

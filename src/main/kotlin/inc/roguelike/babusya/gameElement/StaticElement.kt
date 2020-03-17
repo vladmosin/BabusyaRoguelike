@@ -1,5 +1,9 @@
 package inc.roguelike.babusya.gameElement
 
+import InputListener
+import inc.roguelike.babusya.map.Cell
+import inc.roguelike.babusya.map.GameMap
+
 /**
  * Base class for elements which cannot move
  * */
@@ -20,4 +24,6 @@ abstract class StaticElement(id: String, elementStatus: ElementStatus) : GameEle
             return null;
         }
     }
+
+    override fun setController(cell: Cell, inputListener: InputListener, map: GameMap) {}
 }

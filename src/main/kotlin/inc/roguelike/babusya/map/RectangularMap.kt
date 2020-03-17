@@ -15,20 +15,22 @@ class RectangularMap(private val height: Int, private val width: Int): GameMap {
     private val indexByCell = HashMap<Cell, Pair<Int, Int>>()
 
     companion object {
-        fun deserialize(string: String): RectangularMap? {
+        fun deserialize(string: String, inputListener: InputListener): RectangularMap? {
             val parts = string.split("\n")
             if (parts.size < 2 || parts[0] != name) {
                 return null
             }
 
             val sizes = parseHeightWidth(parts[1]) ?: return null
-            val gameElements = parseMap(parts) ?: return null
             val height = sizes.first
             val width = sizes.second
-
             val map = RectangularMap(height, width)
+
+            val gameElements = parseMap(parts) ?: return null
+
             for (i in 0..height) {
                 for (j in 0..width) {
+                    gameElements[i][j].setController(map.map[i][j], inputListener, map)
                     map.map[i][j].storedItem = gameElements[i][j]
                 }
             }

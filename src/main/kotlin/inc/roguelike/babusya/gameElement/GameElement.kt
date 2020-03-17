@@ -1,5 +1,8 @@
 package inc.roguelike.babusya.gameElement
 
+import InputListener
+import inc.roguelike.babusya.map.Cell
+import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.visitors.Visitor
 
 /**
@@ -52,4 +55,6 @@ abstract class GameElement(val id: String, var elementStatus: ElementStatus) {
             return null;
         }
     }
+
+    abstract fun setController(cell: Cell, inputListener: InputListener, map: GameMap)
 }
