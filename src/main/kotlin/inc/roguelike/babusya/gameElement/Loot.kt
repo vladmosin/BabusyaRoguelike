@@ -19,4 +19,14 @@ class Loot(id: String, elementStatus: ElementStatus) : StaticElement(id, element
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun serialize(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    companion object {
+        fun deserialize(string: String): Loot? {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+    }
+
 }

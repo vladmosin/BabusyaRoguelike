@@ -5,5 +5,16 @@ package inc.roguelike.babusya.gameElement
  * Creature dies when its hit points decrease to 0.
  * */
 enum class ElementStatus {
-    ALIVE, DEAD
+
+    ALIVE, DEAD;
+
+    companion object {
+        fun deserialize(string: String): ElementStatus? {
+            return try {
+                valueOf(string)
+            } catch (e: IllegalArgumentException) {
+                null
+            }
+        }
+    }
 }

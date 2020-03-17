@@ -13,8 +13,12 @@ import java.util.Random
  * Implements simple rectangular game map.
  * Cells ordered in 2D rectangular
  * */
-class RectangularMap(private val height: Int, private val width: Int):
-    GameMap {
+class RectangularMap(private val height: Int, private val width: Int) : GameMap {
+
+    override fun serialize(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     companion object {
         fun loadFromFile(filePath: String): RectangularMap? {
             TODO("not implemented")
@@ -36,7 +40,7 @@ class RectangularMap(private val height: Int, private val width: Int):
         initIndexByCell()
     }
 
-    override fun positionOfCell(cell: Cell): Pair<Int, Int> {
+    override fun positionOnScreen(cell: Cell): Pair<Int, Int> {
         return indexByCell[cell]!!
     }
 

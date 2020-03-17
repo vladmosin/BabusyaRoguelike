@@ -20,4 +20,14 @@ class Stairs(id: String, elementStatus: ElementStatus) : StaticElement(id, eleme
     override fun isActive(): Boolean {
         return elementStatus == ElementStatus.ALIVE
     }
+
+    override fun serialize(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    companion object {
+        fun deserialize(string: String): Stairs? {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+    }
 }

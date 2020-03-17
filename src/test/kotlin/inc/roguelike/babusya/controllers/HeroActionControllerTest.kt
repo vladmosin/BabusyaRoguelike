@@ -2,14 +2,12 @@ package inc.roguelike.babusya.controllers
 
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
-import inc.roguelike.babusya.UI.ConsoleRenderSystem
-import inc.roguelike.babusya.gameElement.CreatureCharacteristics
-import inc.roguelike.babusya.gameElement.ElementStatus
-import inc.roguelike.babusya.gameElement.EmptyGameElement
-import inc.roguelike.babusya.gameElement.Hero
+import inc.roguelike.babusya.gameElement.*
 import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 
@@ -30,22 +28,26 @@ class EmptyMap : GameMap {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun positionOfCell(cell: Cell): Pair<Int, Int> {
+    override fun positionOnScreen(cell: Cell): Pair<Int, Int> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun serialize(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun iterator(): Iterator<Cell> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 }
 
-class ActionControllerTest {
+class HeroActionControllerTest {
 
     private val terminal = DefaultTerminalFactory()
         .setInitialTerminalSize(TerminalSize(100, 30))
         .createTerminalEmulator()
 
-    private val renderSystem = ConsoleRenderSystem(terminal)
     private val inputListener = ConsoleKeyboardListener(terminal)
 
     @Test
@@ -63,5 +65,29 @@ class ActionControllerTest {
         val heroActionController = HeroActionController(heroCell, inputListener, EmptyMap())
 
         heroActionController.makeMove(emptyCell)
+
+        assertFalse(heroCell.storedItem.isActive())
+        assertTrue(emptyCell.storedItem.isActive())
+    }
+
+    @Test
+    fun testMakeMoveHeroToWall() {
+        val hero = Hero(
+            actionController = null,
+            creatureCharacteristics = CreatureCharacteristics.createBasic(),
+            elementStatus = ElementStatus.ALIVE,
+            experience = 0,
+            id = "h"
+        )
+        val wall = Wall("w1", ElementStatus.ALIVE)
+        val heroCell = Cell(hero)
+        val wallCell = Cell(wall)
+
+        val heroActionController = HeroActionController(heroCell, inputListener, EmptyMap())
+
+        heroActionController.makeMove(wallCell)
+
+        assertTrue(heroCell.storedItem.isActive())
+        assertTrue(wallCell.storedItem.isActive())
     }
 }

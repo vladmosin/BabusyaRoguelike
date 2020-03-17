@@ -1,12 +1,15 @@
 package inc.roguelike.babusya.levels
 
 import InputListener
-import inc.roguelike.babusya.map.RectangularMap
+import inc.roguelike.babusya.map.rectangularMap.RectangularMapBuilder
 
+/**
+ * Creates controllers
+ * */
 class LevelGenerator(val inputListener: InputListener) {
+
     fun generateLevel(id: Int): Level {
-        val map = RectangularMap(3, 3)
-        map.generateMap(inputListener)
-        return Level(map, "Level: " + id, id)
+        val map = RectangularMapBuilder(10, 20).addHero().addWalls().buildMap(inputListener)
+        return Level(map, "Level: $id", id)
     }
 }
