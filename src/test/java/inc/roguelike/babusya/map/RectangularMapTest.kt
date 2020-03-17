@@ -1,9 +1,12 @@
 package inc.roguelike.babusya.map
 
 import InputListener
+import inc.roguelike.babusya.FileSystem
 import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.map.rectangularMap.RectangularMap
 import inc.roguelike.babusya.map.rectangularMap.RectangularMapBuilder
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 internal class RectangularMapTest {
@@ -26,5 +29,7 @@ internal class RectangularMapTest {
 
         val serializedMap = map.serialize()
         val newMap = RectangularMap.deserialize(serializedMap, inputListener)
+
+        assertNotNull(newMap)
     }
 }
