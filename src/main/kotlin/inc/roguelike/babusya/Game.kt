@@ -20,6 +20,9 @@ class Game(renderSystem: RenderSystem, inputListener: InputListener, levelInfo: 
     private val levelCreator = LevelCreator(inputListener)
     private val gameState = GameState(levelCreator, levelInfo)
 
+    /**
+     * Launches new game
+     * */
     fun launch() {
         for (cell in gameState.getLevel().getMap()) {
             if (cell.storesActiveItem() && cell.storedItem is Creature) {
@@ -31,6 +34,9 @@ class Game(renderSystem: RenderSystem, inputListener: InputListener, levelInfo: 
         }
     }
 
+    /**
+     * Ends game
+     * */
     fun endGame() {
         gameState.endGame()
     }

@@ -4,6 +4,9 @@ import InputListener
 import inc.roguelike.babusya.FileSystem
 import inc.roguelike.babusya.map.rectangularMap.RectangularMap
 
+/**
+ * Loads level from file
+ * */
 class LevelLoader(val inputListener: InputListener) {
 
     fun loadLevel(id: Int): Level {

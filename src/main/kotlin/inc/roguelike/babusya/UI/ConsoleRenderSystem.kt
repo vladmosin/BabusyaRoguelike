@@ -10,6 +10,9 @@ import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.visitors.ShowConsoleVisitor
 
 
+/**
+ * Renders console system
+ * */
 class ConsoleRenderSystem(val terminal: Terminal): RenderSystem {
 
     private val LEFT_FRAME = 20

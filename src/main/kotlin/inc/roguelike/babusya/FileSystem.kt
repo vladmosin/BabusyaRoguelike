@@ -2,6 +2,9 @@ package inc.roguelike.babusya
 
 import java.io.File
 
+/**
+ * static functions for reading and saving files
+ * */
 abstract class FileSystem {
     companion object {
         fun loadFile(path: String): String {

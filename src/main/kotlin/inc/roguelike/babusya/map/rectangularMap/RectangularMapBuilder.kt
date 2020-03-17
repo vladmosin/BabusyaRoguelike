@@ -5,6 +5,9 @@ import inc.roguelike.babusya.gameElement.*
 import inc.roguelike.babusya.map.Cell
 import kotlin.random.Random
 
+/**
+ * Generates random RectangularMap
+ * */
 class RectangularMapBuilder(
     private val height: Int,
     private val width: Int
@@ -12,6 +15,9 @@ class RectangularMapBuilder(
     private val rectangle = Array(height) { Array(width) { Cell(EmptyGameElement()) } }
     private var heroCell: Cell? = null
 
+    /**
+     * Creates map
+     * */
     fun buildMap(inputListener: InputListener): RectangularMap {
         val map = RectangularMap(rectangle)
         heroCell!!.storedItem.setController(heroCell!!, inputListener, map)
@@ -30,6 +36,9 @@ class RectangularMapBuilder(
         return emptyPositions
     }
 
+    /**
+     * Adds hero to the map
+     * */
     fun addHero(): RectangularMapBuilder {
         val emptyPositions = getEmptyPositions()
         val emptyCellsNumber = emptyPositions.size
@@ -49,6 +58,9 @@ class RectangularMapBuilder(
         return this
     }
 
+    /**
+     * Adds walls to the map
+     * */
     fun addWalls(): RectangularMapBuilder {
         val emptyPositions = getEmptyPositions()
         emptyPositions.shuffle()

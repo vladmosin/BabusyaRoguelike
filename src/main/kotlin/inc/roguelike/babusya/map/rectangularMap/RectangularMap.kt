@@ -19,6 +19,9 @@ class RectangularMap(
     private val indexByCell = HashMap<Cell, Pair<Int, Int>>()
 
     companion object {
+        /**
+         * Creates RectangularMap from string
+         * */
         fun deserialize(string: String, inputListener: InputListener): RectangularMap? {
             val parts = string.split("\n")
             if (parts.size < 2 || parts[0] != name) {

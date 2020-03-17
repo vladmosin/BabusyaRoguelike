@@ -4,7 +4,7 @@ import InputListener
 import inc.roguelike.babusya.map.rectangularMap.RectangularMapBuilder
 
 /**
- * Creates controllers
+ * Creates random level
  * */
 class LevelGenerator(val inputListener: InputListener) {
 
