@@ -1,10 +1,11 @@
 package inc.roguelike.babusya.map
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 
 internal class RectangularMapTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     fun serialize() {
+        
     }
 }
