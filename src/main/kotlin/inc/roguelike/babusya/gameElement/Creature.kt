@@ -19,7 +19,7 @@ abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
         return creatureCharacteristics.attack
     }
 
-    override fun makeTurn() {
+    open fun makeTurn() {
         actionController.makeTurn()
     }
 }

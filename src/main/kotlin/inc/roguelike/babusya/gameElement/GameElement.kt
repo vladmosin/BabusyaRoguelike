@@ -11,10 +11,6 @@ abstract class GameElement(val id: String, var elementStatus: ElementStatus) {
      * */
     abstract fun <T> accept(visitor: Visitor<T>): T
 
-    open fun makeTurn() {
-        assert(false) // TODO somthing better?
-    }
-
     /**
      * Performs action on another game element. Different behaviour for different types of game elements.
      * */

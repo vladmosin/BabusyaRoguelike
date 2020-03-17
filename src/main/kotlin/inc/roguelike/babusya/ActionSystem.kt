@@ -1,5 +1,6 @@
 package inc.roguelike.babusya
 
+import inc.roguelike.babusya.gameElement.Creature
 import inc.roguelike.babusya.gameElement.GameElement
 import java.util.*
 
@@ -8,10 +9,10 @@ import java.util.*
  */
 class ActionSystem {
 
-    private val queue: Queue<GameElement> = LinkedList<GameElement>()
+    private val queue: Queue<Creature> = LinkedList<Creature>()
 
-    fun addElement(element: GameElement) {
-        queue.add(element)
+    fun addElement(creature: Creature) {
+        queue.add(creature)
     }
 
     fun action() {
