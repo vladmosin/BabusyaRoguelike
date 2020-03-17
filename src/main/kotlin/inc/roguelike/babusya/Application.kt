@@ -29,14 +29,16 @@ fun main() {
 }
 
 fun askUserForLevelsType(): LevelInfo {
-    val input = Scanner(System.`in`)
     println("Please select type of map")
     while(true) {
         println("To generate level write \"gen\" (without quotas)")
         println("To load level from file write \"load <level id>\" " +
                 "(without quotas), instead of level id write number from 1 to ${Game.SAVED_LEVELS}")
 
-        val userInput = input.nextLine()
+        var userInput = readLine()
+        while (userInput == null) {
+            userInput = readLine()
+        }
         val inputParts = userInput.split(" ").filter { s -> s.isNotEmpty() }
         if (inputParts[0] == "gen") {
             return LevelInfo(1, LevelsType.GENERATED)
