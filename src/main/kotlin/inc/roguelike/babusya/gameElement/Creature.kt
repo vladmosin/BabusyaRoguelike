@@ -1,9 +1,7 @@
 package inc.roguelike.babusya.gameElement
 
-import InputListener
-import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.controllers.ActionController
-import inc.roguelike.babusya.map.GameMap
+import inc.roguelike.babusya.map.Cell
 
 /**
  * Creature is a game element, which can move and has characteristics
@@ -21,7 +19,7 @@ abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
         return creatureCharacteristics.attack
     }
 
-    override fun makeTurn() {
+    open fun makeTurn() {
         if (actionController == null) {
             throw IllegalStateException("controller do not set")
         }
@@ -42,5 +40,6 @@ abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
 
             return null
         }
+
     }
 }
