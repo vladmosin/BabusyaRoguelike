@@ -21,7 +21,7 @@ abstract class StaticElement(id: String, elementStatus: ElementStatus) : GameEle
                 }
             }
 
-            return null;
+            return null
         }
     }
 

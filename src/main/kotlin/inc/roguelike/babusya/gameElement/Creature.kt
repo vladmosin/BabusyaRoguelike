@@ -1,9 +1,7 @@
 package inc.roguelike.babusya.gameElement
 
-import InputListener
-import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.controllers.ActionController
-import inc.roguelike.babusya.map.GameMap
+import inc.roguelike.babusya.map.Cell
 
 /**
  * Creature is a game element, which can move and has characteristics

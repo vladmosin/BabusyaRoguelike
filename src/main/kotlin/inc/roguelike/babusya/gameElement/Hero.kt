@@ -70,4 +70,6 @@ class Hero(creatureCharacteristics: CreatureCharacteristics, actionController: A
 
         private const val name = "h"
     }
+
+
 }
