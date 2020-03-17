@@ -12,7 +12,7 @@ class Game(renderSystem: RenderSystem, inputListener: InputListener) {
     private val engine = Engine(renderSystem, ActionSystem())
     private val levelCreator = LevelCreator(inputListener)
     private val gameState = GameState(levelCreator)
-    
+
     fun launch() {
         for (cell in gameState.getLevel().getMap()) {
             if (cell.storesActiveItem()) {

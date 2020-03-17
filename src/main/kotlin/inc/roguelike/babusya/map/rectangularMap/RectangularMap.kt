@@ -1,33 +1,31 @@
-package inc.roguelike.babusya.map
+package inc.roguelike.babusya.map.rectangularMap
 
-import InputListener
-import inc.roguelike.babusya.controllers.HeroActionController
-import inc.roguelike.babusya.gameElement.CreatureCharacteristics
-import inc.roguelike.babusya.gameElement.ElementStatus
 import inc.roguelike.babusya.gameElement.EmptyGameElement
-import inc.roguelike.babusya.gameElement.Hero
-import java.util.Random
+import inc.roguelike.babusya.map.Cell
+import inc.roguelike.babusya.map.GameMap
 
 
 /**
  * Implements simple rectangular game map.
  * Cells ordered in 2D rectangular
  * */
-class RectangularMap(private val height: Int, private val width: Int):
-    GameMap {
+class RectangularMap(private val height: Int, private val width: Int) : GameMap {
+
     companion object {
         fun loadFromFile(filePath: String): RectangularMap? {
             TODO("not implemented")
         }
     }
 
-    private val map = Array(height) { Array(width) { Cell(EmptyGameElement()) } }
+    private val rectangle = Array(height) { Array(width) { Cell(EmptyGameElement()) } }
     private val indexByCell = HashMap<Cell, Pair<Int, Int>>()
+
+    fun getRectangle(): Array<Array<Cell>> = rectangle
 
     private fun initIndexByCell() {
         for (i in 0 until height) {
             for (j in 0 until width) {
-                indexByCell[map[i][j]] = Pair(i, j)
+                indexByCell[rectangle[i][j]] = Pair(i, j)
             }
         }
     }
@@ -40,23 +38,6 @@ class RectangularMap(private val height: Int, private val width: Int):
         return indexByCell[cell]!!
     }
 
-    // TODO move to level creator? probably builder will be useful
-    // At least for creating gameElements or Characteristics
-    // More patterns!!! :)
-    fun generateMap(inputListener: InputListener) {
-        val random = Random()
-        val i = random.nextInt(height)
-        val j = random.nextInt(width)
-        val actionController = HeroActionController(map[i][j], inputListener, this)
-
-        map[i][j].storedItem = Hero(
-            actionController = actionController,
-            creatureCharacteristics = CreatureCharacteristics.createBasic(),
-            elementStatus = ElementStatus.ALIVE,
-            experience = 0,
-            id = "h")
-    }
-
     override fun getLefterCell(cell: Cell): Cell? {
         val position = indexByCell[cell]
         assert(position != null)
@@ -65,7 +46,7 @@ class RectangularMap(private val height: Int, private val width: Int):
         return if (j == 0) {
             null
         } else {
-            map[i][j - 1]
+            rectangle[i][j - 1]
         }
     }
 
@@ -77,7 +58,7 @@ class RectangularMap(private val height: Int, private val width: Int):
         return if (j == width - 1) {
             null
         } else {
-            map[i][j + 1]
+            rectangle[i][j + 1]
         }
     }
 
@@ -89,7 +70,7 @@ class RectangularMap(private val height: Int, private val width: Int):
         return if (i == 0) {
             null
         } else {
-            map[i - 1][j]
+            rectangle[i - 1][j]
         }
     }
 
@@ -101,7 +82,7 @@ class RectangularMap(private val height: Int, private val width: Int):
         return if (i == height - 1) {
             null
         } else {
-            map[i + 1][j]
+            rectangle[i + 1][j]
         }
     }
 
@@ -114,7 +95,7 @@ class RectangularMap(private val height: Int, private val width: Int):
         }
 
         override fun next(): Cell {
-            return map[i][j].also {
+            return rectangle[i][j].also {
                 j++
                 if (j == width) {
                     i++
