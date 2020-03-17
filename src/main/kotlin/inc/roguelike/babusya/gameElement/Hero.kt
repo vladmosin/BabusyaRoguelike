@@ -46,7 +46,7 @@ class Hero(
     }
 
     override fun serialize(): String {
-        return "${name}#${creatureCharacteristics}#${id}#${elementStatus}#${experience}"
+        return "${name}#${creatureCharacteristics.serialize()}#${id}#${elementStatus}#${experience}"
     }
 
     companion object {

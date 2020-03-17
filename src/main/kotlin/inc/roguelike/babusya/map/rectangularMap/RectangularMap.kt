@@ -32,8 +32,8 @@ class RectangularMap(
 
             val gameElements = parseMap(parts) ?: return null
 
-            for (i in 0..height) {
-                for (j in 0..width) {
+            for (i in 0 until height) {
+                for (j in 0 until width) {
                     gameElements[i][j].setController(map.rectangle[i][j], inputListener, map)
                     map.rectangle[i][j].storedItem = gameElements[i][j]
                 }
@@ -52,7 +52,7 @@ class RectangularMap(
                 return null
             }
 
-            for (i in 2..height + 2) {
+            for (i in 2..height + 1) {
                 val items = parseRow(parts[i], width) ?: return null
                 gameElements.add(items)
             }
@@ -127,8 +127,8 @@ class RectangularMap(
      * */
     override fun serialize(): String {
         val builder = StringBuilder("${name}\n${height} ${width}\n")
-        for (i in 0..height) {
-            for (j in 0..width) {
+        for (i in 0 until height) {
+            for (j in 0 until width) {
                 builder.append(rectangle[i][j].serialize())
                 if (j < width - 1) {
                     builder.append('&')
