@@ -2,10 +2,7 @@ package inc.roguelike.babusya.map
 
 import InputListener
 import inc.roguelike.babusya.controllers.HeroActionController
-import inc.roguelike.babusya.gameElement.CreatureCharacteristics
-import inc.roguelike.babusya.gameElement.ElementStatus
-import inc.roguelike.babusya.gameElement.EmptyGameElement
-import inc.roguelike.babusya.gameElement.Hero
+import inc.roguelike.babusya.gameElement.*
 import java.util.Random
 
 
@@ -13,16 +10,85 @@ import java.util.Random
  * Implements simple rectangular game map.
  * Cells ordered in 2D rectangular
  * */
-class RectangularMap(private val height: Int, private val width: Int):
-    GameMap {
-    companion object {
-        fun loadFromFile(filePath: String): RectangularMap? {
-            TODO("not implemented")
-        }
-    }
-
+class RectangularMap(private val height: Int, private val width: Int): GameMap {
     private val map = Array(height) { Array(width) { Cell(EmptyGameElement()) } }
     private val indexByCell = HashMap<Cell, Pair<Int, Int>>()
+
+    companion object {
+        fun deserialize(string: String, inputListener: InputListener): RectangularMap? {
+            val parts = string.split("\n")
+            if (parts.size < 2 || parts[0] != name) {
+                return null
+            }
+
+            val sizes = parseHeightWidth(parts[1]) ?: return null
+            val height = sizes.first
+            val width = sizes.second
+            val map = RectangularMap(height, width)
+
+            val gameElements = parseMap(parts) ?: return null
+
+            for (i in 0..height) {
+                for (j in 0..width) {
+                    gameElements[i][j].setController(map.map[i][j], inputListener, map)
+                    map.map[i][j].storedItem = gameElements[i][j]
+                }
+            }
+
+            return map
+        }
+
+        private fun parseMap(parts: List<String>): List<List<GameElement>>? {
+            val sizes = parseHeightWidth(parts[1]) ?: return null
+            val height = sizes.first
+            val width = sizes.second
+            val gameElements = ArrayList<List<GameElement>>()
+
+            if (parts.size != height + 2) {
+                return null
+            }
+
+            for (i in 2..height + 2) {
+                val items = parseRow(parts[i], width) ?: return null
+                gameElements.add(items)
+            }
+
+            return gameElements
+        }
+
+        private fun parseRow(string: String, width: Int): List<GameElement>? {
+            val parts = string.split("&")
+            if (parts.size != width) {
+                return null
+            }
+
+            val items = ArrayList<GameElement>()
+            for (part in parts) {
+                val item = GameElement.deserialize(part) ?: return null
+                items.add(item)
+            }
+
+            return items
+        }
+
+        private fun parseHeightWidth(string: String): Pair<Int, Int>? {
+            val parts = string.split(" ")
+            return if (parts.size != 2) {
+                null
+            } else {
+                try {
+                    val height = parts[0].toInt()
+                    val width = parts[1].toInt()
+
+                    Pair(height, width)
+                } catch (e: NumberFormatException) {
+                    null
+                }
+            }
+        }
+
+        private const val name = "RectangularMap"
+    }
 
     private fun initIndexByCell() {
         for (i in 0 until height) {
@@ -38,6 +104,37 @@ class RectangularMap(private val height: Int, private val width: Int):
 
     override fun positionOnScreen(cell: Cell): Pair<Int, Int> {
         return indexByCell[cell]!!
+    }
+
+    /** Format:
+     * RectangularMap
+     * height width
+     * _ .. _
+     * _ .. _
+     * ......
+     * _ .. _
+     *
+     *
+     * First line is a name of concrete GameMap implementation
+     * Second line is board parameters (height and width)
+     * Next height lines contains width number of serialized GameElements
+     * */
+    override fun serialize(): String {
+        val builder = StringBuilder("${name}\n${height} ${width}\n")
+        for (i in 0..height) {
+            for (j in 0..width) {
+                builder.append(map[i][j].serialize())
+                if (j < width - 1) {
+                    builder.append('&')
+                }
+            }
+
+            if (i < height - 1) {
+                builder.append('\n')
+            }
+        }
+
+        return builder.toString()
     }
 
     // TODO move to level creator? probably builder will be useful
