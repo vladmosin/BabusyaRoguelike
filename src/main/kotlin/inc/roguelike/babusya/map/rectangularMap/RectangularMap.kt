@@ -10,9 +10,12 @@ import inc.roguelike.babusya.map.GameMap
  * Implements simple rectangular game map.
  * Cells ordered in 2D rectangular
  * */
-class RectangularMap(private val height: Int, private val width: Int) : GameMap {
+class RectangularMap(
+    private val rectangle: Array<Array<Cell>>
+) : GameMap {
 
-    private val rectangle = Array(height) { Array(width) { Cell(EmptyGameElement()) } }
+    private val height = rectangle.size
+    private val width = rectangle.get(0).size
     private val indexByCell = HashMap<Cell, Pair<Int, Int>>()
 
     companion object {
@@ -25,7 +28,7 @@ class RectangularMap(private val height: Int, private val width: Int) : GameMap 
             val sizes = parseHeightWidth(parts[1]) ?: return null
             val height = sizes.first
             val width = sizes.second
-            val map = RectangularMap(height, width)
+            val map = RectangularMap(Array(height) {Array(width) {Cell(EmptyGameElement())}})
 
             val gameElements = parseMap(parts) ?: return null
 

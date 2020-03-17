@@ -48,7 +48,7 @@ abstract class GameElement(val id: String, var elementStatus: ElementStatus) {
                 }
             }
 
-            return null;
+            return null
         }
     }
 
