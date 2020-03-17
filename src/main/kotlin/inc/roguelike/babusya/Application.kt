@@ -8,6 +8,7 @@ import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
 import inc.roguelike.babusya.levels.LevelCreator
 import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.levels.LevelsType
+import java.util.*
 
 /**
  * Initializes and starts game
@@ -28,18 +29,14 @@ fun main() {
 }
 
 fun askUserForLevelsType(): LevelInfo {
+    val input = Scanner(System.`in`)
     println("Please select type of map")
     while(true) {
         println("To generate level write \"gen\" (without quotas)")
         println("To load level from file write \"load <level id>\" " +
                 "(without quotas), instead of level id write number from 1 to ${Game.SAVED_LEVELS}")
 
-        val userInput = readLine()
-        if (userInput == null) {
-            println("Nothing was written")
-            continue
-        }
-
+        val userInput = input.nextLine()
         val inputParts = userInput.split(" ").filter { s -> s.isNotEmpty() }
         if (inputParts[0] == "gen") {
             return LevelInfo(1, LevelsType.GENERATED)
