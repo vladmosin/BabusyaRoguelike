@@ -37,7 +37,7 @@ class ConsoleRenderSystem(val terminal: Terminal): RenderSystem {
     private fun showMap(map: GameMap) {
         for (cell in map) {
             val cellChar = cell.storedItem.accept(showVisitor)
-            val (i, j) = map.positionOfCell(cell)
+            val (i, j) = map.positionOnScreen(cell)
             screen.setCharacter(j + LEFT_FRAME, i + UP_FRAME + 1, TextCharacter(cellChar))
         }
     }

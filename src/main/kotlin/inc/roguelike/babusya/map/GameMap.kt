@@ -25,7 +25,7 @@ interface GameMap : Iterable<Cell> {
      * */
     fun getDownerCell(cell: Cell): Cell?
 
-    fun positionOfCell(cell: Cell): Pair<Int, Int>
+    fun positionOnScreen(cell: Cell): Pair<Int, Int>
 
     fun serialize(): String
 }

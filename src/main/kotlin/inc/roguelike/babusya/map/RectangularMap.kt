@@ -102,7 +102,7 @@ class RectangularMap(private val height: Int, private val width: Int): GameMap {
         initIndexByCell()
     }
 
-    override fun positionOfCell(cell: Cell): Pair<Int, Int> {
+    override fun positionOnScreen(cell: Cell): Pair<Int, Int> {
         return indexByCell[cell]!!
     }
 
