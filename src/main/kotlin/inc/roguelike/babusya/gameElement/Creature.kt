@@ -7,7 +7,7 @@ import inc.roguelike.babusya.controllers.ActionController
  * Creature is a game element, which can move and has characteristics
  * */
 abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
-                        val actionController: ActionController,
+                        val actionController: ActionController?,
                         id: String, elementStatus: ElementStatus) : GameElement(id, elementStatus) {
 
     /**
@@ -20,6 +20,6 @@ abstract class Creature(val creatureCharacteristics: CreatureCharacteristics,
     }
 
     override fun makeTurn() {
-        actionController.makeTurn()
+        actionController!!.makeTurn()
     }
 }

@@ -2,10 +2,8 @@ package inc.roguelike.babusya
 
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
-import com.googlecode.lanterna.terminal.swing.TerminalEmulatorAutoCloseTrigger
 import inc.roguelike.babusya.UI.ConsoleRenderSystem
 import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
-import inc.roguelike.babusya.levels.LevelCreator
 
 /**
  * Initializes and starts game

@@ -1,6 +1,5 @@
 package inc.roguelike.babusya.map
 
-import inc.roguelike.babusya.gameElement.EmptyGameElement
 import inc.roguelike.babusya.gameElement.GameElement
 
 /**
