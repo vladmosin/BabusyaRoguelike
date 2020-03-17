@@ -1,6 +1,5 @@
 package inc.roguelike.babusya.map
 
-import inc.roguelike.babusya.gameElement.EmptyGameElement
 import inc.roguelike.babusya.gameElement.GameElement
 
 /**
@@ -10,5 +9,9 @@ import inc.roguelike.babusya.gameElement.GameElement
 class Cell(var storedItem: GameElement) {
     fun storesActiveItem(): Boolean {
         return storedItem.isActive()
+    }
+
+    fun serialize(): String {
+        return storedItem.serialize()
     }
 }
