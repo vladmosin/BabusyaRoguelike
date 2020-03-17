@@ -4,12 +4,9 @@ import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import inc.roguelike.babusya.UI.ConsoleRenderSystem
 import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
-<<<<<<< HEAD
-=======
 import inc.roguelike.babusya.levels.LevelCreator
 import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.levels.LevelsType
->>>>>>> d83d4bab597fea120f1803ded43da54a37bad03e
 
 /**
  * Initializes and starts game
@@ -28,8 +25,6 @@ fun main() {
 
     renderSystem.close()
 }
-<<<<<<< HEAD
-=======
 
 fun askUserForLevelsType(): LevelInfo {
     println("Please select type of map")
@@ -70,4 +65,3 @@ fun askUserForLevelsType(): LevelInfo {
         println("Please, read instructions once again")
     }
 }
->>>>>>> d83d4bab597fea120f1803ded43da54a37bad03e
