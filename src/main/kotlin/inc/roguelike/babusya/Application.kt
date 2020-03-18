@@ -39,6 +39,8 @@ fun askUserForLevelsType(): LevelInfo {
             userInput = readLine()
         }
         val inputParts = userInput.split(" ").filter { s -> s.isNotEmpty() }
+        if (inputParts.isEmpty()) continue
+
         if (inputParts[0] == "gen") {
             return LevelInfo(1, LevelsType.GENERATED)
         }
