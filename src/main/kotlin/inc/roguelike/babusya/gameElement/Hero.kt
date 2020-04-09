@@ -1,7 +1,7 @@
 package inc.roguelike.babusya.gameElement
 
 import InputListener
-import inc.roguelike.babusya.controllers.ActionController
+import inc.roguelike.babusya.controllers.AbstractActionController
 import inc.roguelike.babusya.controllers.HeroActionController
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
@@ -13,17 +13,13 @@ import kotlin.math.max
  * Implements hero for player
  * */
 class Hero(
-    creatureCharacteristics: CreatureCharacteristics, actionController: ActionController?,
+    creatureCharacteristics: CreatureCharacteristics, actionController: AbstractActionController?,
     id: String, elementStatus: ElementStatus, var experience: Int
 ) :
     Creature(creatureCharacteristics, actionController, id, elementStatus) {
 
-    override fun chooseMove(): Cell {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun setController(cell: Cell, inputListener: InputListener, map: GameMap) {
-        actionController = HeroActionController(cell, inputListener, map)
+        actionController = HeroActionController(inputListener, map)
     }
 
     override fun <T> accept(visitor: Visitor<T>): T {

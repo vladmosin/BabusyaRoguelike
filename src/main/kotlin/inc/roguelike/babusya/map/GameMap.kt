@@ -1,10 +1,12 @@
 package inc.roguelike.babusya.map
 
+import inc.roguelike.babusya.gameElement.GameElement
+
 /**
  * Implements game map.
  * Stores order on cells.
  * */
-interface GameMap : Iterable<Cell> {
+interface GameMap : Iterable<Cell>, CellObserver {
     /**
      * Returns left neighbour if exists
      * */
@@ -26,6 +28,8 @@ interface GameMap : Iterable<Cell> {
     fun getDownerCell(cell: Cell): Cell?
 
     fun positionOnScreen(cell: Cell): Pair<Int, Int>
+
+    fun getCellByElement(gameElement: GameElement): Cell?
 
     fun serialize(): String
 }

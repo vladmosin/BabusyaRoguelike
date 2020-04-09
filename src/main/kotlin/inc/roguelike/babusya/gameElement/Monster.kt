@@ -3,7 +3,7 @@ package inc.roguelike.babusya.gameElement
 import InputListener
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.visitors.Visitor
-import inc.roguelike.babusya.controllers.ActionController
+import inc.roguelike.babusya.controllers.AbstractActionController
 import inc.roguelike.babusya.map.GameMap
 import kotlin.math.max
 
@@ -11,13 +11,10 @@ import kotlin.math.max
 /**
  * Implements monster
  * */
-class Monster(creatureCharacteristics: CreatureCharacteristics, actionController: ActionController?,
+class Monster(creatureCharacteristics: CreatureCharacteristics, actionController: AbstractActionController?,
               id: String, elementStatus: ElementStatus):
     Creature(creatureCharacteristics, actionController, id, elementStatus) {
 
-    override fun chooseMove(): Cell {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun <T> accept(visitor: Visitor<T>): T {
         return visitor.visitMonster(this)

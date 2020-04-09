@@ -12,7 +12,7 @@ class RectangularMapBuilder(
     private val height: Int,
     private val width: Int
 ) {
-    private val rectangle = Array(height) { Array(width) { Cell(EmptyGameElement()) } }
+    private val rectangle = Array(height) { Array(width) { Cell() } }
     private var heroCell: Cell? = null
 
     /**

@@ -17,6 +17,7 @@ class RectangularMap(
     private val height = rectangle.size
     private val width = rectangle.get(0).size
     private val indexByCell = HashMap<Cell, Pair<Int, Int>>()
+    private val cellByElement = HashMap<GameElement, Cell>()
 
     companion object {
         /**
@@ -31,7 +32,7 @@ class RectangularMap(
             val sizes = parseHeightWidth(parts[1]) ?: return null
             val height = sizes.first
             val width = sizes.second
-            val map = RectangularMap(Array(height) {Array(width) {Cell(EmptyGameElement())}})
+            val map = RectangularMap(Array(height) {Array(width) {Cell()}})
 
             val gameElements = parseMap(parts) ?: return null
 
@@ -107,13 +108,26 @@ class RectangularMap(
         }
     }
 
+    override fun onCellUpdate(cell: Cell) {
+        cellByElement[cell.storedItem] = cell
+    }
+
     init {
         initIndexByCell()
+        for (cell in this) {
+            onCellUpdate(cell)
+            cell.attachObserver(this)
+        }
     }
 
     override fun positionOnScreen(cell: Cell): Pair<Int, Int> {
         return indexByCell[cell]!!
     }
+
+    override fun getCellByElement(gameElement: GameElement): Cell? {
+        return cellByElement[gameElement]
+    }
+
 
     /** Format:
      * RectangularMap

@@ -9,13 +9,10 @@ import inc.roguelike.babusya.map.Cell
 abstract class Creature(
     val creatureCharacteristics: CreatureCharacteristics,
     protected var actionController: ActionController?,
-    id: String, elementStatus: ElementStatus
+    id: String,
+    elementStatus: ElementStatus
 ) : GameElement(id, elementStatus) {
 
-    /**
-     * Moves creature
-     * */
-    abstract fun chooseMove(): Cell // Вроде лишнее, есть actionController
 
     open fun getAttack(): Int {
         return creatureCharacteristics.attack
@@ -23,9 +20,9 @@ abstract class Creature(
 
     open fun makeTurn() {
         if (actionController == null) {
-            throw IllegalStateException("controller do not set")
+            throw IllegalStateException("controller is not set")
         }
-        actionController!!.makeTurn()
+        actionController!!.makeTurn(this)
     }
 
     companion object {
