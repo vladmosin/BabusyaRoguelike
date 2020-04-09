@@ -1,6 +1,7 @@
 package inc.roguelike.babusya.gameElement
 
 import inc.roguelike.babusya.controllers.ActionController
+import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.map.Cell
 
 /**
@@ -8,26 +9,25 @@ import inc.roguelike.babusya.map.Cell
  * */
 abstract class Creature(
     val creatureCharacteristics: CreatureCharacteristics,
-    protected var actionController: ActionController?,
+    private var actionController: ActionController?,
     id: String,
     elementStatus: ElementStatus
 ) : GameElement(id, elementStatus) {
 
-
-    open fun getAttack(): Int {
-        return creatureCharacteristics.attack
-    }
-
     open fun makeTurn() {
         if (actionController == null) {
-            throw IllegalStateException("controller is not set")
+            throw IllegalStateException("controller do not set")
         }
         actionController!!.makeTurn(this)
     }
 
+    fun setActionController(controller: ActionController) {
+        actionController = controller
+    }
+
     companion object {
-        fun deserialize(string: String): Creature? {
-            val deserializers = listOf { s: String -> Hero.deserialize(s) }
+        fun deserialize(controllerFactory: ControllerFactory, string: String): Creature? {
+            val deserializers = listOf { s: String -> Hero.deserialize(controllerFactory, s) }
 
             for (deserializer in deserializers) {
                 val gameElement = deserializer(string)

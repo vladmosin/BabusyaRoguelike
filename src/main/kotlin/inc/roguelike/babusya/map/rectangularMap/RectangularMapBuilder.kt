@@ -1,6 +1,8 @@
 package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
+import inc.roguelike.babusya.controllers.ControllerFactory
+import inc.roguelike.babusya.controllers.ControllerType
 import inc.roguelike.babusya.gameElement.*
 import inc.roguelike.babusya.map.Cell
 import kotlin.random.Random
@@ -20,7 +22,8 @@ class RectangularMapBuilder(
      * */
     fun buildMap(inputListener: InputListener): RectangularMap {
         val map = RectangularMap(rectangle)
-        heroCell!!.storedItem.setController(heroCell!!, inputListener, map)
+        val controllerFactory = ControllerFactory(map, inputListener)
+        (heroCell!!.storedItem as Creature).setActionController(controllerFactory.createController(ControllerType.HeroController))
         return RectangularMap(rectangle)
     }
 

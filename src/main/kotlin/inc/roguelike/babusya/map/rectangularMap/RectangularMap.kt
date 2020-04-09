@@ -1,6 +1,7 @@
 package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
+import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.gameElement.EmptyGameElement
 import inc.roguelike.babusya.gameElement.GameElement
 import inc.roguelike.babusya.map.Cell
@@ -33,12 +34,12 @@ class RectangularMap(
             val height = sizes.first
             val width = sizes.second
             val map = RectangularMap(Array(height) {Array(width) {Cell()}})
+            val controllerFactory = ControllerFactory(map, inputListener)
 
-            val gameElements = parseMap(parts) ?: return null
+            val gameElements = parseMap(controllerFactory, parts) ?: return null
 
             for (i in 0 until height) {
                 for (j in 0 until width) {
-                    gameElements[i][j].setController(map.rectangle[i][j], inputListener, map)
                     map.rectangle[i][j].storedItem = gameElements[i][j]
                 }
             }
@@ -46,7 +47,7 @@ class RectangularMap(
             return map
         }
 
-        private fun parseMap(parts: List<String>): List<List<GameElement>>? {
+        private fun parseMap(controllerFactory: ControllerFactory, parts: List<String>): List<List<GameElement>>? {
             val sizes = parseHeightWidth(parts[1]) ?: return null
             val height = sizes.first
             val width = sizes.second
@@ -57,14 +58,14 @@ class RectangularMap(
             }
 
             for (i in 2..height + 1) {
-                val items = parseRow(parts[i], width) ?: return null
+                val items = parseRow(controllerFactory, parts[i], width) ?: return null
                 gameElements.add(items)
             }
 
             return gameElements
         }
 
-        private fun parseRow(string: String, width: Int): List<GameElement>? {
+        private fun parseRow(controllerFactory: ControllerFactory, string: String, width: Int): List<GameElement>? {
             val parts = string.split("&")
             if (parts.size != width) {
                 return null
@@ -72,7 +73,7 @@ class RectangularMap(
 
             val items = ArrayList<GameElement>()
             for (part in parts) {
-                val item = GameElement.deserialize(part) ?: return null
+                val item = GameElement.deserialize(controllerFactory, part) ?: return null
                 items.add(item)
             }
 

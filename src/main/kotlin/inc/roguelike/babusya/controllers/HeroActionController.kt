@@ -11,7 +11,7 @@ import kotlinx.coroutines.runBlocking
 /**
  * Implements players controller
  * */
-class HeroActionController(inputListener: InputListener,  gameMap: GameMap): AbstractActionController(gameMap) {
+class HeroActionController(gameMap: GameMap, inputListener: InputListener): AbstractActionController(gameMap) {
 
     val inputDataChannel = Channel<InputData>(capacity = Channel.CONFLATED)
 

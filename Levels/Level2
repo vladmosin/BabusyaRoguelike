@@ -14,7 +14,7 @@ e&e&e&e&e&e&e&e
 w#w32#ALIVE&w#w21#ALIVE&e&e&e&e&e&e
 e&e&w#w30#ALIVE&w#w31#ALIVE&e&e&e&e
 e&e&e&e&e&w#w2#ALIVE&w#w35#ALIVE&w#w22#ALIVE
-e&e&w#w18#ALIVE&e&h#100@100@20#h#ALIVE#0&w#w3#ALIVE&e&e
+e&e&w#w18#ALIVE&e&h#100@100@20#h#ALIVE#0#HeroController&w#w3#ALIVE&e&e
 e&w#w9#ALIVE&w#w11#ALIVE&e&e&e&e&e
 e&e&e&e&e&e&w#w7#ALIVE&w#w25#ALIVE
 w#w8#ALIVE&e&e&e&e&w#w15#ALIVE&e&e

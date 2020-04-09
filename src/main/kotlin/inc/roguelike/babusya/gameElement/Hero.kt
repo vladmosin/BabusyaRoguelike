@@ -1,10 +1,8 @@
 package inc.roguelike.babusya.gameElement
 
-import InputListener
-import inc.roguelike.babusya.controllers.AbstractActionController
-import inc.roguelike.babusya.controllers.HeroActionController
-import inc.roguelike.babusya.map.Cell
-import inc.roguelike.babusya.map.GameMap
+import inc.roguelike.babusya.controllers.ActionController
+import inc.roguelike.babusya.controllers.ControllerFactory
+import inc.roguelike.babusya.controllers.ControllerType
 import inc.roguelike.babusya.visitors.Visitor
 import kotlin.math.max
 
@@ -13,14 +11,10 @@ import kotlin.math.max
  * Implements hero for player
  * */
 class Hero(
-    creatureCharacteristics: CreatureCharacteristics, actionController: AbstractActionController?,
+    creatureCharacteristics: CreatureCharacteristics, actionController: ActionController?,
     id: String, elementStatus: ElementStatus, var experience: Int
 ) :
     Creature(creatureCharacteristics, actionController, id, elementStatus) {
-
-    override fun setController(cell: Cell, inputListener: InputListener, map: GameMap) {
-        actionController = HeroActionController(inputListener, map)
-    }
 
     override fun <T> accept(visitor: Visitor<T>): T {
         return visitor.visitHero(this)
@@ -46,9 +40,9 @@ class Hero(
     }
 
     companion object {
-        fun deserialize(string: String): Hero? {
+        fun deserialize(controllerFactory: ControllerFactory, string: String): Hero? {
             val parts = string.split("#")
-            return if (parts.size != 5) {
+            return if (parts.size != 6) {
                 null
             } else {
                 val elementStatus = ElementStatus.deserialize(parts[3])
@@ -58,7 +52,7 @@ class Hero(
                     null
                 } else {
                     return try {
-                        Hero(creatureCharacteristics, null, parts[2], elementStatus, parts[4].toInt())
+                        Hero(creatureCharacteristics, controllerFactory.createController(ControllerType.valueOf(parts[5])), parts[2], elementStatus, parts[4].toInt())
                     } catch (e: NumberFormatException) {
                         null
                     }

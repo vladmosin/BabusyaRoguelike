@@ -24,6 +24,4 @@ abstract class StaticElement(id: String, elementStatus: ElementStatus) : GameEle
             return null
         }
     }
-
-    override fun setController(cell: Cell, inputListener: InputListener, map: GameMap) {}
 }

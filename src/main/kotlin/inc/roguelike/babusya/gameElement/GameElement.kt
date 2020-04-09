@@ -1,6 +1,7 @@
 package inc.roguelike.babusya.gameElement
 
 import InputListener
+import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.visitors.Visitor
@@ -36,9 +37,9 @@ abstract class GameElement(val id: String, var elementStatus: ElementStatus) {
     abstract fun serialize(): String
 
     companion object {
-        fun deserialize(string: String): GameElement? {
+        fun deserialize(controllerFactory: ControllerFactory, string: String): GameElement? {
             val deserializers = listOf(
-                { s: String -> Creature.deserialize(s)},
+                { s: String -> Creature.deserialize(controllerFactory, s)},
                 { s: String -> StaticElement.deserialize(s)})
 
             for (deserializer in deserializers) {
@@ -51,6 +52,4 @@ abstract class GameElement(val id: String, var elementStatus: ElementStatus) {
             return null
         }
     }
-
-    abstract fun setController(cell: Cell, inputListener: InputListener, map: GameMap)
 }
