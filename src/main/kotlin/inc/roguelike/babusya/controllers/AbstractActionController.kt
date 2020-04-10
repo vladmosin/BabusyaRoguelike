@@ -1,5 +1,6 @@
 package inc.roguelike.babusya.controllers
 
+import inc.roguelike.babusya.GameLog
 import inc.roguelike.babusya.effects.Effect
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.gameElement.Creature
@@ -8,6 +9,12 @@ import inc.roguelike.babusya.gameElement.GameElement
 import inc.roguelike.babusya.map.GameMap
 
 abstract class AbstractActionController(val gameMap: GameMap): ActionController {
+    private var log : GameLog? = null
+
+    override fun useLog(gameLog: GameLog) {
+        log = gameLog
+    }
+
     /**
      * Moves item from first cell to the second cell if possible, otherwise makes other necessary operations.
      * */
@@ -17,9 +24,9 @@ abstract class AbstractActionController(val gameMap: GameMap): ActionController 
 
         val toItem = toCell.storedItem
 
-        applyEffects(creature.attackEffects(), toItem)
+        applyEffects(creature.attackEffects(), creature, toItem)
         if (toItem.isActive()) {
-            applyEffects(toItem.defensiveEffects(), creature)
+            applyEffects(toItem.defensiveEffects(), toItem, creature)
         }
 
         if (!toItem.isActive() && creature.isActive()) {
@@ -28,9 +35,13 @@ abstract class AbstractActionController(val gameMap: GameMap): ActionController 
         }
     }
 
-    private fun applyEffects(effects: List<Effect>, gameElement: GameElement) {
+    private fun applyEffects(effects: List<Effect>, fromElement: GameElement, toElement: GameElement) {
         for (effect in effects) {
-            effect.apply(gameElement)
+            effect.apply(toElement)
+            val description = effect.getDescription(fromElement, toElement)
+            if (description != null) {
+                log?.add(description)
+            }
         }
     }
 }

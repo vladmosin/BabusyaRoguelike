@@ -11,6 +11,7 @@ import inc.roguelike.babusya.levels.LevelsType
 class GameState(private val levelCreator: LevelCreator, private val levelInfo: LevelInfo) {
     private var level: Level
     private var didGameEnd = false
+    var gameLog = GameLog()
 
     init {
         level = levelCreator.createLevel(levelInfo.id, levelInfo.levelsType)

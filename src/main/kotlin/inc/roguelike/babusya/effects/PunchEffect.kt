@@ -13,6 +13,13 @@ class PunchEffect(val damage: Int): Effect {
         }
     }
 
+    override fun getDescription(from: GameElement?, to: GameElement?): String? {
+        if (to !is Creature) return null
+        val fromId = from?.id ?: "God"
+        val toId = to.id
+        return "$fromId hits $toId by $damage"
+    }
+
     private fun punchCreature(creature: Creature) {
         creature.characteristics.hitPoints = max(0, creature.characteristics.hitPoints - damage)
         if (creature.characteristics.hitPoints == 0) {

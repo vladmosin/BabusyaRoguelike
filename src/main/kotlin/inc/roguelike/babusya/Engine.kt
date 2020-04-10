@@ -9,7 +9,7 @@ import java.lang.Thread.sleep
 class Engine(val renderSystem: RenderSystem, val actionSystem: ActionSystem) {
 
     fun tick(gameState: GameState) {
-        renderSystem.render(gameState.getLevel())
+        renderSystem.render(gameState.getLevel(), gameState.gameLog)
         actionSystem.action()
     }
 }

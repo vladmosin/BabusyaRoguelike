@@ -16,9 +16,9 @@ class Game(renderSystem: RenderSystem, inputListener: InputListener, levelInfo: 
         const val SAVED_LEVELS = 2
     }
 
-    private val engine = Engine(renderSystem, ActionSystem())
     private val levelCreator = LevelCreator(inputListener)
     private val gameState = GameState(levelCreator, levelInfo)
+    private val engine = Engine(renderSystem, ActionSystem())
 
     /**
      * Launches new game
@@ -27,6 +27,7 @@ class Game(renderSystem: RenderSystem, inputListener: InputListener, levelInfo: 
         for (cell in gameState.getLevel().getMap()) {
             if (cell.storesActiveItem() && cell.storedItem is Creature) {
                 engine.actionSystem.addElement(cell.storedItem as Creature)
+                (cell.storedItem as Creature).actionController?.useLog(gameState.gameLog)
             }
         }
         while (!gameState.didGameEnd()) {
