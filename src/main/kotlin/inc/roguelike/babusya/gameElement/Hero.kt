@@ -20,23 +20,13 @@ class Hero(
         return visitor.visitHero(this)
     }
 
-    override fun act(gameElement: GameElement) {
-        gameElement.bePunched(creatureCharacteristics.attack)
-    }
-
-    override fun bePunched(damage: Int) {
-        creatureCharacteristics.hitPoints = max(0, creatureCharacteristics.hitPoints - damage)
-        if (creatureCharacteristics.hitPoints == 0) {
-            elementStatus = ElementStatus.DEAD
-        }
-    }
 
     override fun isActive(): Boolean {
         return elementStatus == ElementStatus.ALIVE
     }
 
     override fun serialize(): String {
-        return "${name}#${creatureCharacteristics.serialize()}#${id}#${elementStatus}#${experience}"
+        return "${name}#${characteristics.serialize()}#${id}#${elementStatus}#${experience}"
     }
 
     companion object {

@@ -10,10 +10,6 @@ class EmptyGameElement : StaticElement(name, ElementStatus.ALIVE) {
         return visitor.visitEmptyGameElement(this)
     }
 
-    override fun act(gameElement: GameElement) {}
-
-    override fun bePunched(damage: Int) {}
-
     override fun isActive(): Boolean {
         return false
     }

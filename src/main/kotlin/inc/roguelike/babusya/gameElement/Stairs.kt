@@ -11,11 +11,6 @@ class Stairs(id: String, elementStatus: ElementStatus) : StaticElement(id, eleme
         return visitor.visitStairs(this)
     }
 
-    override fun act(gameElement: GameElement) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun bePunched(damage: Int) {}
 
     override fun isActive(): Boolean {
         return elementStatus == ElementStatus.ALIVE

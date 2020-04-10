@@ -10,7 +10,6 @@ interface Visitor<T> {
     fun visitStairs(stairs: Stairs): T
     fun visitDoor(door: Door): T
     fun visitWall(wall: Wall): T
-    fun visitLoot(loot: Loot): T
     fun visitEmptyGameElement(emptyGameElement: EmptyGameElement): T
 
     fun visitHero(hero: Hero): T

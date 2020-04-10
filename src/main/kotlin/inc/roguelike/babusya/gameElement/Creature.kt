@@ -2,27 +2,37 @@ package inc.roguelike.babusya.gameElement
 
 import inc.roguelike.babusya.controllers.ActionController
 import inc.roguelike.babusya.controllers.ControllerFactory
+import inc.roguelike.babusya.effects.Effect
+import inc.roguelike.babusya.effects.PunchEffect
 import inc.roguelike.babusya.map.Cell
 
 /**
  * Creature is a game element, which can move and has characteristics
  * */
 abstract class Creature(
-    val creatureCharacteristics: CreatureCharacteristics,
-    private var actionController: ActionController?,
+    val characteristics: CreatureCharacteristics,
+    var actionController: ActionController?,
     id: String,
     elementStatus: ElementStatus
 ) : GameElement(id, elementStatus) {
 
     open fun makeTurn() {
         if (actionController == null) {
-            throw IllegalStateException("controller do not set")
+            throw IllegalStateException("controller is not set")
         }
         actionController!!.makeTurn(this)
     }
 
-    fun setActionController(controller: ActionController) {
-        actionController = controller
+    private fun getKickEffects(): List<Effect> {
+        return listOf(PunchEffect(characteristics.attack))
+    }
+
+    override fun attackEffects(): List<Effect> {
+        return getKickEffects()
+    }
+
+    override fun defensiveEffects(): List<Effect> {
+        return getKickEffects()
     }
 
     companion object {

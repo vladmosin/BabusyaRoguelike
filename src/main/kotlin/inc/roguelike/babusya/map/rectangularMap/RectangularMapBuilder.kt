@@ -23,7 +23,7 @@ class RectangularMapBuilder(
     fun buildMap(inputListener: InputListener): RectangularMap {
         val map = RectangularMap(rectangle)
         val controllerFactory = ControllerFactory(map, inputListener)
-        (heroCell!!.storedItem as Creature).setActionController(controllerFactory.createController(ControllerType.HeroController))
+        (heroCell!!.storedItem as Creature).actionController = controllerFactory.createController(ControllerType.HeroController)
         return RectangularMap(rectangle)
     }
 

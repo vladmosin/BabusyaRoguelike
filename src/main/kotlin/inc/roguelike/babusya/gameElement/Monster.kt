@@ -20,17 +20,6 @@ class Monster(creatureCharacteristics: CreatureCharacteristics, actionController
         return visitor.visitMonster(this)
     }
 
-    override fun act(gameElement: GameElement) {
-        gameElement.bePunched(creatureCharacteristics.attack)
-    }
-
-    override fun bePunched(damage: Int) {
-        creatureCharacteristics.hitPoints = max(0, creatureCharacteristics.hitPoints - damage)
-        if (creatureCharacteristics.hitPoints == 0) {
-            elementStatus = ElementStatus.DEAD
-        }
-    }
-
     override fun isActive(): Boolean {
         return elementStatus == ElementStatus.ALIVE
     }

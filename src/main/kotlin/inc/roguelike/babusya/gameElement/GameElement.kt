@@ -2,6 +2,7 @@ package inc.roguelike.babusya.gameElement
 
 import InputListener
 import inc.roguelike.babusya.controllers.ControllerFactory
+import inc.roguelike.babusya.effects.Effect
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.visitors.Visitor
@@ -16,19 +17,17 @@ abstract class GameElement(val id: String, var elementStatus: ElementStatus) {
     abstract fun <T> accept(visitor: Visitor<T>): T
 
     /**
-     * Performs action on another game element. Different behaviour for different types of game elements.
-     * */
-    abstract fun act(gameElement: GameElement)
-
-    /**
-     * Decreases GameElement's hit points. If hit points become less or equal than 0, game element dies
-     * */
-    abstract fun bePunched(damage: Int)
-
-    /**
      * Checks that current game element is not empty and ALIVE
      * */
     abstract fun isActive(): Boolean
+
+    open fun attackEffects() : List<Effect> {
+        return emptyList()
+    }
+
+    open fun defensiveEffects(): List<Effect> {
+        return emptyList()
+    }
 
     /**
      * Converts game element to string

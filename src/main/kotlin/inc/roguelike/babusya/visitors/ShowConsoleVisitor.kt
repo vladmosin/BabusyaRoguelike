@@ -18,10 +18,6 @@ class ShowConsoleVisitor : Visitor<Char> {
         return '#'
     }
 
-    override fun visitLoot(loot: Loot): Char {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun visitEmptyGameElement(emptyGameElement: EmptyGameElement): Char {
         return '.'
     }
