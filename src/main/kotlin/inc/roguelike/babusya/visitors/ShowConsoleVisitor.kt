@@ -27,6 +27,7 @@ class ShowConsoleVisitor : Visitor<Char> {
     }
 
     override fun visitMonster(monster: Monster): Char {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //TODO different monsters
+        return '1'
     }
 }

@@ -5,7 +5,5 @@ import inc.roguelike.babusya.map.GameMap
 
 
 class PassiveController(gameMap: GameMap): AbstractActionController(gameMap) {
-    override fun makeTurn(creature: Creature) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun makeTurn(creature: Creature) {}
 }

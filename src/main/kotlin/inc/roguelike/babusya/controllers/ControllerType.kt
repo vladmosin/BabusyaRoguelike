@@ -1,5 +1,8 @@
 package inc.roguelike.babusya.controllers
 
 enum class ControllerType {
-    HeroController
+    HeroController,
+    AggressiveController,
+    PassiveController,
+    CowardController
 }

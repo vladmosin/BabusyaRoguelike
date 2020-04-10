@@ -15,7 +15,7 @@ class RectangularMapBuilder(
     private val width: Int
 ) {
     private val rectangle = Array(height) { Array(width) { Cell() } }
-    private var heroCell: Cell? = null
+    private var creatureToController : ArrayList<Pair<Creature, ControllerType>> = ArrayList()
 
     /**
      * Creates map
@@ -23,7 +23,9 @@ class RectangularMapBuilder(
     fun buildMap(inputListener: InputListener): RectangularMap {
         val map = RectangularMap(rectangle)
         val controllerFactory = ControllerFactory(map, inputListener)
-        (heroCell!!.storedItem as Creature).actionController = controllerFactory.createController(ControllerType.HeroController)
+        for ((creature, controllerType) in creatureToController) {
+            creature.actionController = controllerFactory.createController(controllerType)
+        }
         return RectangularMap(rectangle)
     }
 
@@ -56,7 +58,7 @@ class RectangularMapBuilder(
             id = "h"
         )
         rectangle[hi][hj].storedItem = hero
-        heroCell = rectangle[hi][hj]
+        creatureToController.add(Pair(hero, ControllerType.HeroController))
 
         return this
     }
@@ -72,6 +74,23 @@ class RectangularMapBuilder(
             val (wi, wj) = emptyPositions[q]
             val wall = Wall("w${q+1}", ElementStatus.ALIVE)
             rectangle[wi][wj].storedItem = wall
+        }
+        return this
+    }
+
+    fun addMonsters(): RectangularMapBuilder {
+        val emptyPositions = getEmptyPositions()
+        emptyPositions.shuffle()
+        if (emptyPositions.isNotEmpty()) {
+            val (i, j) = emptyPositions[0]
+            val monster = Monster(
+                creatureCharacteristics = CreatureCharacteristics(100, 100, 1),
+                actionController = null,
+                id = "Applejack",
+                elementStatus = ElementStatus.ALIVE
+            )
+            rectangle[i][j].storedItem = monster
+            creatureToController.add(Pair(monster, ControllerType.PassiveController))
         }
         return this
     }
