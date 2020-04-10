@@ -17,7 +17,7 @@ class ActionSystem {
 
     fun action() {
         val elem = queue.poll()
-        if (elem != null) {
+        if (elem != null && elem.isActive()) {
             elem.makeTurn()
             queue.add(elem)
         }

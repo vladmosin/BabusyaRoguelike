@@ -7,6 +7,7 @@ import inc.roguelike.babusya.gameElement.GameElement
  * Stores order on cells.
  * */
 interface GameMap : Iterable<Cell>, CellObserver {
+
     /**
      * Returns left neighbour if exists
      * */

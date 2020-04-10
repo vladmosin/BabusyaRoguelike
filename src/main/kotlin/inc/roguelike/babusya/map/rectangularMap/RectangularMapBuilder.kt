@@ -1,8 +1,7 @@
 package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
-import inc.roguelike.babusya.controllers.ControllerFactory
-import inc.roguelike.babusya.controllers.ControllerType
+import inc.roguelike.babusya.controllers.*
 import inc.roguelike.babusya.gameElement.*
 import inc.roguelike.babusya.map.Cell
 import kotlin.random.Random
@@ -16,6 +15,7 @@ class RectangularMapBuilder(
 ) {
     private val rectangle = Array(height) { Array(width) { Cell() } }
     private var creatureToController : ArrayList<Pair<Creature, ControllerType>> = ArrayList()
+    private var heroElement: Hero? = null
 
     /**
      * Creates map
@@ -25,6 +25,11 @@ class RectangularMapBuilder(
         val controllerFactory = ControllerFactory(map, inputListener)
         for ((creature, controllerType) in creatureToController) {
             creature.actionController = controllerFactory.createController(controllerType)
+
+            when (creature.actionController) {
+                is AggressiveController -> (creature.actionController as AggressiveController).attackTarget = heroElement
+                is CowardController -> (creature.actionController as CowardController).scaryElement = heroElement
+            }
         }
         return RectangularMap(rectangle)
     }
@@ -57,6 +62,7 @@ class RectangularMapBuilder(
             experience = 0,
             id = "h"
         )
+        heroElement = hero
         rectangle[hi][hj].storedItem = hero
         creatureToController.add(Pair(hero, ControllerType.HeroController))
 
@@ -81,16 +87,42 @@ class RectangularMapBuilder(
     fun addMonsters(): RectangularMapBuilder {
         val emptyPositions = getEmptyPositions()
         emptyPositions.shuffle()
-        if (emptyPositions.isNotEmpty()) {
-            val (i, j) = emptyPositions[0]
-            val monster = Monster(
-                creatureCharacteristics = CreatureCharacteristics(100, 100, 1),
-                actionController = null,
-                id = "Applejack",
-                elementStatus = ElementStatus.ALIVE
-            )
-            rectangle[i][j].storedItem = monster
-            creatureToController.add(Pair(monster, ControllerType.PassiveController))
+        if (emptyPositions.size >= 3) {
+            run {
+                val (i, j) = emptyPositions[0]
+                val monster = Monster(
+                    creatureCharacteristics = CreatureCharacteristics(100, 100, 1),
+                    actionController = null,
+                    id = "PinkiePie",
+                    elementStatus = ElementStatus.ALIVE
+                )
+                rectangle[i][j].storedItem = monster
+                creatureToController.add(Pair(monster, ControllerType.PassiveController))
+            }
+
+            run {
+                val (i, j) = emptyPositions[1]
+                val monster = Monster(
+                    creatureCharacteristics = CreatureCharacteristics(100, 100, 1),
+                    actionController = null,
+                    id = "RainbowDash",
+                    elementStatus = ElementStatus.ALIVE
+                )
+                rectangle[i][j].storedItem = monster
+                creatureToController.add(Pair(monster, ControllerType.AggressiveController))
+            }
+
+            run {
+                val (i, j) = emptyPositions[2]
+                val monster = Monster(
+                    creatureCharacteristics = CreatureCharacteristics(100, 100, 1),
+                    actionController = null,
+                    id = "Fluttershy",
+                    elementStatus = ElementStatus.ALIVE
+                )
+                rectangle[i][j].storedItem = monster
+                creatureToController.add(Pair(monster, ControllerType.CowardController))
+            }
         }
         return this
     }

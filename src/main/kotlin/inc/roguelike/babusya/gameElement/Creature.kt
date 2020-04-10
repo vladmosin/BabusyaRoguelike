@@ -4,7 +4,6 @@ import inc.roguelike.babusya.controllers.ActionController
 import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.effects.Effect
 import inc.roguelike.babusya.effects.PunchEffect
-import inc.roguelike.babusya.map.Cell
 
 /**
  * Creature is a game element, which can move and has characteristics

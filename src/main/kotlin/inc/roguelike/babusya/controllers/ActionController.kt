@@ -4,4 +4,5 @@ import inc.roguelike.babusya.gameElement.Creature
 
 interface ActionController {
     fun makeTurn(creature: Creature)
+
 }

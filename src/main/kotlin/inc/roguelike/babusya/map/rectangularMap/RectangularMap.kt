@@ -2,7 +2,6 @@ package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
 import inc.roguelike.babusya.controllers.ControllerFactory
-import inc.roguelike.babusya.gameElement.EmptyGameElement
 import inc.roguelike.babusya.gameElement.GameElement
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap

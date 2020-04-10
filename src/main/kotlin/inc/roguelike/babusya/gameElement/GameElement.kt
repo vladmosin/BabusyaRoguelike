@@ -1,10 +1,7 @@
 package inc.roguelike.babusya.gameElement
 
-import InputListener
 import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.effects.Effect
-import inc.roguelike.babusya.map.Cell
-import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.visitors.Visitor
 
 /**

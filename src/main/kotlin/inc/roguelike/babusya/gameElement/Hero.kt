@@ -4,7 +4,6 @@ import inc.roguelike.babusya.controllers.ActionController
 import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.controllers.ControllerType
 import inc.roguelike.babusya.visitors.Visitor
-import kotlin.math.max
 
 
 /**
