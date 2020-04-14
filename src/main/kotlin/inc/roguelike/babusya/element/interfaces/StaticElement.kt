@@ -1,0 +1,13 @@
+package inc.roguelike.babusya.element.interfaces
+
+import inc.roguelike.babusya.controllers.ControllerFactory
+import inc.roguelike.babusya.element.abstracts.AbstractGameElement
+import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
+
+interface StaticElement : GameElement {
+    companion object {
+        fun deserialize(string: String): StaticElement? {
+            return AbstractStaticElement.deserialize(string)
+        }
+    }
+}

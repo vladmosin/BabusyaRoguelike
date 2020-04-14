@@ -2,10 +2,10 @@ package inc.roguelike.babusya.controllers
 
 import inc.roguelike.babusya.GameLog
 import inc.roguelike.babusya.effects.Effect
+import inc.roguelike.babusya.element.concrete.EmptyGameElement
+import inc.roguelike.babusya.element.interfaces.Creature
+import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.Cell
-import inc.roguelike.babusya.gameElement.Creature
-import inc.roguelike.babusya.gameElement.EmptyGameElement
-import inc.roguelike.babusya.gameElement.GameElement
 import inc.roguelike.babusya.map.GameMap
 
 abstract class AbstractActionController(val gameMap: GameMap): ActionController {
@@ -24,9 +24,9 @@ abstract class AbstractActionController(val gameMap: GameMap): ActionController 
 
         val toItem = toCell.storedItem
 
-        applyEffects(creature.attackEffects(), creature, toItem)
+        applyAllEffects(creature.attackEffects(), creature, toItem)
         if (toItem.isActive()) {
-            applyEffects(toItem.defensiveEffects(), toItem, creature)
+            applyAllEffects(toItem.defensiveEffects(), toItem, creature)
         }
 
         if (!toItem.isActive() && creature.isActive()) {
@@ -35,12 +35,10 @@ abstract class AbstractActionController(val gameMap: GameMap): ActionController 
         }
     }
 
-    private fun applyEffects(effects: List<Effect>, fromElement: GameElement, toElement: GameElement) {
+    private fun applyAllEffects(effects: List<Effect>, fromElement: GameElement, toElement: GameElement) {
         for (effect in effects) {
-            effect.apply(toElement)
-            val description = effect.getDescription(fromElement, toElement)
-            if (description != null) {
-                log?.add(description)
+            if (effect.apply(toElement)) {
+                log?.add(effect.getDescription(fromElement, toElement))
             }
         }
     }

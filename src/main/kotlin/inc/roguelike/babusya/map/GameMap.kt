@@ -1,6 +1,6 @@
 package inc.roguelike.babusya.map
 
-import inc.roguelike.babusya.gameElement.GameElement
+import inc.roguelike.babusya.element.interfaces.GameElement
 
 /**
  * Implements game map.

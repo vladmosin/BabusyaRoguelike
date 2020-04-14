@@ -1,4 +1,4 @@
-package inc.roguelike.babusya.gameElement
+package inc.roguelike.babusya.element
 
 /**
  * Stores different characteristics of create
@@ -9,7 +9,11 @@ data class CreatureCharacteristics(var hitPoints: Int, var maxHitPoints: Int, va
             val maxHitPoints = 100
             val attack = 20
 
-            return CreatureCharacteristics(hitPoints = maxHitPoints, maxHitPoints = maxHitPoints, attack = attack)
+            return CreatureCharacteristics(
+                hitPoints = maxHitPoints,
+                maxHitPoints = maxHitPoints,
+                attack = attack
+            )
         }
 
         fun deserialize(string: String): CreatureCharacteristics? {
@@ -18,7 +22,11 @@ data class CreatureCharacteristics(var hitPoints: Int, var maxHitPoints: Int, va
                 null
             } else {
                 try {
-                    CreatureCharacteristics(parts[0].toInt(), parts[1].toInt(), parts[2].toInt())
+                    CreatureCharacteristics(
+                        parts[0].toInt(),
+                        parts[1].toInt(),
+                        parts[2].toInt()
+                    )
                 } catch (e: NumberFormatException) {
                     null
                 }

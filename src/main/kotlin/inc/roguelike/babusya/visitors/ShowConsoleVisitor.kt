@@ -1,11 +1,11 @@
 package inc.roguelike.babusya.visitors
 
-import inc.roguelike.babusya.gameElement.*
+import inc.roguelike.babusya.element.concrete.*
 
 /**
  * Visitor, which shows elements to console
  * */
-class ShowConsoleVisitor : Visitor<Char> {
+class ShowConsoleVisitor : ElementVisitor<Char> {
     override fun visitStairs(stairs: Stairs): Char {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -29,5 +29,9 @@ class ShowConsoleVisitor : Visitor<Char> {
     override fun visitMonster(monster: Monster): Char {
         //TODO different monsters
         return '1'
+    }
+
+    override fun visitConfused(confusableCreature: ConfusableCreature): Char {
+        return confusableCreature.creature.accept(this)
     }
 }

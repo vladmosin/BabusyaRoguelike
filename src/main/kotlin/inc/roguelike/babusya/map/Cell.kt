@@ -1,7 +1,7 @@
 package inc.roguelike.babusya.map
 
-import inc.roguelike.babusya.gameElement.EmptyGameElement
-import inc.roguelike.babusya.gameElement.GameElement
+import inc.roguelike.babusya.element.concrete.EmptyGameElement
+import inc.roguelike.babusya.element.interfaces.GameElement
 
 /**
  * Implement a cell for game map.
@@ -11,7 +11,6 @@ class Cell {
     private val observers = ArrayList<CellObserver>()
 
     var storedItem: GameElement = EmptyGameElement()
-        get() = field
         set(value) {
             field = value
             for (observer in observers)

@@ -2,7 +2,13 @@ package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
 import inc.roguelike.babusya.controllers.*
-import inc.roguelike.babusya.gameElement.*
+import inc.roguelike.babusya.element.*
+import inc.roguelike.babusya.element.interfaces.Creature
+import inc.roguelike.babusya.element.CreatureCharacteristics
+import inc.roguelike.babusya.element.concrete.ConfusableCreature
+import inc.roguelike.babusya.element.concrete.Hero
+import inc.roguelike.babusya.element.concrete.Monster
+import inc.roguelike.babusya.element.concrete.Wall
 import inc.roguelike.babusya.map.Cell
 import kotlin.random.Random
 
@@ -25,13 +31,18 @@ class RectangularMapBuilder(
         val controllerFactory = ControllerFactory(map, inputListener)
         for ((creature, controllerType) in creatureToController) {
             creature.actionController = controllerFactory.createController(controllerType)
-
             when (creature.actionController) {
                 is AggressiveController -> (creature.actionController as AggressiveController).attackTarget = heroElement
                 is CowardController -> (creature.actionController as CowardController).scaryElement = heroElement
             }
         }
-        return RectangularMap(rectangle)
+        // Ugly, TODO refactor :(
+        for (cell in map) {
+            if (cell.storedItem is Monster) {
+                cell.storedItem = ConfusableCreature(cell.storedItem as Creature, controllerFactory.createController(ControllerType.RandomController))
+            }
+        }
+        return map
     }
 
     private fun getEmptyPositions(): ArrayList<Pair<Int, Int>> {
@@ -78,7 +89,7 @@ class RectangularMapBuilder(
         val wallsNumber = emptyPositions.size / 4
         for (q in 0 until wallsNumber) {
             val (wi, wj) = emptyPositions[q]
-            val wall = Wall("w${q+1}", ElementStatus.ALIVE)
+            val wall = Wall("w${q + 1}", ElementStatus.ALIVE)
             rectangle[wi][wj].storedItem = wall
         }
         return this
@@ -91,7 +102,11 @@ class RectangularMapBuilder(
             run {
                 val (i, j) = emptyPositions[0]
                 val monster = Monster(
-                    creatureCharacteristics = CreatureCharacteristics(100, 100, 1),
+                    creatureCharacteristics = CreatureCharacteristics(
+                        100,
+                        100,
+                        1
+                    ),
                     actionController = null,
                     id = "PinkiePie",
                     elementStatus = ElementStatus.ALIVE
@@ -103,7 +118,11 @@ class RectangularMapBuilder(
             run {
                 val (i, j) = emptyPositions[1]
                 val monster = Monster(
-                    creatureCharacteristics = CreatureCharacteristics(100, 100, 1),
+                    creatureCharacteristics = CreatureCharacteristics(
+                        100,
+                        100,
+                        1
+                    ),
                     actionController = null,
                     id = "RainbowDash",
                     elementStatus = ElementStatus.ALIVE
@@ -115,7 +134,11 @@ class RectangularMapBuilder(
             run {
                 val (i, j) = emptyPositions[2]
                 val monster = Monster(
-                    creatureCharacteristics = CreatureCharacteristics(100, 100, 1),
+                    creatureCharacteristics = CreatureCharacteristics(
+                        100,
+                        100,
+                        1
+                    ),
                     actionController = null,
                     id = "Fluttershy",
                     elementStatus = ElementStatus.ALIVE

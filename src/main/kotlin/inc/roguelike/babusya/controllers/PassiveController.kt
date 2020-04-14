@@ -1,6 +1,6 @@
 package inc.roguelike.babusya.controllers
 
-import inc.roguelike.babusya.gameElement.Creature
+import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.map.GameMap
 
 
