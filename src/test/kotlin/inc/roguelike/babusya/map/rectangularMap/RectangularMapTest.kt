@@ -1,6 +1,6 @@
 package inc.roguelike.babusya.map.rectangularMap
 
-import inc.roguelike.babusya.gameElement.EmptyGameElement
+import inc.roguelike.babusya.element.concrete.EmptyGameElement
 import inc.roguelike.babusya.map.Cell
 import org.junit.Assert.assertEquals
 import org.junit.Test

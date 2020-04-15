@@ -2,7 +2,11 @@ package inc.roguelike.babusya.controllers
 
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
-import inc.roguelike.babusya.gameElement.*
+import inc.roguelike.babusya.element.*
+import inc.roguelike.babusya.element.CreatureCharacteristics
+import inc.roguelike.babusya.element.concrete.EmptyGameElement
+import inc.roguelike.babusya.element.concrete.Hero
+import inc.roguelike.babusya.element.concrete.Wall
 import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap

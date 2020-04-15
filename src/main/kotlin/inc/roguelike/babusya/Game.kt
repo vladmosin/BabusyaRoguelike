@@ -2,10 +2,9 @@ package inc.roguelike.babusya
 
 import InputListener
 import inc.roguelike.babusya.UI.RenderSystem
-import inc.roguelike.babusya.gameElement.Creature
+import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.levels.LevelCreator
 import inc.roguelike.babusya.levels.LevelInfo
-import inc.roguelike.babusya.levels.LevelsType
 
 /**
  * Initializes and starts game
@@ -19,6 +18,7 @@ class Game(renderSystem: RenderSystem, inputListener: InputListener, levelInfo: 
     private val levelCreator = LevelCreator(inputListener)
     private val gameState = GameState(levelCreator, levelInfo)
     private val engine = Engine(renderSystem, ActionSystem())
+    private val deathObserver = DeathObserver(gameState.getLevel().getMap())
 
     /**
      * Launches new game

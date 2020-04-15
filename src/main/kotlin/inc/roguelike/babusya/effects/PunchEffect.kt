@@ -1,22 +1,27 @@
 package inc.roguelike.babusya.effects
 
-import inc.roguelike.babusya.gameElement.Creature
-import inc.roguelike.babusya.gameElement.ElementStatus
-import inc.roguelike.babusya.gameElement.GameElement
+import inc.roguelike.babusya.element.*
+import inc.roguelike.babusya.element.interfaces.Creature
+import inc.roguelike.babusya.element.interfaces.GameElement
+import inc.roguelike.babusya.element.concrete.Hero
+import inc.roguelike.babusya.element.concrete.Monster
 import kotlin.math.max
 
-class PunchEffect(val damage: Int): Effect {
+open class PunchEffect(val damage: Int): Effect {
 
-    override fun apply(gameElement: GameElement) {
-        when (gameElement) {
-            is Creature -> punchCreature(gameElement)
-        }
+    override fun visitHero(hero: Hero): Boolean {
+        punchCreature(hero)
+        return true
     }
 
-    override fun getDescription(from: GameElement?, to: GameElement?): String? {
-        if (to !is Creature) return null
+    override fun visitMonster(monster: Monster): Boolean {
+        punchCreature(monster)
+        return true
+    }
+
+    override fun getDescription(from: GameElement?, to: GameElement?): String {
         val fromId = from?.id ?: "God"
-        val toId = to.id
+        val toId = to?.id ?: "Nothing"
         return "$fromId hits $toId by $damage"
     }
 

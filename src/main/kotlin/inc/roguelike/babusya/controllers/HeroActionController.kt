@@ -1,9 +1,8 @@
 package inc.roguelike.babusya.controllers
 
 import InputListener
-import inc.roguelike.babusya.gameElement.Creature
+import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.inputListeners.InputData
-import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.runBlocking

@@ -1,7 +1,6 @@
 package inc.roguelike.babusya
 
-import inc.roguelike.babusya.gameElement.Creature
-import inc.roguelike.babusya.gameElement.GameElement
+import inc.roguelike.babusya.element.interfaces.Creature
 import java.util.*
 
 /**

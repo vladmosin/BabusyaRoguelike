@@ -4,5 +4,6 @@ enum class ControllerType {
     HeroController,
     AggressiveController,
     PassiveController,
-    CowardController
+    CowardController,
+    RandomController
 }

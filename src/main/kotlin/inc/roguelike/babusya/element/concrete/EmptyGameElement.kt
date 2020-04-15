@@ -1,12 +1,17 @@
-package inc.roguelike.babusya.gameElement
+package inc.roguelike.babusya.element.concrete
 
-import inc.roguelike.babusya.visitors.Visitor
+import inc.roguelike.babusya.element.ElementStatus
+import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
+import inc.roguelike.babusya.visitors.ElementVisitor
 
 /**
  * If cell doesn't store real game object, than it stores EmptyGameElement
  * */
-class EmptyGameElement : StaticElement(name, ElementStatus.ALIVE) {
-    override fun <T> accept(visitor: Visitor<T>): T {
+class EmptyGameElement : AbstractStaticElement(
+    name,
+    ElementStatus.ALIVE
+) {
+    override fun <T> accept(visitor: ElementVisitor<T>): T {
         return visitor.visitEmptyGameElement(this)
     }
 

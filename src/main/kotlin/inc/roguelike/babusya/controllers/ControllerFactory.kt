@@ -7,6 +7,7 @@ class ControllerFactory(val gameMap: GameMap, inputListener: InputListener) {
 
     private val heroController = HeroActionController(gameMap, inputListener)
     private val passiveController = PassiveController(gameMap)
+    private val randomController = RandomActionController(gameMap)
 
     fun createController(type: ControllerType) : ActionController {
         when (type) {
@@ -14,6 +15,7 @@ class ControllerFactory(val gameMap: GameMap, inputListener: InputListener) {
             ControllerType.PassiveController -> return passiveController
             ControllerType.AggressiveController -> return AggressiveController(gameMap, null)
             ControllerType.CowardController -> return CowardController(gameMap, null)
+            ControllerType.RandomController -> return randomController
         }
     }
 }
