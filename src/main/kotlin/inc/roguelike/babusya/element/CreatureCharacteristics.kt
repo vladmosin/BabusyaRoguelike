@@ -37,4 +37,8 @@ data class CreatureCharacteristics(var hitPoints: Int, var maxHitPoints: Int, va
     fun serialize(): String {
         return "${hitPoints}@${maxHitPoints}@${attack}"
     }
+
+    fun clone(): CreatureCharacteristics {
+        return CreatureCharacteristics(hitPoints, maxHitPoints, attack)
+    }
 }

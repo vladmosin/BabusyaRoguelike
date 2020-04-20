@@ -15,4 +15,6 @@ interface Creature: GameElement {
             return AbstractCreature.deserialize(controllerFactory, string)
         }
     }
+
+    override fun clone(): Creature
 }

@@ -33,4 +33,6 @@ interface GameMap : Iterable<Cell>, CellObserver {
     fun getCellByElement(gameElement: GameElement): Cell?
 
     fun serialize(): String
+
+    fun clone(): GameMap
 }

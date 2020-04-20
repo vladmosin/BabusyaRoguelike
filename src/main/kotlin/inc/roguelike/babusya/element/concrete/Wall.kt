@@ -2,6 +2,7 @@ package inc.roguelike.babusya.element.concrete
 
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
+import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 /**
@@ -19,6 +20,10 @@ class Wall(id: String, elementStatus: ElementStatus) : AbstractStaticElement(id,
 
     override fun serialize(): String {
         return "$name#${id}#${elementStatus}"
+    }
+
+    override fun clone(): Wall {
+        return Wall(id, elementStatus)
     }
 
     companion object {

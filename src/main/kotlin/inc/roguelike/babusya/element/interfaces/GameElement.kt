@@ -32,6 +32,8 @@ interface GameElement {
      * */
     fun serialize(): String
 
+    fun clone(): GameElement
+
     companion object {
         fun deserialize(controllerFactory: ControllerFactory, string: String): GameElement? {
             return AbstractGameElement.deserialize(controllerFactory, string)

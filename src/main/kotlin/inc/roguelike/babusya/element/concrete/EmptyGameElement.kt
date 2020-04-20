@@ -2,6 +2,7 @@ package inc.roguelike.babusya.element.concrete
 
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
+import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 /**
@@ -21,6 +22,10 @@ class EmptyGameElement : AbstractStaticElement(
 
     override fun serialize(): String {
         return name
+    }
+
+    override fun clone(): EmptyGameElement {
+        return EmptyGameElement()
     }
 
     companion object {

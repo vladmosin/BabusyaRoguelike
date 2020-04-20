@@ -6,6 +6,7 @@ import inc.roguelike.babusya.effects.MonsterPunchEffect
 import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractCreature
+import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 
@@ -40,6 +41,15 @@ class Monster(creatureCharacteristics: CreatureCharacteristics, actionController
 
     override fun serialize(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun clone(): Monster {
+        val newCharacteristics = characteristics.clone()
+        val monster = Monster(newCharacteristics, null, id, elementStatus)
+        val newActionController = actionController?.clone(monster)
+
+        monster.actionController = newActionController
+        return monster
     }
 
     companion object {

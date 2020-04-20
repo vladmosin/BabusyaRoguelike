@@ -2,6 +2,7 @@ package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
 import inc.roguelike.babusya.controllers.ControllerFactory
+import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
@@ -158,6 +159,28 @@ class RectangularMap(
         }
 
         return builder.toString()
+    }
+
+    override fun clone(): RectangularMap {
+        val map = Array(height) {Array(width) {Cell()}}
+        for (i in 0 until height) {
+            for (j in 0 until width) {
+                map[i][j] = rectangle[i][j].clone()
+            }
+        }
+
+        val newGameMap = RectangularMap(map)
+        for (i in 0 until height) {
+            for (j in 0 until width) {
+                map[i][j].attachObserver(newGameMap)
+                val item = map[i][j].storedItem
+                if (item is Creature) {
+                    item.actionController?.changeGameMap(newGameMap)
+                }
+            }
+        }
+
+        return newGameMap
     }
 
     override fun getLefterCell(cell: Cell): Cell? {
