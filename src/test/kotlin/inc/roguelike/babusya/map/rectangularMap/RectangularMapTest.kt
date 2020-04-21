@@ -8,7 +8,7 @@ import org.junit.Test
 
 class RectangularMapTest {
 
-    private val map = RectangularMap(Array(5) {Array(5) { Cell(EmptyGameElement()) } })
+    private val map = RectangularMap(Array(5) {Array(5) { Cell() } })
 
     @Test
     fun testBorders() {
