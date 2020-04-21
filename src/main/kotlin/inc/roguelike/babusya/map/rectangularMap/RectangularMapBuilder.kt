@@ -39,7 +39,7 @@ class RectangularMapBuilder(
                     (creature.actionController as CowardController).scaryElement = heroElement
             }
         }
-        // Ugly, TODO refactor :(
+
         for (cell in map) {
             if (cell.storedItem is Monster) {
                 cell.storedItem = ConfusableCreature(

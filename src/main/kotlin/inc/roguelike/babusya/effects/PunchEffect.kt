@@ -7,6 +7,9 @@ import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.concrete.Monster
 import kotlin.math.max
 
+/**
+ * Decreasing unit hp on given amount of damage effect
+ * */
 open class PunchEffect(val damage: Int): Effect {
 
     override fun visitHero(hero: Hero): Boolean {

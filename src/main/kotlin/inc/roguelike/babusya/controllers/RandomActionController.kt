@@ -5,6 +5,9 @@ import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.GameMap
 import java.util.*
 
+/**
+ * Does not pay attention to such unimportant things as enemies position
+ * */
 class RandomActionController(gameMap: GameMap): AbstractActionController(gameMap) {
     override fun makeTurn(creature: Creature) {
         val fromCell = gameMap.getCellByElement(creature)!!

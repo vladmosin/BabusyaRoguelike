@@ -8,6 +8,9 @@ import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
 
+/**
+ * Class with different methods implementation which are common for all creature action controllers
+ * */
 abstract class AbstractActionController(var gameMap: GameMap): ActionController {
     private var log : GameLog? = null
 

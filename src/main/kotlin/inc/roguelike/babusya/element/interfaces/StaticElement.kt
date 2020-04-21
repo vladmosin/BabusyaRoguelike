@@ -4,6 +4,10 @@ import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.element.abstracts.AbstractGameElement
 import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
 
+
+/**
+ * Game element which cannot move and does not have controller
+ * */
 interface StaticElement : GameElement {
     companion object {
         fun deserialize(string: String): StaticElement? {

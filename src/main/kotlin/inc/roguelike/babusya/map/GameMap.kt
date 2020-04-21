@@ -28,11 +28,23 @@ interface GameMap : Iterable<Cell>, CellObserver {
      * */
     fun getDownerCell(cell: Cell): Cell?
 
+    /**
+     * Returns cell position on screen
+     * */
     fun positionOnScreen(cell: Cell): Pair<Int, Int>
 
+    /**
+     * Returns cell by game element on it
+     * */
     fun getCellByElement(gameElement: GameElement): Cell?
 
+    /**
+     * Transforms game map to string
+     * */
     fun serialize(): String
 
+    /**
+     * Clones game map
+     * */
     fun clone(): GameMap
 }

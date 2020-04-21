@@ -72,6 +72,9 @@ class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
         }
     }
 
+    /**
+     * Closes render system
+     * */
     fun close() {
         screen.stopScreen()
     }

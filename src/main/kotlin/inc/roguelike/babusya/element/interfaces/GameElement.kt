@@ -8,6 +8,9 @@ import inc.roguelike.babusya.element.abstracts.AbstractCreature
 import inc.roguelike.babusya.element.abstracts.AbstractGameElement
 import inc.roguelike.babusya.visitors.ElementVisitor
 
+/**
+ * Base interface for all elements in game
+ * */
 interface GameElement {
     val id: String
     var elementStatus: ElementStatus

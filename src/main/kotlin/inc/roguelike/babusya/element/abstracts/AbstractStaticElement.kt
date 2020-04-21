@@ -6,7 +6,7 @@ import inc.roguelike.babusya.element.concrete.Wall
 import inc.roguelike.babusya.element.interfaces.StaticElement
 
 /**
- * Base class for elements which cannot move
+ * Implementation of basic methods for static game element
  * */
 abstract class AbstractStaticElement(id: String, elementStatus: ElementStatus) :
     AbstractGameElement(id, elementStatus), StaticElement {

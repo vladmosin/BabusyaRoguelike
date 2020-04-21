@@ -5,6 +5,9 @@ import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
 import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.visitors.ElementVisitor
 
+/**
+ * Stores doors
+ * */
 class Door(id: String, elementStatus: ElementStatus) : AbstractStaticElement(id, elementStatus) {
     override fun <T> accept(visitor: ElementVisitor<T>): T {
         return visitor.visitDoor(this)

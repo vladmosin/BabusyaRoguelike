@@ -4,6 +4,15 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
+/**
+ * Implementation of algorithms on game maps
+ * */
+
+
+
+/**
+ * Finds shortest path between two cells
+ * */
 fun shortestPath(map: GameMap, from: Cell, to: Cell) : List<Cell>? {
     val p = HashMap<Cell?, Cell?>()
     val q: Queue<Cell> = LinkedList()

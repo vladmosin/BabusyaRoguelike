@@ -5,6 +5,10 @@ import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.map.shortestPath
 
+/**
+ * Implementation of aggressive strategy for mobs
+ * Mobs with this strategy try to get closer to their target and attack
+ * */
 class AggressiveController(gameMap: GameMap, var attackTarget: GameElement?): AbstractActionController(gameMap) {
 
     override fun makeTurn(creature: Creature) {

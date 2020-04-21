@@ -2,6 +2,10 @@ package inc.roguelike.babusya
 
 import java.lang.Integer.max
 
+
+/**
+ * Implementation of game log
+ * */
 class GameLog {
     private val log = ArrayList<String>()
 

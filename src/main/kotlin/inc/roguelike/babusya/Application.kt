@@ -27,6 +27,9 @@ fun main() {
     renderSystem.close()
 }
 
+/**
+ * Gets all information about game start from user
+ * */
 fun askUserForLevelsType(): LevelInfo {
     println("Please select type of map")
     while(true) {

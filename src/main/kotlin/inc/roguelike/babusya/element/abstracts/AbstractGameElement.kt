@@ -10,7 +10,7 @@ import inc.roguelike.babusya.element.interfaces.StaticElement
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 /**
- * Basic class for all items on the game map
+ * Implementation of basic methods for game element
  * */
 abstract class AbstractGameElement(override val id: String, elementStatus: ElementStatus) : GameElement {
 

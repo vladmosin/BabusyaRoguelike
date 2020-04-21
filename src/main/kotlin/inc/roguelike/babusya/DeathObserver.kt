@@ -5,6 +5,9 @@ import inc.roguelike.babusya.element.concrete.EmptyGameElement
 import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.GameMap
 
+/**
+ * Observes that game element is active
+ * */
 class DeathObserver(val map: GameMap): ElementStatusObserver {
     init {
         for (cell in map) {

@@ -5,6 +5,9 @@ import inc.roguelike.babusya.element.interfaces.GameElement
 import java.lang.Integer.max
 import kotlin.random.Random
 
+/**
+ * Creature becomes confused with given probability when this effect applied
+ * */
 class ConfusionChanceEffect(val probability: Double, val effectDuration: Int): Effect {
     override fun getDescription(from: GameElement?, to: GameElement?): String {
         return "Confusion: (from = " + (from?.id ?: "?") + ")" +

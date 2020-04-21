@@ -8,7 +8,7 @@ import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.interfaces.Creature
 
 /**
- * Creature is a game element, which can move and has characteristics
+ * Implementation of common methods for creature
  * */
 abstract class AbstractCreature(
     override val characteristics: CreatureCharacteristics,
