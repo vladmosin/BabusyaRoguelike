@@ -33,14 +33,19 @@ class RectangularMapBuilder(
         for ((creature, controllerType) in creatureToController) {
             creature.actionController = controllerFactory.createController(controllerType)
             when (creature.actionController) {
-                is AggressiveController -> (creature.actionController as AggressiveController).attackTarget = heroElement
-                is CowardController -> (creature.actionController as CowardController).scaryElement = heroElement
+                is AggressiveController ->
+                    (creature.actionController as AggressiveController).attackTarget = heroElement
+                is CowardController ->
+                    (creature.actionController as CowardController).scaryElement = heroElement
             }
         }
         // Ugly, TODO refactor :(
         for (cell in map) {
             if (cell.storedItem is Monster) {
-                cell.storedItem = ConfusableCreature(cell.storedItem as Creature, controllerFactory.createController(ControllerType.RandomController))
+                cell.storedItem = ConfusableCreature(
+                    cell.storedItem as Creature,
+                    controllerFactory.createController(ControllerType.RandomController)
+                )
             }
         }
         return map
@@ -88,7 +93,7 @@ class RectangularMapBuilder(
     ) {
         val di = if (start.first < finish.first) +1 else -1
         val dj = if (start.second < finish.second) +1 else -1
-        var distance = abs(start.first - finish.first) + abs(start.second - finish.second)
+        val distance = abs(start.first - finish.first) + abs(start.second - finish.second)
         var (i, j) = start
         used[i][j] = true
         for (step in 0 until distance) {
@@ -120,8 +125,8 @@ class RectangularMapBuilder(
     private fun randomExpansion(used: Array<Array<Boolean>>, vi: Int, vj: Int) {
         val directions = arrayListOf(Pair(-1, 0), Pair(+1, 0), Pair(0, -1), Pair(0, +1))
         for ((di, dj) in directions) {
-            var ti = vi + di
-            var tj = vj + dj
+            val ti = vi + di
+            val tj = vj + dj
             if (ti < 0 || ti >= height || tj < 0 || tj >= width || used[ti][tj]) {
                 continue
             }
@@ -157,13 +162,12 @@ class RectangularMapBuilder(
                     wallId++
                 }
             }
+        }
         return this
     }
 
     fun addMonsters(): RectangularMapBuilder {
-        val emptyPositions = getPositions {
-                cell -> !cell.storesActiveItem()
-        }
+        val emptyPositions = getPositions { cell -> !cell.storesActiveItem() }
         emptyPositions.shuffle()
         if (emptyPositions.size >= 3) {
             run {

@@ -37,7 +37,7 @@ class ConfusableCreature(val creature: Creature, private var randomController: A
         private val name = "confused"
 
         fun deserialize(line: String): ConfusableCreature? {
-
+            return null
         }
     }
 }
