@@ -26,4 +26,8 @@ class CowardController(gameMap: GameMap, var scaryElement: GameElement?): Abstra
             }
         }
     }
+
+    override fun clone(gameElement: GameElement): CowardController {
+        return CowardController(gameMap, gameElement)
+    }
 }

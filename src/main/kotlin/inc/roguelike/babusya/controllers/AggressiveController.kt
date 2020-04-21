@@ -18,4 +18,7 @@ class AggressiveController(gameMap: GameMap, var attackTarget: GameElement?): Ab
         makeMove(creature, path[1])
     }
 
+    override fun clone(gameElement: GameElement): AggressiveController {
+        return AggressiveController(gameMap, gameElement)
+    }
 }

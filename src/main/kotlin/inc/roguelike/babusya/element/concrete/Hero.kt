@@ -9,6 +9,7 @@ import inc.roguelike.babusya.effects.PunchEffect
 import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractCreature
+import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 
@@ -42,6 +43,15 @@ class Hero(
 
     override fun serialize(): String {
         return "$name#${characteristics.serialize()}#${id}#${elementStatus}#${experience}"
+    }
+
+    override fun clone(): Hero {
+        val newCharacteristics = characteristics.clone()
+        val hero = Hero(newCharacteristics, null, id, elementStatus, experience)
+        val newActionController = actionController?.clone(hero)
+
+        hero.actionController = newActionController
+        return hero
     }
 
     companion object {

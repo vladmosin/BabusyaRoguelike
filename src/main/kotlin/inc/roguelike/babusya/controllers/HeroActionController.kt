@@ -2,6 +2,7 @@ package inc.roguelike.babusya.controllers
 
 import InputListener
 import inc.roguelike.babusya.element.interfaces.Creature
+import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.map.GameMap
 import kotlinx.coroutines.channels.Channel
@@ -47,5 +48,9 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
         }
 
         makeMove(creature, targetCell)
+    }
+
+    override fun clone(gameElement: GameElement): HeroActionController {
+        return HeroActionController(gameMap, inputListener)
     }
 }

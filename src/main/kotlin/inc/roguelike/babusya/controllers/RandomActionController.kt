@@ -1,6 +1,7 @@
 package inc.roguelike.babusya.controllers
 
 import inc.roguelike.babusya.element.interfaces.Creature
+import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.GameMap
 import java.util.*
 
@@ -12,5 +13,9 @@ class RandomActionController(gameMap: GameMap): AbstractActionController(gameMap
         ways = ways.filter { it != null && !it.storesActiveItem() }.toCollection(ArrayList())
         ways.add(fromCell)
         makeMove(creature, ways.random()!!)
+    }
+
+    override fun clone(gameElement: GameElement): RandomActionController {
+        return RandomActionController(gameMap)
     }
 }

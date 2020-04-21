@@ -2,6 +2,7 @@ package inc.roguelike.babusya.element.concrete
 
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
+import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 class Door(id: String, elementStatus: ElementStatus) : AbstractStaticElement(id, elementStatus) {
@@ -14,6 +15,10 @@ class Door(id: String, elementStatus: ElementStatus) : AbstractStaticElement(id,
     }
 
     override fun serialize(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun clone(): GameElement {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

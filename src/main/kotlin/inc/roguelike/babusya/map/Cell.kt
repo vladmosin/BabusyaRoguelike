@@ -24,4 +24,11 @@ class Cell {
     }
 
     fun serialize(): String = storedItem.serialize()
+
+    fun clone(): Cell {
+        val newCell = Cell()
+        newCell.storedItem = storedItem.clone()
+
+        return newCell
+    }
 }

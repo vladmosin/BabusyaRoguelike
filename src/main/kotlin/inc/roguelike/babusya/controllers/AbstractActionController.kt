@@ -8,7 +8,7 @@ import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
 
-abstract class AbstractActionController(val gameMap: GameMap): ActionController {
+abstract class AbstractActionController(var gameMap: GameMap): ActionController {
     private var log : GameLog? = null
 
     override fun useLog(gameLog: GameLog) {
@@ -41,5 +41,9 @@ abstract class AbstractActionController(val gameMap: GameMap): ActionController 
                 log?.add(effect.getDescription(fromElement, toElement))
             }
         }
+    }
+
+    override fun changeGameMap(gameMap: GameMap) {
+        this.gameMap = gameMap
     }
 }

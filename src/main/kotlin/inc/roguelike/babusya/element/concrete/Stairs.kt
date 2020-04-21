@@ -2,6 +2,7 @@ package inc.roguelike.babusya.element.concrete
 
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
+import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 /**
@@ -19,6 +20,10 @@ class Stairs(id: String, elementStatus: ElementStatus) : AbstractStaticElement(i
     }
 
     override fun serialize(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun clone(): Stairs {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
