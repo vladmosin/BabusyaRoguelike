@@ -10,12 +10,12 @@ class ControllerFactory(val gameMap: GameMap, inputListener: InputListener) {
     private val randomController = RandomActionController(gameMap)
 
     fun createController(type: ControllerType) : ActionController {
-        when (type) {
-            ControllerType.HeroController -> return heroController
-            ControllerType.PassiveController -> return passiveController
-            ControllerType.AggressiveController -> return AggressiveController(gameMap, null)
-            ControllerType.CowardController -> return CowardController(gameMap, null)
-            ControllerType.RandomController -> return randomController
+        return when (type) {
+            ControllerType.HeroController -> heroController
+            ControllerType.PassiveController -> passiveController
+            ControllerType.AggressiveController -> AggressiveController(gameMap, null)
+            ControllerType.CowardController -> CowardController(gameMap, null)
+            ControllerType.RandomController -> randomController
         }
     }
 }
