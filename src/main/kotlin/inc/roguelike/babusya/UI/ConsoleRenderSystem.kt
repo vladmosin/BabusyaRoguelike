@@ -6,20 +6,19 @@ import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.Terminal
 import inc.roguelike.babusya.GameLog
-import inc.roguelike.babusya.GameState
 import inc.roguelike.babusya.levels.Level
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.visitors.ShowConsoleVisitor
-import java.lang.Integer.min
 
 
 /**
  * Renders console system
  * */
-class ConsoleRenderSystem(val terminal: Terminal): RenderSystem {
+class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
 
-    private val LEFT_FRAME = 30
-    private val UP_FRAME = 10
+    private val LEFT_FRAME = 60
+    private val UP_FRAME = 5
+    private val LOG_ROWS = 15
 
     private val showVisitor = ShowConsoleVisitor()
 
@@ -37,7 +36,7 @@ class ConsoleRenderSystem(val terminal: Terminal): RenderSystem {
         textGraphics.putString(LEFT_FRAME, UP_FRAME, level.getName())
 
         showMap(level.getMap(), LEFT_FRAME, UP_FRAME + 1)
-        showLog(gameLog, 0, UP_FRAME, 10)
+        showLog(gameLog, 0, UP_FRAME, LOG_ROWS)
         screen.refresh()
     }
 
@@ -46,16 +45,30 @@ class ConsoleRenderSystem(val terminal: Terminal): RenderSystem {
         textGraphics.putString(xOffset, yOffset, "Log")
         val log = gameLog.last(count)
         for (i in log.indices) {
-            textGraphics.putString(xOffset, yOffset + i + 1, log[i].take(LEFT_FRAME - 1))
+            val message = log[i].take(LEFT_FRAME - 1)
+            if (message.isEmpty()) {
+                continue
+            }
+            val separator: Int = message.indexOf(':')
+
+            textGraphics.foregroundColor = TextColor.ANSI.RED
+            val prefix = message.substring(0, separator)
+            textGraphics.putString(xOffset, yOffset + i + 1, prefix)
+
+            textGraphics.foregroundColor = TextColor.ANSI.GREEN
+            textGraphics.putString(
+                xOffset + 2 + prefix.length,
+                yOffset + i + 1,
+                message.substring(separator + 1)
+            )
         }
     }
 
-
     private fun showMap(map: GameMap, xOffset: Int, yOffset: Int) {
         for (cell in map) {
-            val cellChar = cell.storedItem.accept(showVisitor)
+            val (cellChar, cellColor) = cell.storedItem.accept(showVisitor)
             val (i, j) = map.positionOnScreen(cell)
-            screen.setCharacter(j + xOffset, i + yOffset, TextCharacter(cellChar))
+            screen.setCharacter(j + xOffset, i + yOffset, TextCharacter(cellChar, cellColor, TextColor.ANSI.BLACK))
         }
     }
 

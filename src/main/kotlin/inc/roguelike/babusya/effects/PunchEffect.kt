@@ -22,7 +22,7 @@ open class PunchEffect(val damage: Int): Effect {
     override fun getDescription(from: GameElement?, to: GameElement?): String {
         val fromId = from?.id ?: "God"
         val toId = to?.id ?: "Nothing"
-        return "$fromId hits $toId by $damage"
+        return "Hit: $fromId --[$damage]--> $toId"
     }
 
     private fun punchCreature(creature: Creature) {
