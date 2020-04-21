@@ -22,8 +22,8 @@ class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
 
     private val showVisitor = ShowConsoleVisitor()
 
-    val screen: Screen = TerminalScreen(terminal)
-    val textGraphics = screen.newTextGraphics()
+    private val screen: Screen = TerminalScreen(terminal)
+    private val textGraphics = screen.newTextGraphics()
 
     init {
         screen.cursorPosition = null

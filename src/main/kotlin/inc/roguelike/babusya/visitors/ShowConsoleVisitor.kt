@@ -27,7 +27,6 @@ class ShowConsoleVisitor : ElementVisitor<Pair<Char, TextColor>> {
     }
 
     override fun visitMonster(monster: Monster): Pair<Char, TextColor> {
-        //TODO different monsters
         return Pair(if (monster.id.isNotEmpty()) monster.id.first() else 'M', TextColor.ANSI.RED)
     }
 

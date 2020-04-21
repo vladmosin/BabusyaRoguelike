@@ -1,74 +1,45 @@
 package inc.roguelike.babusya.controllers
 
-import com.googlecode.lanterna.TerminalSize
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory
-import inc.roguelike.babusya.element.*
 import inc.roguelike.babusya.element.CreatureCharacteristics
-import inc.roguelike.babusya.element.concrete.EmptyGameElement
+import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.concrete.Wall
-import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
+import inc.roguelike.babusya.element.interfaces.GameElement
+import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.map.Cell
-import inc.roguelike.babusya.map.GameMap
+import inc.roguelike.babusya.mocks.MockMap
+import inc.roguelike.babusya.mocks.MockInputListener
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-
-
-class EmptyMap : GameMap {
-    override fun getLefterCell(cell: Cell): Cell? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getRighterCell(cell: Cell): Cell? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getUpperCell(cell: Cell): Cell? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getDownerCell(cell: Cell): Cell? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun positionOnScreen(cell: Cell): Pair<Int, Int> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun serialize(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun iterator(): Iterator<Cell> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-}
+import org.junit.jupiter.api.BeforeEach
+import java.util.*
 
 class HeroActionControllerTest {
 
-    private val terminal = DefaultTerminalFactory()
-        .setInitialTerminalSize(TerminalSize(100, 30))
-        .createTerminalEmulator()
-
-    private val inputListener = ConsoleKeyboardListener(terminal)
+    private fun createCellWithElement(element: GameElement, map: MockMap): Cell {
+        val cell = Cell()
+        cell.storedItem = element
+        map.mapElementToCell[element] = cell
+        return cell
+    }
 
     @Test
-    fun testMakeMoveHeroToEmpty() {
+    fun testMakeTurnHeroToEmpty() {
+        val inputListener = MockInputListener(LinkedList(listOf(InputData.LEFT)))
+        val map = MockMap()
         val hero = Hero(
-            actionController = null,
+            actionController = HeroActionController(map, inputListener),
             creatureCharacteristics = CreatureCharacteristics.createBasic(),
             elementStatus = ElementStatus.ALIVE,
             experience = 0,
             id = "h"
         )
-        val heroCell = Cell(hero)
-        val emptyCell = Cell(EmptyGameElement())
+        val heroCell = createCellWithElement(hero, map)
+        val emptyCell = Cell()
 
-        val heroActionController = HeroActionController(heroCell, inputListener, EmptyMap())
-
-        heroActionController.makeMove(emptyCell)
+        map.addNextLeft(emptyCell)
+        hero.makeTurn()
 
         assertFalse(heroCell.storedItem.isActive())
         assertTrue(emptyCell.storedItem.isActive())
@@ -76,20 +47,20 @@ class HeroActionControllerTest {
 
     @Test
     fun testMakeMoveHeroToWall() {
+        val inputListener = MockInputListener(LinkedList(listOf(InputData.LEFT)))
+        val map = MockMap()
         val hero = Hero(
-            actionController = null,
+            actionController = HeroActionController(map, inputListener),
             creatureCharacteristics = CreatureCharacteristics.createBasic(),
             elementStatus = ElementStatus.ALIVE,
             experience = 0,
             id = "h"
         )
-        val wall = Wall("w1", ElementStatus.ALIVE)
-        val heroCell = Cell(hero)
-        val wallCell = Cell(wall)
+        val heroCell = createCellWithElement(hero, map)
+        val wallCell = createCellWithElement(Wall("w1", ElementStatus.ALIVE), map)
 
-        val heroActionController = HeroActionController(heroCell, inputListener, EmptyMap())
-
-        heroActionController.makeMove(wallCell)
+        map.addNextLeft(wallCell)
+        hero.makeTurn()
 
         assertTrue(heroCell.storedItem.isActive())
         assertTrue(wallCell.storedItem.isActive())

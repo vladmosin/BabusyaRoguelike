@@ -18,7 +18,6 @@ class ConfusableCreature(val creature: Creature, private var randomController: A
             moreStepsWhileConfused--
             randomController.makeTurn(this)
         } else {
-            //TODO does not support decorators chains
             creature.actionController?.makeTurn(this)
         }
     }

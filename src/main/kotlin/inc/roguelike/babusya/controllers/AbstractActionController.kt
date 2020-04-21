@@ -2,6 +2,7 @@ package inc.roguelike.babusya.controllers
 
 import inc.roguelike.babusya.GameLog
 import inc.roguelike.babusya.effects.Effect
+import inc.roguelike.babusya.effects.PunchEffect
 import inc.roguelike.babusya.element.concrete.EmptyGameElement
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
