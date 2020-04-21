@@ -1,4 +1,4 @@
-package inc.roguelike.babusya.gameElement
+package inc.roguelike.babusya.element
 
 /**
  * Stores status of game element.

@@ -1,7 +1,6 @@
 package inc.roguelike.babusya
 
-import inc.roguelike.babusya.gameElement.Creature
-import inc.roguelike.babusya.gameElement.GameElement
+import inc.roguelike.babusya.element.interfaces.Creature
 import java.util.*
 
 /**
@@ -16,8 +15,10 @@ class ActionSystem {
     }
 
     fun action() {
-        for (elem in queue) {
+        val elem = queue.poll()
+        if (elem != null && elem.isActive()) {
             elem.makeTurn()
+            queue.add(elem)
         }
     }
 }

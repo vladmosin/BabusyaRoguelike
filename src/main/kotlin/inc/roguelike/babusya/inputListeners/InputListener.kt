@@ -5,14 +5,10 @@ import inc.roguelike.babusya.inputListeners.InputData
  */
 interface InputListener {
     /**
-     * Adds command.
+     * Adds command. It will be executed only once
      * Received input processed by commands in order of registration
      * Returns unique command identification
      */
     fun addCommand(command: (InputData) -> Unit): Int
 
-    /**
-     * Removes command by id
-     */
-    fun removeCommand(id: Int)
 }
