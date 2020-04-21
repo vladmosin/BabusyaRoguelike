@@ -28,7 +28,7 @@ class ShowConsoleVisitor : ElementVisitor<Char> {
 
     override fun visitMonster(monster: Monster): Char {
         //TODO different monsters
-        return '1'
+        return if (monster.id.isNotEmpty()) monster.id.first() else 'M'
     }
 
     override fun visitConfused(confusableCreature: ConfusableCreature): Char {
