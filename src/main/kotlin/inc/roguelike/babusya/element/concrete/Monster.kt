@@ -1,12 +1,15 @@
 package inc.roguelike.babusya.element.concrete
 
+import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.controllers.ActionController
+import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.effects.Effect
 import inc.roguelike.babusya.effects.MonsterPunchEffect
 import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractCreature
-import inc.roguelike.babusya.element.interfaces.Creature
+import inc.roguelike.babusya.getArguments
+import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 
@@ -40,21 +43,37 @@ class Monster(creatureCharacteristics: CreatureCharacteristics, actionController
     }
 
     override fun serialize(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return collectToString(name, listOf(characteristics.serialize(),
+            actionController!!.serialize(), id, elementStatus.name))
     }
 
     override fun clone(): Monster {
         val newCharacteristics = characteristics.clone()
-        val monster = Monster(newCharacteristics, null, id, elementStatus)
-        val newActionController = actionController?.clone(monster)
-
-        monster.actionController = newActionController
-        return monster
+        return Monster(newCharacteristics, actionController?.clone(), id, elementStatus)
     }
 
     companion object {
-        fun deserialize(string: String): Monster? {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        private const val name = "Monster"
+
+        fun deserialize(controllerFactory: ControllerFactory, line: String): Monster? {
+            val name = getName(line)
+            val args = getArguments(line)
+
+            return if (name == null || args == null || name != this.name || args.size != 4) {
+                null
+            } else {
+                val elementStatus =
+                    ElementStatus.deserialize(args[3])
+                val creatureCharacteristics =
+                    CreatureCharacteristics.deserialize(args[0])
+                val controller = controllerFactory.deserializeController(args[4])
+
+                if (controller == null || elementStatus == null || creatureCharacteristics == null) {
+                    null
+                } else {
+                    Monster(creatureCharacteristics, controller, args[2], elementStatus)
+                }
+            }
         }
     }
 }

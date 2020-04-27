@@ -1,9 +1,12 @@
 package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
+import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
+import inc.roguelike.babusya.getArguments
+import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
 
@@ -21,82 +24,61 @@ class RectangularMap(
     private val cellByElement = HashMap<GameElement, Cell>()
 
     companion object {
+        private const val name = "RectangularMap"
+
         /**
          * Creates RectangularMap from string
          * */
-        fun deserialize(string: String, inputListener: InputListener): RectangularMap? {
-            val parts = string.split("\n")
-            if (parts.size < 2 || parts[0] != name) {
+        fun deserialize(line: String, inputListener: InputListener): RectangularMap? {
+            val name = getName(line)
+            val args = getArguments(line)
+
+            if (name == null || args == null || args.size < 2 || name != this.name) {
                 return null
             }
 
-            val sizes = parseHeightWidth(parts[1]) ?: return null
-            val height = sizes.first
-            val width = sizes.second
-            val map = RectangularMap(Array(height) {Array(width) {Cell()}})
-            val controllerFactory = ControllerFactory(map, inputListener)
+            try {
+                val height = args[0].toInt()
+                val width = args[1].toInt()
 
-            val gameElements = parseMap(controllerFactory, parts) ?: return null
-
-            for (i in 0 until height) {
-                for (j in 0 until width) {
-                    map.rectangle[i][j].storedItem = gameElements[i][j]
+                if (args.size != height * width + 2) {
+                    return null
                 }
-            }
 
-            return map
-        }
+                val map = RectangularMap(Array(height) { Array(width) { Cell() } })
+                val controllerFactory = ControllerFactory(map, inputListener)
 
-        private fun parseMap(controllerFactory: ControllerFactory, parts: List<String>): List<List<GameElement>>? {
-            val sizes = parseHeightWidth(parts[1]) ?: return null
-            val height = sizes.first
-            val width = sizes.second
-            val gameElements = ArrayList<List<GameElement>>()
-
-            if (parts.size != height + 2) {
-                return null
-            }
-
-            for (i in 2..height + 1) {
-                val items = parseRow(controllerFactory, parts[i], width) ?: return null
-                gameElements.add(items)
-            }
-
-            return gameElements
-        }
-
-        private fun parseRow(controllerFactory: ControllerFactory, string: String, width: Int): List<GameElement>? {
-            val parts = string.split("&")
-            if (parts.size != width) {
-                return null
-            }
-
-            val items = ArrayList<GameElement>()
-            for (part in parts) {
-                val item = GameElement.deserialize(controllerFactory, part) ?: return null
-                items.add(item)
-            }
-
-            return items
-        }
-
-        private fun parseHeightWidth(string: String): Pair<Int, Int>? {
-            val parts = string.split(" ")
-            return if (parts.size != 2) {
-                null
-            } else {
-                try {
-                    val height = parts[0].toInt()
-                    val width = parts[1].toInt()
-
-                    Pair(height, width)
-                } catch (e: NumberFormatException) {
-                    null
+                for (i in 0 until height) {
+                    for (j in 0 until width) {
+                        val element = GameElement.deserialize(controllerFactory, args[2 + i * width + j])
+                        if (element == null) {
+                            return null
+                        } else {
+                            map.rectangle[i][j].storedItem = element
+                        }
+                    }
                 }
+
+                map.updateControllers()
+
+                return map
+
+            } catch (e: NumberFormatException) {
+                return null
             }
         }
+    }
 
-        private const val name = "RectangularMap"
+    private fun updateControllers() {
+        for (i in 0 until height) {
+            for (j in 0 until width) {
+                val item = rectangle[i][j].storedItem
+                if (item is Creature) {
+                    item.actionController?.changeGameMap(this)
+                }
+
+            }
+        }
     }
 
     fun getRectangle(): Array<Array<Cell>> = rectangle
@@ -144,43 +126,30 @@ class RectangularMap(
      * Next height lines contains width number of serialized GameElements
      * */
     override fun serialize(): String {
-        val builder = StringBuilder("${name}\n${height} ${width}\n")
+        val args = ArrayList<String>()
+
+        args.add(height.toString())
+        args.add(width.toString())
+
         for (i in 0 until height) {
             for (j in 0 until width) {
-                builder.append(rectangle[i][j].serialize())
-                if (j < width - 1) {
-                    builder.append('&')
-                }
-            }
-
-            if (i < height - 1) {
-                builder.append('\n')
+                args.add(rectangle[i][j].serialize())
             }
         }
 
-        return builder.toString()
+        return collectToString(name, args)
     }
 
     override fun clone(): RectangularMap {
-        val map = Array(height) {Array(width) {Cell()}}
+        val map = RectangularMap(Array(height) {Array(width) {Cell()}})
         for (i in 0 until height) {
             for (j in 0 until width) {
-                map[i][j] = rectangle[i][j].clone()
+                map.rectangle[i][j] = rectangle[i][j].clone()
             }
         }
 
-        val newGameMap = RectangularMap(map)
-        for (i in 0 until height) {
-            for (j in 0 until width) {
-                map[i][j].attachObserver(newGameMap)
-                val item = map[i][j].storedItem
-                if (item is Creature) {
-                    item.actionController?.changeGameMap(newGameMap)
-                }
-            }
-        }
-
-        return newGameMap
+        map.updateControllers()
+        return map
     }
 
     override fun getLefterCell(cell: Cell): Cell? {
@@ -249,5 +218,13 @@ class RectangularMap(
             }
         }
 
+    }
+
+    override fun cellByPosition(x: Int, y: Int): Cell? {
+        return if (x < height && y < width) {
+            rectangle[x][y]
+        } else {
+            null
+        }
     }
 }

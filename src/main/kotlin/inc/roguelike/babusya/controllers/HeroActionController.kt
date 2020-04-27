@@ -1,6 +1,7 @@
 package inc.roguelike.babusya.controllers
 
 import InputListener
+import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.inputListeners.InputData
@@ -50,7 +51,17 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
         makeMove(creature, targetCell)
     }
 
-    override fun clone(gameElement: GameElement): HeroActionController {
+    override fun clone(): HeroActionController {
         return HeroActionController(gameMap, inputListener)
     }
+
+    override fun serialize(): String {
+        return collectToString(ControllerType.HeroController.name, listOf())
+    }
+
+    override fun setDeserializeInfo(args: List<String>): ActionController? {
+        return this
+    }
+
+
 }

@@ -49,6 +49,10 @@ class MockMap: GameMap {
         TODO("Not yet implemented")
     }
 
+    override fun cellByPosition(x: Int, y: Int): Cell? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun iterator(): Iterator<Cell> {
         TODO("Not yet implemented")
     }

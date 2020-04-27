@@ -14,7 +14,8 @@ abstract class AbstractStaticElement(id: String, elementStatus: ElementStatus) :
         fun deserialize(string: String): StaticElement? {
             val deserializers = listOf(
                 { s: String -> Wall.deserialize(s) },
-                { s: String -> EmptyGameElement.deserialize(s) })
+                { s: String -> EmptyGameElement.deserialize(s) }
+            )
 
             for (deserializer in deserializers) {
                 val gameElement = deserializer(string)

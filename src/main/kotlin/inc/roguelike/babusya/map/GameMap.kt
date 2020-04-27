@@ -47,4 +47,10 @@ interface GameMap : Iterable<Cell>, CellObserver {
      * Clones game map
      * */
     fun clone(): GameMap
+
+    /**
+     * Returns cell by position
+     * */
+
+    fun cellByPosition(x: Int, y: Int): Cell?
 }

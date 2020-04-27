@@ -11,4 +11,6 @@ class Level(private var map: GameMap, private var name: String, private val id: 
     fun getName() = name
 
     fun getId() = id
+
+    fun clone() = Level(map.clone(), name, id)
 }

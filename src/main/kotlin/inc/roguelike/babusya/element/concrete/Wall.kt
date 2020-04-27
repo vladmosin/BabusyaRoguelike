@@ -1,8 +1,11 @@
 package inc.roguelike.babusya.element.concrete
 
+import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
 import inc.roguelike.babusya.element.interfaces.GameElement
+import inc.roguelike.babusya.getArguments
+import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 /**
@@ -19,7 +22,7 @@ class Wall(id: String, elementStatus: ElementStatus) : AbstractStaticElement(id,
     }
 
     override fun serialize(): String {
-        return "$name#${id}#${elementStatus}"
+        return collectToString(name, listOf(id, elementStatus.name))
     }
 
     override fun clone(): Wall {
@@ -28,20 +31,21 @@ class Wall(id: String, elementStatus: ElementStatus) : AbstractStaticElement(id,
 
     companion object {
         fun deserialize(string: String): Wall? {
-            val parts = string.split("#")
-            return if (parts.size != 3) {
+            val name = getName(string)
+            val args = getArguments(string)
+
+            if (name == null || args == null || args.size != 2 || name != this.name) {
+                return null
+            }
+
+            val status = ElementStatus.deserialize(args[1])
+            return if (status == null) {
                 null
             } else {
-                val elementStatus =
-                    ElementStatus.deserialize(parts[2])
-                if (elementStatus == null || parts[0] != name) {
-                    null
-                } else {
-                    Wall(parts[1], elementStatus)
-                }
+                Wall(args[0], status)
             }
         }
 
-        private const val name = "w"
+        private const val name = "Wall"
     }
 }

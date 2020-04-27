@@ -22,10 +22,20 @@ interface ActionController {
     /**
      * Clones controller
      * */
-    fun clone(gameElement: GameElement): ActionController
+    fun clone(): ActionController
 
     /**
      * Changes map which is controlled
      * */
     fun changeGameMap(gameMap: GameMap)
+
+    /**
+     * Serializes controller
+     * */
+    fun serialize(): String
+
+    /**
+     * Sets extra information after while deserializing
+     * */
+    fun setDeserializeInfo(args: List<String>): ActionController?
 }

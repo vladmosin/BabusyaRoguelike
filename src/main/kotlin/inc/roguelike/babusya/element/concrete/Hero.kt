@@ -1,5 +1,6 @@
 package inc.roguelike.babusya.element.concrete
 
+import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.controllers.ActionController
 import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.controllers.ControllerType
@@ -10,6 +11,8 @@ import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractCreature
 import inc.roguelike.babusya.element.interfaces.Creature
+import inc.roguelike.babusya.getArguments
+import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 
@@ -42,47 +45,47 @@ class Hero(
     }
 
     override fun serialize(): String {
-        return "$name#${characteristics.serialize()}#${id}#${elementStatus}#${experience}"
+        return collectToString(name, listOf(characteristics.serialize(), id, elementStatus.name,
+            experience.toString(), actionController!!.serialize()))
     }
 
     override fun clone(): Hero {
         val newCharacteristics = characteristics.clone()
-        val hero = Hero(newCharacteristics, null, id, elementStatus, experience)
-        val newActionController = actionController?.clone(hero)
-
-        hero.actionController = newActionController
-        return hero
-    }
+        return Hero(newCharacteristics, actionController?.clone(), id, elementStatus, experience)
+}
 
     companion object {
+        private const val name = "Hero"
+
         fun deserialize(controllerFactory: ControllerFactory, string: String): Hero? {
-            val parts = string.split("#")
-            return if (parts.size != 6) {
+            val name = getName(string)
+            val args = getArguments(string)
+
+            if (name == null || args == null || name != this.name || args.size != 5) {
+                return null
+            }
+
+            val elementStatus =
+                ElementStatus.deserialize(args[2])
+            val creatureCharacteristics =
+                CreatureCharacteristics.deserialize(args[0])
+            val controller = controllerFactory.deserializeController(args[4])
+
+            return if (elementStatus == null || creatureCharacteristics == null || controller == null) {
                 null
             } else {
-                val elementStatus =
-                    ElementStatus.deserialize(parts[3])
-                val creatureCharacteristics =
-                    CreatureCharacteristics.deserialize(parts[1])
-
-                if (elementStatus == null || creatureCharacteristics == null || parts[0] != name) {
+                try {
+                    Hero(
+                        creatureCharacteristics,
+                        controller,
+                        args[1],
+                        elementStatus,
+                        args[3].toInt()
+                    )
+                } catch (e: NumberFormatException) {
                     null
-                } else {
-                    return try {
-                        Hero(
-                            creatureCharacteristics,
-                            controllerFactory.createController(ControllerType.valueOf(parts[5])),
-                            parts[2],
-                            elementStatus,
-                            parts[4].toInt()
-                        )
-                    } catch (e: NumberFormatException) {
-                        null
-                    }
                 }
             }
         }
-
-        private const val name = "h"
     }
 }
