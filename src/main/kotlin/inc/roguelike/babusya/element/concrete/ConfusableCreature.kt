@@ -54,7 +54,7 @@ class ConfusableCreature(val creature: Creature, private var randomController: A
                 null
             } else {
                 val creature = Creature.deserialize(controllerFactory, args[0])
-                val controller = controllerFactory.deserializeController(args[4])
+                val controller = controllerFactory.deserializeController(args[1])
 
                 if (creature == null || controller == null) {
                     null

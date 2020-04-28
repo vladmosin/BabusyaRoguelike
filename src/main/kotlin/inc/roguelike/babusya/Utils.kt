@@ -32,7 +32,7 @@ fun getArguments(line: String): List<String>? {
         return null
     }
 
-    val argPart = line.substring(endName + 1, line.lastIndex - 1)
+    val argPart = line.substring(endName + 1, line.lastIndex)
     return splitIntoParts(argPart)
 }
 
@@ -41,8 +41,17 @@ fun splitIntoParts(line: String): ArrayList<String> {
         return ArrayList()
     }
 
-    for (i in line.length-1..1) {
-        if (line[i] == ' ' && line[i - 1] == ',') {
+    var brackets = 0
+    for (i in line.length-1 downTo 1) {
+        if (line[i] == ')') {
+            brackets += 1
+        }
+
+        if (line[i] == '(') {
+            brackets -= 1
+        }
+
+        if (line[i] == ' ' && line[i - 1] == ',' && brackets == 0) {
             val splittedPrevious = splitIntoParts(line.substring(0, i - 1))
             splittedPrevious.add(line.substring(i + 1))
 

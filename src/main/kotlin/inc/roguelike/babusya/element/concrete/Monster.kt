@@ -66,7 +66,7 @@ class Monster(creatureCharacteristics: CreatureCharacteristics, actionController
                     ElementStatus.deserialize(args[3])
                 val creatureCharacteristics =
                     CreatureCharacteristics.deserialize(args[0])
-                val controller = controllerFactory.deserializeController(args[4])
+                val controller = controllerFactory.deserializeController(args[1])
 
                 if (controller == null || elementStatus == null || creatureCharacteristics == null) {
                     null

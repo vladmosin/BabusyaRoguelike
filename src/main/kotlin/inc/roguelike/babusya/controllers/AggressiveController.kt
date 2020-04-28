@@ -49,7 +49,7 @@ class AggressiveController(gameMap: GameMap, var attackTarget: GameElement?): Ab
             }
         }
 
-        return collectToString(ControllerType.HeroController.name, listOf(x.toString(), y.toString()))
+        return collectToString(ControllerType.AggressiveController.name, listOf(x.toString(), y.toString()))
     }
 
     override fun setDeserializeInfo(args: List<String>): ActionController? {

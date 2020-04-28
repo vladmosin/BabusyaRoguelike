@@ -1,8 +1,11 @@
 package inc.roguelike.babusya.element.concrete
 
+import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
 import inc.roguelike.babusya.element.interfaces.GameElement
+import inc.roguelike.babusya.getArguments
+import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 /**
@@ -21,7 +24,7 @@ class EmptyGameElement : AbstractStaticElement(
     }
 
     override fun serialize(): String {
-        return name
+        return collectToString(name, listOf())
     }
 
     override fun clone(): EmptyGameElement {
@@ -29,14 +32,17 @@ class EmptyGameElement : AbstractStaticElement(
     }
 
     companion object {
-        fun deserialize(string: String): EmptyGameElement? {
-            return if (string == name) {
-                EmptyGameElement()
-            } else {
+        fun deserialize(line: String): EmptyGameElement? {
+            val name = getName(line)
+            val args = getArguments(line)
+
+            return if (args == null || name == null || args.isNotEmpty() || name != this.name) {
                 null
+            } else {
+                EmptyGameElement()
             }
         }
 
-        private const val name = "e"
+        private const val name = "Empty"
     }
 }
