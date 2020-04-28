@@ -4,7 +4,6 @@ import InputListener
 import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.interfaces.Creature
-import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.map.GameMap
 import kotlinx.coroutines.channels.Channel
@@ -16,8 +15,15 @@ import kotlinx.coroutines.runBlocking
 class HeroActionController(gameMap: GameMap, val inputListener: InputListener): AbstractActionController(gameMap) {
 
     private val inputDataChannel = Channel<InputData>(capacity = Channel.CONFLATED)
-    private val stepCommands = listOf(InputData.RIGHT, InputData.UP, InputData.LEFT, InputData.DOWN)
-
+    private val stepCommands = listOf(
+        InputData.RIGHT,
+        InputData.UP,
+        InputData.LEFT,
+        InputData.DOWN,
+        InputData.INVENTORY_TOGGLE,
+        InputData.INVENTORY_UP,
+        InputData.INVENTORY_DOWN
+    )
 
     private fun receiveStep(): InputData {
         fun receive(input: InputData) {
@@ -47,6 +53,17 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
             InputData.UP -> gameMap.getUpperCell(cell) ?: cell
             InputData.LEFT -> gameMap.getLefterCell(cell) ?: cell
             InputData.DOWN -> gameMap.getDownerCell(cell) ?: cell
+            else -> cell
+        }
+
+        if (creature is Hero) { // TODO: get rid of such casts
+            if (data == InputData.INVENTORY_TOGGLE) {
+                creature.inventory.useSelected()
+            } else if (data == InputData.INVENTORY_UP) {
+                creature.inventory.selectPreviousLoot()
+            } else if (data == InputData.INVENTORY_DOWN) {
+                creature.inventory.selectNextLoot()
+            }
         }
 
         makeMove(creature, targetCell)

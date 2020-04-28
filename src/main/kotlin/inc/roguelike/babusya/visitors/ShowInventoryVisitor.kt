@@ -17,7 +17,6 @@ class ShowInventoryVisitor(
     var yOffset = 0
 
     override fun visitStairs(stairs: Stairs): Unit {
-
     }
 
     override fun visitDoor(door: Door): Unit {

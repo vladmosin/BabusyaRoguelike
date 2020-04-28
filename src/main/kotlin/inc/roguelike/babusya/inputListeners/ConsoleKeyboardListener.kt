@@ -5,10 +5,8 @@ import com.googlecode.lanterna.input.KeyStroke
 import com.googlecode.lanterna.input.KeyType
 import com.googlecode.lanterna.terminal.Terminal
 import kotlinx.coroutines.*
-import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.concurrent.thread
 
 /**
  * Receives input from console
@@ -21,17 +19,25 @@ class ConsoleKeyboardListener(val terminal: Terminal): InputListener {
     val commandQueue = ConcurrentLinkedQueue<(InputData) -> Unit>()
 
     private fun keyStrokeToInputData(keyStroke: KeyStroke?): InputData? {
-        return when(keyStroke?.keyType) {
-            KeyType.ArrowRight -> InputData.RIGHT
-            KeyType.ArrowUp -> InputData.UP
-            KeyType.ArrowLeft -> InputData.LEFT
-            KeyType.ArrowDown -> InputData.DOWN
-            else -> null
+        if (keyStroke == null) {
+            return null
+        }
+        return when {
+            keyStroke.character == 'k' -> InputData.INVENTORY_TOGGLE
+            keyStroke.character == 'i' -> InputData.INVENTORY_UP
+            keyStroke.character == 'j' -> InputData.INVENTORY_DOWN
+            else -> when (keyStroke.keyType) {
+                KeyType.ArrowRight -> InputData.RIGHT
+                KeyType.ArrowUp -> InputData.UP
+                KeyType.ArrowLeft -> InputData.LEFT
+                KeyType.ArrowDown -> InputData.DOWN
+                else -> null
+            }
         }
     }
 
     private fun readInput(): InputData {
-        var inputData: InputData? = null
+        var inputData: InputData?
         do {
             inputData = keyStrokeToInputData(terminal.readInput())
         } while (inputData == null)

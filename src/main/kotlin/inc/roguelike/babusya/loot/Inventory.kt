@@ -30,6 +30,32 @@ class Inventory(val owner: Hero) {
         }
     }
 
+    fun selectPreviousLoot() {
+        var previousLoot: Loot? = null
+        for (loot in inPossesionOf) {
+            if (loot == selected) {
+                break
+            }
+            previousLoot = loot
+        }
+        selected = previousLoot
+    }
+
+    fun selectNextLoot() {
+        if (selected == null) {
+            return
+        }
+        var previousLoot: Loot? = null
+        for (loot in inPossesionOf) {
+            if (previousLoot == selected) {
+                selected = loot
+                return
+            }
+            previousLoot = loot
+        }
+        selected = null
+    }
+
     fun useSelected() {
         selected?.use(this)
         selected = null
