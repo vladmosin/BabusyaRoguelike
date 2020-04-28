@@ -18,7 +18,7 @@ import inc.roguelike.babusya.visitors.ShowInventoryVisitor
  * */
 class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
 
-    private val LEFT_FRAME = 60
+    private val LEFT_FRAME = 50
     private val UP_FRAME = 5
     private val LOG_ROWS = 15
 

@@ -20,6 +20,9 @@ class Inventory(val owner: Hero) {
 
     fun addToInventory(item: Loot) {
         inPossesionOf.add(item)
+        if (selected == null) {
+            selected = inPossesionOf.firstOrNull()
+        }
     }
     
     fun removeFromInventory(item: Loot) {
@@ -27,6 +30,9 @@ class Inventory(val owner: Hero) {
             equip(EmptyEquipment(item.type))
         }
         inPossesionOf.remove(item)
+        if (selected == item) {
+            selected = inPossesionOf.firstOrNull()
+        }
     }
 
     fun selectItem(item: Loot) {
@@ -43,7 +49,7 @@ class Inventory(val owner: Hero) {
             }
             previousLoot = loot
         }
-        selected = previousLoot
+        selected = previousLoot ?: selected
     }
 
     fun selectNextLoot() {
@@ -58,12 +64,10 @@ class Inventory(val owner: Hero) {
             }
             previousLoot = loot
         }
-        selected = null
     }
 
     fun useSelected() {
         selected?.use(this)
-        selected = null
     }
 
     fun equip(newItem: Equipment) {
