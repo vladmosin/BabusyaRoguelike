@@ -61,7 +61,7 @@ open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus:
             } else {
                 val type = EquipmentType.deserialize(args[0]) ?: return null
                 try {
-                    return Equipment(type, args[0].toInt(), args[1].toInt())
+                    return Equipment(type, args[1].toInt(), args[2].toInt())
                 } catch (e: NumberFormatException) {
                     null
                 }

@@ -23,7 +23,7 @@ class Hero(
     id: String, elementStatus: ElementStatus, var experience: Int
 ) : AbstractCreature(creatureCharacteristics, actionController, id, elementStatus) {
 
-    val inventory = Inventory(this)
+    var inventory = Inventory(this)
 
     override fun <T> accept(visitor: ElementVisitor<T>): T {
         return visitor.visitHero(this)
@@ -47,7 +47,7 @@ class Hero(
 
     override fun serialize(): String {
         return collectToString(name, listOf(characteristics.serialize(), id, elementStatus.name,
-            experience.toString(), actionController!!.serialize()))
+            experience.toString(), actionController!!.serialize(), inventory.serialize()))
     }
 
     override fun clone(): Hero {
@@ -62,7 +62,7 @@ class Hero(
             val name = getName(string)
             val args = getArguments(string)
 
-            if (name == null || args == null || name != this.name || args.size != 5) {
+            if (name == null || args == null || name != this.name || args.size != 6) {
                 return null
             }
 
@@ -76,13 +76,13 @@ class Hero(
                 null
             } else {
                 try {
-                    Hero(
-                        creatureCharacteristics,
-                        controller,
-                        args[1],
-                        elementStatus,
-                        args[3].toInt()
+                    val hero = Hero(creatureCharacteristics, controller,
+                        args[1], elementStatus, args[3].toInt()
                     )
+                    val inventory = Inventory.deserialize(args[5], hero) ?: return null
+                    hero.inventory = inventory
+
+                    hero
                 } catch (e: NumberFormatException) {
                     null
                 }

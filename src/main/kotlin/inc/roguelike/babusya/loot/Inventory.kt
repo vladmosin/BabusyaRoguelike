@@ -118,7 +118,7 @@ class Inventory(val owner: Hero) {
                         items.add(item)
                     }
 
-                    val map = deserializeMap(line, items) ?: return null
+                    val map = deserializeMap(args[itemsNumber + 1], items) ?: return null
                     val selectedIndex = args.last().toInt()
                     val selected = if (selectedIndex == -1) null else items[selectedIndex]
                     val inventory = Inventory(owner)
