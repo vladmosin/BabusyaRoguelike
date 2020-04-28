@@ -6,6 +6,7 @@ import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.Terminal
 import inc.roguelike.babusya.GameLog
+import inc.roguelike.babusya.element.concrete.EmptyGameElement
 import inc.roguelike.babusya.levels.Level
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.visitors.ShowConsoleVisitor
@@ -66,7 +67,12 @@ class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
 
     private fun showMap(map: GameMap, xOffset: Int, yOffset: Int) {
         for (cell in map) {
-            val (cellChar, cellColor) = cell.storedItem.accept(showVisitor)
+            var (cellChar, cellColor) = cell.storedItem.accept(showVisitor)
+            val loot = cell.loot
+            if (loot != null && cell.storedItem is EmptyGameElement) {
+                cellChar = '*'
+            }
+
             val (i, j) = map.positionOnScreen(cell)
             screen.setCharacter(j + xOffset, i + yOffset, TextCharacter(cellChar, cellColor, TextColor.ANSI.BLACK))
         }

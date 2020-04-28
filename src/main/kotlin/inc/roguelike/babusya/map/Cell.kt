@@ -18,7 +18,7 @@ class Cell {
                 observer.onCellUpdate(this)
         }
 
-    val loot: Loot? = null
+    var loot: Loot? = null
 
     fun storesActiveItem(): Boolean = storedItem.isActive()
 

@@ -2,7 +2,6 @@ package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
 import inc.roguelike.babusya.FileSystem.Companion.saveToFile
-import inc.roguelike.babusya.element.concrete.EmptyGameElement
 import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.map.Cell
 import org.junit.Assert.assertEquals
@@ -34,9 +33,9 @@ class RectangularMapTest {
     @Test
     fun testClone() {
         val map = RectangularMapBuilder(20, 20)
-            .addWalls()
+            .addRandomWalls()
             .addHero()
-            .addMonsters()
+            .addRandomMonsters()
             .buildMap(EmptyInputListener())
 
         val serialized = map.serialize()
