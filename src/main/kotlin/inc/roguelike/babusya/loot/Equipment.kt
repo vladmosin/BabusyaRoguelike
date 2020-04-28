@@ -5,7 +5,11 @@ import kotlin.math.min
 
 open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus: Int): Loot {
     override fun use(inventory: Inventory) {
-        inventory.equip(this)
+        if (inventory.equipped[type] == this) {
+            inventory.equip(EmptyEquipment(type))
+        } else {
+            inventory.equip(this)
+        }
     }
 
     fun addBuffs(hero: Hero) {
