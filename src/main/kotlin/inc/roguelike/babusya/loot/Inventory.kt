@@ -15,24 +15,50 @@ import inc.roguelike.babusya.getName
  */
 class Inventory(val owner: Hero) {
     val equipped = HashMap<EquipmentType, Equipment>()
-    val inPossessionOf = HashSet<Loot>()
+    val inPossesionOf = HashSet<Loot>()
     var selected: Loot? = null
 
     fun addToInventory(item: Loot) {
-        inPossessionOf.add(item)
+        inPossesionOf.add(item)
     }
     
     fun removeFromInventory(item: Loot) {
         if (item is Equipment && equipped[item.type] == item) {
             equip(EmptyEquipment(item.type))
         }
-        inPossessionOf.remove(item)
+        inPossesionOf.remove(item)
     }
 
     fun selectItem(item: Loot) {
-        if (item in inPossessionOf) {
+        if (item in inPossesionOf) {
             selected = item
         }
+    }
+
+    fun selectPreviousLoot() {
+        var previousLoot: Loot? = null
+        for (loot in inPossesionOf) {
+            if (loot == selected) {
+                break
+            }
+            previousLoot = loot
+        }
+        selected = previousLoot
+    }
+
+    fun selectNextLoot() {
+        if (selected == null) {
+            return
+        }
+        var previousLoot: Loot? = null
+        for (loot in inPossesionOf) {
+            if (previousLoot == selected) {
+                selected = loot
+                return
+            }
+            previousLoot = loot
+        }
+        selected = null
     }
 
     fun useSelected() {
@@ -45,6 +71,9 @@ class Inventory(val owner: Hero) {
         equipped[newItem.type] = newItem
         equipped[newItem.type]?.addBuffs(owner)
     }
+
+    fun isEquipped(loot: Loot?): Boolean {
+        return equipped.values.contains(loot)
 
     fun serialize(): String {
         val items = ArrayList(inPossessionOf)

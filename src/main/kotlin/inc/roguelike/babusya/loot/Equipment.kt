@@ -11,7 +11,6 @@ import kotlin.math.min
  * Modifies hero characteristics when equipped
  */
 open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus: Int): Loot {
-
     /**
      * If hero is currently equipped with this item
      *  then it is taken off
@@ -46,6 +45,10 @@ open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus:
         hero.characteristics.attack -= attackBonus
     }
 
+    override fun getDescrition(): String {
+        return "(Eq| ${type.name[0]}, hp: $hpBonus, attack: $attackBonus)"
+    }
+  
     companion object {
         private const val name = "Equipment"
 

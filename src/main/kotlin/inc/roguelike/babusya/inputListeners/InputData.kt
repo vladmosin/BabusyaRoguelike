@@ -8,4 +8,7 @@ enum class InputData {
     RIGHT,
     DOWN,
     UP,
+    INVENTORY_UP,
+    INVENTORY_DOWN,
+    INVENTORY_TOGGLE
 }
