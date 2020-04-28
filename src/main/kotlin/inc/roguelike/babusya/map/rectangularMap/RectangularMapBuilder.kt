@@ -2,6 +2,7 @@ package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
 import inc.roguelike.babusya.controllers.*
+import inc.roguelike.babusya.effects.HealEffect
 import inc.roguelike.babusya.element.*
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.CreatureCharacteristics
@@ -9,6 +10,9 @@ import inc.roguelike.babusya.element.concrete.ConfusableCreature
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.concrete.Monster
 import inc.roguelike.babusya.element.concrete.Wall
+import inc.roguelike.babusya.loot.Equipment
+import inc.roguelike.babusya.loot.EquipmentType
+import inc.roguelike.babusya.loot.Potion
 import inc.roguelike.babusya.map.Cell
 import kotlin.math.abs
 import kotlin.random.Random
@@ -137,7 +141,7 @@ class RectangularMapBuilder(
         }
     }
 
-    fun addWalls(): RectangularMapBuilder {
+    fun addRandomWalls(): RectangularMapBuilder {
         val importantPositions = getPositions {
                 cell -> cell.storesActiveItem() ||
                 Random.nextDouble(0.0, 1.0) < 10.0 / height / width
@@ -166,7 +170,7 @@ class RectangularMapBuilder(
         return this
     }
 
-    fun addMonsters(): RectangularMapBuilder {
+    fun addRandomMonsters(): RectangularMapBuilder {
         val emptyPositions = getPositions { cell -> !cell.storesActiveItem() }
         emptyPositions.shuffle()
         if (emptyPositions.size >= 3) {
@@ -217,6 +221,22 @@ class RectangularMapBuilder(
                 rectangle[i][j].storedItem = monster
                 creatureToController.add(Pair(monster, ControllerType.CowardController))
             }
+        }
+        return this
+    }
+
+    fun addRandomLoot(): RectangularMapBuilder {
+        val emptyPositions = getPositions { cell -> !cell.storesActiveItem() }
+        emptyPositions.shuffle()
+
+        if (emptyPositions.size >= 1) {
+            val (i, j) = emptyPositions[0]
+            rectangle[i][j].loot = Equipment(EquipmentType.HAT, 100, 100)
+        }
+
+        if (emptyPositions.size >= 2) {
+            val (i, j) = emptyPositions[1]
+            rectangle[i][j].loot = Potion("Heal Potion", HealEffect(10000))
         }
         return this
     }

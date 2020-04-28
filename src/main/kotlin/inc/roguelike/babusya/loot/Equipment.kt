@@ -6,20 +6,40 @@ import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import kotlin.math.min
 
+/**
+ * Loot which can be equipped by hero
+ * Modifies hero characteristics when equipped
+ */
 open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus: Int): Loot {
-    override fun use(inventory: Inventory) {
-        inventory.equip(this)
-    }
 
+    /**
+     * If hero is currently equipped with this item
+     *  then it is taken off
+     * otherwise it is putted on
+     */
+    override fun use(inventory: Inventory) {
+        if (inventory.equipped[type] == this) {
+            inventory.equip(EmptyEquipment(type))
+        } else {
+            inventory.equip(this)
+        }
+    }
+    
     override fun serialize(): String {
         return collectToString(name, listOf(type.name, hpBonus.toString(), attackBonus.toString()))
     }
 
+    /**
+     * Add buffs for wearing equipment
+     */
     fun addBuffs(hero: Hero) {
         hero.characteristics.maxHitPoints += hpBonus
         hero.characteristics.attack += attackBonus
     }
 
+    /**
+     * Remove buffs for wearing equipment
+     */
     fun removeBuffs(hero: Hero) {
         hero.characteristics.maxHitPoints -= hpBonus
         hero.characteristics.hitPoints = min(hero.characteristics.hitPoints, hero.characteristics.maxHitPoints)

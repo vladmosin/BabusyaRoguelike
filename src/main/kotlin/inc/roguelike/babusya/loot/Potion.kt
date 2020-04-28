@@ -2,12 +2,14 @@ package inc.roguelike.babusya.loot
 
 import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.effects.Effect
-import inc.roguelike.babusya.element.concrete.Hero
-import inc.roguelike.babusya.element.interfaces.GameElement
 
+/**
+ * Applies effect on use
+ */
 class Potion(val name: String, val effect: Effect): Consumable {
     override fun use(inventory: Inventory) {
         effect.apply(inventory.owner)
+        inventory.removeFromInventory(this)
     }
 
     override fun serialize(): String {
