@@ -32,13 +32,14 @@ class RectangularMapTest {
 
     @Test
     fun testClone() {
-        val map = RectangularMapBuilder(20, 20)
+        val map = RectangularMapBuilder(20, 30)
             .addRandomWalls()
             .addHero()
             .addRandomMonsters()
+            .addRandomLoot()
             .buildMap(EmptyInputListener())
 
         val serialized = map.serialize()
-        saveToFile("Levels/Level1", serialized)
+        saveToFile("Levels/Level2", serialized)
     }
 }

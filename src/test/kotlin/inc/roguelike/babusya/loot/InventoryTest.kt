@@ -25,13 +25,13 @@ class InventoryTest {
         )
         val potion = Potion("Heal potion", HealEffect(75))
         hero.inventory.addToInventory(potion)
-        assertTrue(potion in hero.inventory.inPossessionOf)
+        assertTrue(potion in hero.inventory.inPossesionOf)
         hero.inventory.selectItem(potion)
         assertEquals(hero.inventory.selected, potion)
         hero.inventory.useSelected()
         assertEquals(175, hero.characteristics.hitPoints)
         assertEquals(200, hero.characteristics.maxHitPoints)
-        assertFalse(potion in hero.inventory.inPossessionOf)
+        assertFalse(potion in hero.inventory.inPossesionOf)
     }
 
     @Test
@@ -45,14 +45,14 @@ class InventoryTest {
         )
         val hat = Equipment(EquipmentType.HAT, 42, 42)
         hero.inventory.addToInventory(hat)
-        assertTrue(hat in hero.inventory.inPossessionOf)
+        assertTrue(hat in hero.inventory.inPossesionOf)
         hero.inventory.selectItem(hat)
         assertEquals(hero.inventory.selected, hat)
         hero.inventory.useSelected()
         assertEquals(100, hero.characteristics.hitPoints)
         assertEquals(242, hero.characteristics.maxHitPoints)
         assertEquals(142, hero.characteristics.attack)
-        assertTrue(hat in hero.inventory.inPossessionOf)
+        assertTrue(hat in hero.inventory.inPossesionOf)
         assertEquals(hat, hero.inventory.equipped[EquipmentType.HAT])
     }
 }

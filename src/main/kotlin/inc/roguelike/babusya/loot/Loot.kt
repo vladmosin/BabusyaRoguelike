@@ -13,7 +13,8 @@ interface Loot {
     companion object {
         fun deserialize(line: String): Loot? {
             val deserializers = listOf(
-                { s: String -> Equipment.deserialize(s) }
+                { s: String -> Equipment.deserialize(s) },
+                { s: String -> Potion.deserialize(s) }
             )
 
             for (deserializer in deserializers) {

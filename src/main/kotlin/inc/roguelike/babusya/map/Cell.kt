@@ -31,7 +31,7 @@ class Cell {
     }
 
     fun serialize(): String {
-        return collectToString(name, listOf(storedItem.serialize(), if (loot == null) "" else loot!!.serialize()))
+        return collectToString(name, listOf(storedItem.serialize(), if (loot == null) "null" else loot!!.serialize()))
     }
 
     fun clone(): Cell {
