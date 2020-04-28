@@ -32,7 +32,7 @@ class RectangularMapTest {
 
     @Test
     fun testClone() {
-        val map = RectangularMapBuilder(20, 30)
+        val map = RectangularMapBuilder(4, 3)
             .addRandomWalls()
             .addHero()
             .addRandomMonsters()
