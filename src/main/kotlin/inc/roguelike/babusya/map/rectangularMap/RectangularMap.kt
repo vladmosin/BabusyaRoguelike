@@ -50,11 +50,12 @@ class RectangularMap(
 
                 for (i in 0 until height) {
                     for (j in 0 until width) {
-                        val element = GameElement.deserialize(controllerFactory, args[2 + i * width + j])
-                        if (element == null) {
+                        val cell = Cell.deserialize(controllerFactory, args[2 + i * width + j])
+                        if (cell == null) {
                             return null
                         } else {
-                            map.rectangle[i][j].storedItem = element
+                            map.rectangle[i][j].storedItem = cell.storedItem
+                            map.rectangle[i][j].loot = cell.loot
                         }
                     }
                 }
