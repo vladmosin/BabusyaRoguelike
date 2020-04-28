@@ -74,9 +74,10 @@ class Inventory(val owner: Hero) {
 
     fun isEquipped(loot: Loot?): Boolean {
         return equipped.values.contains(loot)
+    }
 
     fun serialize(): String {
-        val items = ArrayList(inPossessionOf)
+        val items = ArrayList(inPossesionOf)
         val args = ArrayList<String>()
 
         args.add(items.size.toString())
@@ -121,7 +122,7 @@ class Inventory(val owner: Hero) {
                     for (keyValue in map) {
                         inventory.equipped[keyValue.key] = keyValue.value
                     }
-                    inventory.inPossessionOf.addAll(items)
+                    inventory.inPossesionOf.addAll(items)
                     inventory.selected = selected
 
                     return inventory
