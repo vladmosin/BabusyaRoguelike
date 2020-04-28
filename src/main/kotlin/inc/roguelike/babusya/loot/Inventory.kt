@@ -4,7 +4,7 @@ import inc.roguelike.babusya.element.concrete.Hero
 
 class Inventory(val owner: Hero) {
     val equipped = HashMap<EquipmentType, Equipment>()
-    val inPossessionOf = HashSet<Loot>()
+    val inPossesionOf = HashSet<Loot>()
     var selected: Loot? = null
 
     init {
@@ -14,18 +14,18 @@ class Inventory(val owner: Hero) {
     }
 
     fun addToInventory(item: Loot) {
-        inPossessionOf.add(item)
+        inPossesionOf.add(item)
     }
     
     fun removeFromInventory(item: Loot) {
         if (item is Equipment && equipped[item.type] == item) {
             equip(EmptyEquipment(item.type))
         }
-        inPossessionOf.remove(item)
+        inPossesionOf.remove(item)
     }
 
     fun selectItem(item: Loot) {
-        if (item in inPossessionOf) {
+        if (item in inPossesionOf) {
             selected = item
         }
     }
@@ -39,5 +39,9 @@ class Inventory(val owner: Hero) {
         equipped[newItem.type]?.removeBuffs(owner)
         equipped[newItem.type] = newItem
         equipped[newItem.type]?.addBuffs(owner)
+    }
+
+    fun isEquipped(loot: Loot?): Boolean {
+        return equipped.values.contains(loot)
     }
 }

@@ -4,6 +4,7 @@ import inc.roguelike.babusya.element.concrete.Hero
 import kotlin.math.min
 
 open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus: Int): Loot {
+
     override fun use(inventory: Inventory) {
         if (inventory.equipped[type] == this) {
             inventory.equip(EmptyEquipment(type))
@@ -23,4 +24,7 @@ open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus:
         hero.characteristics.attack -= attackBonus
     }
 
+    override fun getDescrition(): String {
+        return "(Eq| ${type.name[0]}, hp: $hpBonus, attack: $attackBonus)"
+    }
 }
