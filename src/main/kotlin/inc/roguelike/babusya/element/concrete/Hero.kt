@@ -3,16 +3,15 @@ package inc.roguelike.babusya.element.concrete
 import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.controllers.ActionController
 import inc.roguelike.babusya.controllers.ControllerFactory
-import inc.roguelike.babusya.controllers.ControllerType
 import inc.roguelike.babusya.effects.ConfusionChanceEffect
 import inc.roguelike.babusya.effects.Effect
 import inc.roguelike.babusya.effects.PunchEffect
 import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractCreature
-import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
+import inc.roguelike.babusya.loot.Inventory
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 
@@ -23,6 +22,8 @@ class Hero(
     creatureCharacteristics: CreatureCharacteristics, actionController: ActionController?,
     id: String, elementStatus: ElementStatus, var experience: Int
 ) : AbstractCreature(creatureCharacteristics, actionController, id, elementStatus) {
+
+    val inventory = Inventory(this)
 
     override fun <T> accept(visitor: ElementVisitor<T>): T {
         return visitor.visitHero(this)

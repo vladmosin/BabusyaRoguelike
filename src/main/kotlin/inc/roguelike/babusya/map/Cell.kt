@@ -2,6 +2,7 @@ package inc.roguelike.babusya.map
 
 import inc.roguelike.babusya.element.concrete.EmptyGameElement
 import inc.roguelike.babusya.element.interfaces.GameElement
+import inc.roguelike.babusya.loot.Loot
 
 /**
  * Implement a cell for game map.
@@ -16,6 +17,8 @@ class Cell {
             for (observer in observers)
                 observer.onCellUpdate(this)
         }
+
+    val loot: Loot? = null
 
     fun storesActiveItem(): Boolean = storedItem.isActive()
 
