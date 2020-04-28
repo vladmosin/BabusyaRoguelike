@@ -12,6 +12,7 @@ import kotlinx.coroutines.runBlocking
 
 /**
  * Implements players controller
+ * Collects loot in current cell after move
  * */
 class HeroActionController(gameMap: GameMap, val inputListener: InputListener): AbstractActionController(gameMap) {
 

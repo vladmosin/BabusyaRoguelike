@@ -2,6 +2,14 @@ package inc.roguelike.babusya.loot
 
 import inc.roguelike.babusya.element.concrete.Hero
 
+/**
+ * Loot collection
+ * Item from inventory can be selected
+ * Selected item can be used
+ *
+ * Hero can equip "Equipment" items and modify own characteristics
+ * No more than on item of each EquipmentType can be put on
+ */
 class Inventory(val owner: Hero) {
     val equipped = HashMap<EquipmentType, Equipment>()
     val inPossessionOf = HashSet<Loot>()

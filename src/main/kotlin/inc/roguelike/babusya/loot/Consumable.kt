@@ -1,6 +1,7 @@
 package inc.roguelike.babusya.loot
 
-import inc.roguelike.babusya.element.interfaces.GameElement
-
+/**
+ * Item which is consumed on use
+ */
 interface Consumable: Loot
 
