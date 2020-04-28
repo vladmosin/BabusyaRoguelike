@@ -10,5 +10,6 @@ enum class InputData {
     UP,
     INVENTORY_UP,
     INVENTORY_DOWN,
-    INVENTORY_TOGGLE
+    INVENTORY_TOGGLE,
+    SAVE,
 }

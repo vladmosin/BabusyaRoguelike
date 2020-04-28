@@ -1,13 +1,16 @@
 package inc.roguelike.babusya.controllers
 
 import InputListener
+import inc.roguelike.babusya.FileSystem
 import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.inputListeners.InputData
+import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.runBlocking
+import java.io.File
 
 /**
  * Implements players controller
@@ -20,18 +23,29 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
         InputData.RIGHT,
         InputData.UP,
         InputData.LEFT,
-        InputData.DOWN,
-        InputData.INVENTORY_TOGGLE,
-        InputData.INVENTORY_UP,
-        InputData.INVENTORY_DOWN
+        InputData.DOWN
     )
 
-    private fun receiveStep(): InputData {
+    private fun saveMap() {
+        FileSystem.saveToFile("Levels" + File.separator + "Saved", gameMap.serialize())
+        log?.add("Game saved : successfully")
+    }
+
+    private fun receiveStep(creature: Creature): InputData {
         fun receive(input: InputData) {
             if (input in stepCommands)
                 runBlocking { inputDataChannel.send(input) }
-            else
-                inputListener.addCommand {inputData -> receive(inputData)}
+            else {
+                if (creature is Hero) {
+                    when (input) {
+                        InputData.INVENTORY_TOGGLE -> creature.inventory.useSelected()
+                        InputData.INVENTORY_UP -> creature.inventory.selectPreviousLoot()
+                        InputData.INVENTORY_DOWN -> creature.inventory.selectNextLoot()
+                        InputData.SAVE -> saveMap()
+                    }
+                }
+                inputListener.addCommand { inputData -> receive(inputData) }
+            }
         }
 
         inputListener.addCommand { input -> receive(input) }
@@ -46,7 +60,7 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
      */
     override fun makeTurn(creature: Creature) {
 
-        val data = receiveStep()
+        val data = receiveStep(creature)
         val cell = gameMap.getCellByElement(creature)!!
 
         val targetCell = when (data) {
@@ -55,16 +69,6 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
             InputData.LEFT -> gameMap.getLefterCell(cell) ?: cell
             InputData.DOWN -> gameMap.getDownerCell(cell) ?: cell
             else -> cell
-        }
-
-        if (creature is Hero) { // TODO: get rid of such casts
-            if (data == InputData.INVENTORY_TOGGLE) {
-                creature.inventory.useSelected()
-            } else if (data == InputData.INVENTORY_UP) {
-                creature.inventory.selectPreviousLoot()
-            } else if (data == InputData.INVENTORY_DOWN) {
-                creature.inventory.selectNextLoot()
-            }
         }
 
         makeMove(creature, targetCell)
