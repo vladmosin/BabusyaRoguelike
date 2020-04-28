@@ -1,5 +1,7 @@
 package inc.roguelike.babusya.levels
 
+import java.io.File
+
 import InputListener
 
 /**
@@ -12,7 +14,8 @@ class LevelCreator(inputListener: InputListener) {
 
     private val actionMap = mapOf(
         LevelsType.GENERATED to { id: Int -> levelGenerator.generateLevel(id)},
-        LevelsType.LOADED to { id: Int -> levelLoader.loadLevel(id)}
+        LevelsType.LOADED to { id: Int -> levelLoader.loadLevel("Levels" + File.separator + "Level${id}", "Loaded level ${id}")},
+        LevelsType.SAVED to {id: Int -> levelLoader.loadLevel("Levels" + File.separator + "Saved", "SavedLevel")}
     )
 
     fun createLevel(id: Int, levelsType: LevelsType): Level {

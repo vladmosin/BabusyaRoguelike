@@ -36,6 +36,7 @@ fun askUserForLevelsType(): LevelInfo {
         println("To generate level write \"gen\" (without quotas)")
         println("To load level from file write \"load <level id>\" " +
                 "(without quotas), instead of level id write number from 1 to ${Game.SAVED_LEVELS}")
+        println("To load recently saved level write \"load saved\" (without quotas)")
 
         var userInput = readLine()
         while (userInput == null) {
@@ -52,6 +53,10 @@ fun askUserForLevelsType(): LevelInfo {
             if (inputParts.size == 1) {
                 println("Please, specify level id")
                 continue
+            }
+
+            if (inputParts[1] == "saved") {
+                return LevelInfo(1, LevelsType.SAVED)
             }
 
             try {
