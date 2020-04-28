@@ -25,4 +25,30 @@ interface Effect : ElementVisitor<Boolean> {
      * Returns description
      * */
     fun getDescription(from: GameElement?, to: GameElement?): String
+
+    /**
+     * Serializes effect
+     * */
+    fun serialize(): String
+
+    companion object {
+        fun deserialize(line: String): Effect? {
+            val deserializers = listOf(
+                { s: String -> ConfusionChanceEffect.deserialize(s) },
+                { s: String -> HealEffect.deserialize(s) },
+                { s: String -> MonsterPunchEffect.deserialize(s) },
+                { s: String -> PunchEffect.deserialize(s) }
+
+            )
+
+            for (deserializer in deserializers) {
+                val gameElement = deserializer(line)
+                if (gameElement != null) {
+                    return gameElement
+                }
+            }
+
+            return null
+        }
+    }
 }
