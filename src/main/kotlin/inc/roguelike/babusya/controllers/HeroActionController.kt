@@ -6,7 +6,6 @@ import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.inputListeners.InputData
-import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.runBlocking
@@ -19,7 +18,7 @@ import java.io.File
 class HeroActionController(gameMap: GameMap, val inputListener: InputListener): AbstractActionController(gameMap) {
 
     private val inputDataChannel = Channel<InputData>(capacity = Channel.CONFLATED)
-    private val stepCommands = listOf(
+    private val heroCommands = listOf(
         InputData.RIGHT,
         InputData.UP,
         InputData.LEFT,
@@ -37,7 +36,7 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
 
     private fun receiveStep(creature: Creature): InputData {
         fun receive(input: InputData) {
-            if (input in stepCommands)
+            if (input in heroCommands)
                 runBlocking { inputDataChannel.send(input) }
             else {
                 inputListener.addCommand { inputData -> receive(inputData) }
