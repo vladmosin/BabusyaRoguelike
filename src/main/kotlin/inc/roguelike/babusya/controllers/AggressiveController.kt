@@ -14,15 +14,16 @@ class AggressiveController(gameMap: GameMap, var attackTarget: GameElement?): Ab
     private var positionX: Int = -1
     private var positionY: Int = -1
 
-    override fun makeTurn(creature: Creature) {
+    override fun makeTurn(creature: Creature): Boolean {
         if (attackTarget == null) {
-            return
+            return true
         }
         val fromCell = gameMap.getCellByElement(creature)
         val targetCell = gameMap.getCellByElement(attackTarget!!)
 
-        val path = shortestPath(gameMap, fromCell!!, targetCell!!) ?: return
+        val path = shortestPath(gameMap, fromCell!!, targetCell!!) ?: return true
         makeMove(creature, path[1])
+        return true
     }
 
     override fun clone(): AggressiveController {

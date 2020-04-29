@@ -19,11 +19,11 @@ abstract class AbstractCreature(
     elementStatus: ElementStatus
 ) : AbstractGameElement(id, elementStatus), Creature {
 
-    override fun makeTurn() {
+    override fun makeTurn(): Boolean {
         if (actionController == null) {
             throw IllegalStateException("controller is not set")
         }
-        actionController!!.makeTurn(this)
+        return actionController!!.makeTurn(this)
     }
 
     companion object {

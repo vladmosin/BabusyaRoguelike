@@ -12,7 +12,7 @@ interface ActionController {
     /**
      * Moves creature due to its strategy
      * */
-    fun makeTurn(creature: Creature)
+    fun makeTurn(creature: Creature): Boolean
 
     /**
      * Sets concrete log to output game events

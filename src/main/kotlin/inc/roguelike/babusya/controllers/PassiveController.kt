@@ -9,7 +9,9 @@ import inc.roguelike.babusya.map.GameMap
  * Does not move
  * */
 class PassiveController(gameMap: GameMap): AbstractActionController(gameMap) {
-    override fun makeTurn(creature: Creature) {}
+    override fun makeTurn(creature: Creature): Boolean {
+        return true
+    }
 
     override fun clone(): PassiveController {
         return PassiveController(gameMap)

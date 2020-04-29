@@ -8,17 +8,20 @@ import java.util.*
  */
 class ActionSystem {
 
-    private val queue: Queue<Creature> = LinkedList<Creature>()
+    private val queue: Deque<Creature> = LinkedList<Creature>()
 
     fun addElement(creature: Creature) {
         queue.add(creature)
     }
 
     fun action() {
-        val elem = queue.poll()
+        val elem = queue.pollFirst()
         if (elem != null && elem.isActive()) {
-            elem.makeTurn()
-            queue.add(elem)
+            if (elem.makeTurn()) {
+                queue.add(elem)
+            } else {
+                queue.addFirst(elem)
+            }
         }
     }
 }

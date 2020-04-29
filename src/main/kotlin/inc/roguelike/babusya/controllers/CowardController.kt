@@ -11,14 +11,14 @@ class CowardController(gameMap: GameMap, var scaryElement: GameElement?): Abstra
     private var positionX = -1
     private var positionY = -1
 
-    override fun makeTurn(creature: Creature) {
+    override fun makeTurn(creature: Creature): Boolean {
         if (scaryElement == null) {
-            return
+            return true
         }
         val fromCell = gameMap.getCellByElement(creature)
         val targetCell = gameMap.getCellByElement(scaryElement!!)
 
-        val path = shortestPath(gameMap, fromCell!!, targetCell!!) ?: return
+        val path = shortestPath(gameMap, fromCell!!, targetCell!!) ?: return true
 
         val toCell = path[1]
         var ways = listOf(gameMap.getRighterCell(fromCell), gameMap.getUpperCell(fromCell),
@@ -29,6 +29,7 @@ class CowardController(gameMap: GameMap, var scaryElement: GameElement?): Abstra
                 makeMove(creature, ways[(i + 2) % 4] ?: ways[(i + 1) % 4] ?: ways[(i + 3) % 4] ?: fromCell)
             }
         }
+        return true
     }
 
     override fun clone(): CowardController {

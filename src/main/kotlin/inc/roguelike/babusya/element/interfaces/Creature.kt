@@ -11,7 +11,7 @@ import inc.roguelike.babusya.element.abstracts.AbstractCreature
 interface Creature: GameElement {
     val characteristics: CreatureCharacteristics
     var actionController: ActionController?
-    fun makeTurn()
+    fun makeTurn(): Boolean
 
     companion object {
         fun deserialize(controllerFactory: ControllerFactory, string: String): Creature? {

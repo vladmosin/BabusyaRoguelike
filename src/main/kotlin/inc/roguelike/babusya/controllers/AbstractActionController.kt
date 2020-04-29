@@ -16,7 +16,7 @@ import inc.roguelike.babusya.map.GameMap
  * Class with different methods implementation which are common for all creature action controllers
  * */
 abstract class AbstractActionController(var gameMap: GameMap): ActionController {
-    private var log : GameLog? = null
+    protected var log : GameLog? = null
 
     override fun useLog(gameLog: GameLog) {
         log = gameLog

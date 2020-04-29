@@ -19,12 +19,12 @@ import inc.roguelike.babusya.visitors.ElementVisitor
 class ConfusableCreature(val creature: Creature, private var randomController: ActionController): Creature by creature {
     var moreStepsWhileConfused = 0
 
-    override fun makeTurn() {
+    override fun makeTurn(): Boolean {
         if (moreStepsWhileConfused > 0) {
             moreStepsWhileConfused--
-            randomController.makeTurn(this)
+            return randomController.makeTurn(this)
         } else {
-            creature.actionController?.makeTurn(this)
+            return creature.actionController?.makeTurn(this) ?: true
         }
     }
 

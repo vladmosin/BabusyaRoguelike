@@ -2,14 +2,16 @@ package inc.roguelike.babusya
 
 import InputListener
 import inc.roguelike.babusya.UI.RenderSystem
+import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.interfaces.Creature
+import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.levels.LevelCreator
 import inc.roguelike.babusya.levels.LevelInfo
 
 /**
  * Initializes and starts game
  */
-class Game(renderSystem: RenderSystem, inputListener: InputListener, levelInfo: LevelInfo) {
+class Game(renderSystem: RenderSystem, val inputListener: InputListener, levelInfo: LevelInfo) {
 
     companion object {
         const val SAVED_LEVELS = 2
@@ -28,8 +30,13 @@ class Game(renderSystem: RenderSystem, inputListener: InputListener, levelInfo: 
             if (cell.storesActiveItem() && cell.storedItem is Creature) {
                 engine.actionSystem.addElement(cell.storedItem as Creature)
                 (cell.storedItem as Creature).actionController?.useLog(gameState.gameLog)
+
+                if (cell.storedItem is Hero) {
+                    gameState.focusedHero = cell.storedItem as Hero
+                }
             }
         }
+
         while (!gameState.didGameEnd()) {
             engine.tick(gameState)
         }
