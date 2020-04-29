@@ -23,7 +23,11 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
         InputData.RIGHT,
         InputData.UP,
         InputData.LEFT,
-        InputData.DOWN
+        InputData.DOWN,
+        InputData.INVENTORY_TOGGLE,
+        InputData.INVENTORY_DOWN,
+        InputData.INVENTORY_UP,
+        InputData.SAVE
     )
 
     private fun saveMap() {
@@ -36,14 +40,6 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
             if (input in stepCommands)
                 runBlocking { inputDataChannel.send(input) }
             else {
-                if (creature is Hero) {
-                    when (input) {
-                        InputData.INVENTORY_TOGGLE -> creature.inventory.useSelected()
-                        InputData.INVENTORY_UP -> creature.inventory.selectPreviousLoot()
-                        InputData.INVENTORY_DOWN -> creature.inventory.selectNextLoot()
-                        InputData.SAVE -> saveMap()
-                    }
-                }
                 inputListener.addCommand { inputData -> receive(inputData) }
             }
         }
@@ -58,24 +54,33 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
     /**
      * Receives command from inputListener and makes move to the target cell
      */
-    override fun makeTurn(creature: Creature) {
+    override fun makeTurn(creature: Creature): Boolean {
 
         val data = receiveStep(creature)
         val cell = gameMap.getCellByElement(creature)!!
 
+        if (creature is Hero) {
+            when (data) {
+                InputData.INVENTORY_TOGGLE -> creature.inventory.useSelected()
+                InputData.INVENTORY_UP -> creature.inventory.selectPreviousLoot()
+                InputData.INVENTORY_DOWN -> creature.inventory.selectNextLoot()
+                InputData.SAVE -> saveMap()
+            }
+        }
         val targetCell = when (data) {
             InputData.RIGHT -> gameMap.getRighterCell(cell) ?: cell
             InputData.UP -> gameMap.getUpperCell(cell) ?: cell
             InputData.LEFT -> gameMap.getLefterCell(cell) ?: cell
             InputData.DOWN -> gameMap.getDownerCell(cell) ?: cell
-            else -> cell
-        }
+            else -> null
+        } ?: return false
 
         makeMove(creature, targetCell)
 
         if (creature is Hero) {
             pickItem(creature)
         }
+        return true
     }
 
     private fun pickItem(hero: Hero) {
