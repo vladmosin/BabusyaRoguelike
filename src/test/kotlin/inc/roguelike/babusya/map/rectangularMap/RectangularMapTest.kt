@@ -4,7 +4,9 @@ import InputListener
 import inc.roguelike.babusya.FileSystem.Companion.saveToFile
 import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.map.Cell
+import inc.roguelike.babusya.map.GameMap
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 
@@ -14,6 +16,19 @@ class RectangularMapTest {
     private class EmptyInputListener: InputListener {
         override fun addCommand(command: (InputData) -> Unit): Int {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+    }
+
+    private fun mapsEqual(map1: RectangularMap, map2: RectangularMap) {
+        val rect1 = map1.getRectangle()
+        val rect2 = map2.getRectangle()
+        assertEquals(rect1.size, rect2.size)
+        assertEquals(rect1[0].size, rect2[0].size)
+
+        for (i in rect1.indices) {
+            for (j in rect1[0].indices) {
+                assertEquals(rect1[i][j].storedItem.javaClass, rect2[i][j].storedItem.javaClass)
+            }
         }
     }
 
@@ -32,14 +47,18 @@ class RectangularMapTest {
 
     @Test
     fun testClone() {
-        val map = RectangularMapBuilder(4, 3)
-            .addRandomWalls()
-            .addHero()
-            .addRandomMonsters()
-            .addRandomLoot()
-            .buildMap(EmptyInputListener())
+        for (i in 0..0) {
+            val map = RectangularMapBuilder(15, 10)
+                .addRandomWalls()
+                .addHero()
+                .addRandomMonsters()
+                .addRandomLoot()
+                .buildMap(EmptyInputListener())
 
-        val serialized = map.serialize()
-        saveToFile("Levels/Level2", serialized)
+            val serialized = map.serialize()
+            val deserialized = RectangularMap.deserialize(serialized, EmptyInputListener())
+            assertNotNull(deserialized)
+            mapsEqual(map, deserialized!!)
+        }
     }
 }

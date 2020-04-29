@@ -5,6 +5,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import inc.roguelike.babusya.UI.ConsoleRenderSystem
 import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
 import inc.roguelike.babusya.levels.LevelCreator
+import inc.roguelike.babusya.levels.LevelCreator.Companion.SAVED_PATH
 import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.levels.LevelsType
 import java.util.*
@@ -32,11 +33,14 @@ fun main() {
  * */
 fun askUserForLevelsType(): LevelInfo {
     println("Please select type of map")
+    val saveExists = haveSavedGame()
     while(true) {
         println("To generate level write \"gen\" (without quotas)")
         println("To load level from file write \"load <level id>\" " +
                 "(without quotas), instead of level id write number from 1 to ${Game.SAVED_LEVELS}")
-        println("To load recently saved level write \"load saved\" (without quotas)")
+        if (saveExists) {
+            println("To load recently saved level write \"load saved\" (without quotas)")
+        }
 
         var userInput = readLine()
         while (userInput == null) {
@@ -55,7 +59,7 @@ fun askUserForLevelsType(): LevelInfo {
                 continue
             }
 
-            if (inputParts[1] == "saved") {
+            if (inputParts[1] == "saved" && saveExists) {
                 return LevelInfo(1, LevelsType.SAVED)
             }
 
@@ -74,3 +78,5 @@ fun askUserForLevelsType(): LevelInfo {
         println("Please, read instructions once again")
     }
 }
+
+fun haveSavedGame() = FileSystem.fileExists(SAVED_PATH)

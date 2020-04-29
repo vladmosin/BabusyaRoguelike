@@ -20,5 +20,19 @@ abstract class FileSystem {
         fun saveToFile(path: String, content: String) {
             File(path).printWriter().use { out -> out.write(content) }
         }
+
+        /**
+         * Checks that file exists
+         * */
+        fun fileExists(path: String): Boolean {
+            return File(path).exists()
+        }
+
+        /**
+         * Deletes file
+         * */
+        fun deleteFile(path: String) {
+            File(path).delete()
+        }
     }
 }

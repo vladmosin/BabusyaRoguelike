@@ -1,11 +1,14 @@
 package inc.roguelike.babusya.controllers
 
+import inc.roguelike.babusya.FileSystem
 import inc.roguelike.babusya.GameLog
 import inc.roguelike.babusya.effects.Effect
 import inc.roguelike.babusya.effects.PunchEffect
 import inc.roguelike.babusya.element.concrete.EmptyGameElement
+import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
+import inc.roguelike.babusya.levels.LevelCreator.Companion.SAVED_PATH
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
 
@@ -31,6 +34,10 @@ abstract class AbstractActionController(var gameMap: GameMap): ActionController 
         applyAllEffects(creature.attackEffects(), creature, toItem)
         if (toItem.isActive()) {
             applyAllEffects(toItem.defensiveEffects(), toItem, creature)
+        }
+
+        if ((!toItem.isActive() && toItem is Hero) || (!creature.isActive() && creature is Hero)) {
+            FileSystem.deleteFile(SAVED_PATH)
         }
 
         if (!toItem.isActive() && creature.isActive()) {
