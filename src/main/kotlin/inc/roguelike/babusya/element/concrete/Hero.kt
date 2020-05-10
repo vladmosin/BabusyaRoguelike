@@ -53,10 +53,17 @@ class Hero(
     override fun clone(): Hero {
         val newCharacteristics = characteristics.clone()
         return Hero(newCharacteristics, actionController?.clone(), id, elementStatus, experience)
-}
+    }
 
     companion object {
         private const val name = "Hero"
+
+        /**
+         * Creates hero with random characteristics
+         * */
+        fun create(actionController: ActionController): Hero {
+            TODO()
+        }
 
         fun deserialize(controllerFactory: ControllerFactory, string: String): Hero? {
             val name = getName(string)

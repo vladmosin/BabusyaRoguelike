@@ -7,6 +7,7 @@ import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.levels.LevelCreator
 import inc.roguelike.babusya.levels.LevelInfo
+import inc.roguelike.babusya.network.PlayersHolder
 
 /**
  * Initializes and starts game

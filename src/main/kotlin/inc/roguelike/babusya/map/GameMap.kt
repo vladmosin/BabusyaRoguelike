@@ -1,5 +1,6 @@
 package inc.roguelike.babusya.map
 
+import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
 
 /**
@@ -69,4 +70,9 @@ interface GameMap : Iterable<Cell>, CellObserver {
         }
         return positionOnScreen(helper_cell).second + 1
     }
+
+    /**
+     * Adds creature
+     * */
+    fun addCreature(creature: Creature)
 }

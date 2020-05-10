@@ -228,4 +228,8 @@ class RectangularMap(
             null
         }
     }
+
+    override fun addCreature(creature: Creature) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
