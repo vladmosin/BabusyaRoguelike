@@ -57,7 +57,6 @@ class MultiplayerMenu: View("Multiplayer") {
                     }
                     button("Connect") {
                         useMaxSize = true
-
                         action {
                             model.commit {
                                 println("Commit")

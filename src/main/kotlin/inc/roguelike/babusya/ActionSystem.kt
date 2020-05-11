@@ -19,9 +19,9 @@ class ActionSystem {
 
     fun action() {
         val elem = queue.pollFirst()
-        playersHolder.removeDisconnectedPlayers()
+        //playersHolder.removeDisconnectedPlayers()
 
-        if (elem != null && elem.isActive() && creatureOwnerActive(elem)) {
+        if (elem != null && elem.isActive()) {// && creatureOwnerActive(elem)) {
             if (elem.makeTurn()) {
                 queue.add(elem)
             } else {

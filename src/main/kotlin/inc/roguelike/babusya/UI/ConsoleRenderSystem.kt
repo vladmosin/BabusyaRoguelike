@@ -16,7 +16,7 @@ import inc.roguelike.babusya.visitors.ShowInventoryVisitor
 /**
  * Renders console system
  * */
-class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
+class ConsoleRenderSystem(val terminal: Terminal): RenderSystem {
 
     private val LEFT_FRAME = 50
     private val UP_FRAME = 5
@@ -91,6 +91,10 @@ class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
             }
             cell.storedItem.accept(showInventoryVisitor)
         }
+    }
+
+    override fun focus() {
+
     }
 
     /**

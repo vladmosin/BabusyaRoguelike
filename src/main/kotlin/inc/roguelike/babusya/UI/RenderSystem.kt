@@ -12,4 +12,6 @@ interface RenderSystem {
      * Renders level using given log
      * */
     fun render(level: Level, gameLog: GameLog)
+
+    fun focus()
 }
