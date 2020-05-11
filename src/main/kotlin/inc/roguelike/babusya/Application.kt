@@ -3,17 +3,23 @@ package inc.roguelike.babusya
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import inc.roguelike.babusya.UI.ConsoleRenderSystem
+import inc.roguelike.babusya.UI.overture.HelloWorldApp
+import inc.roguelike.babusya.UI.overture.UserInteractionApp
 import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
 import inc.roguelike.babusya.levels.LevelCreator
 import inc.roguelike.babusya.levels.LevelCreator.Companion.SAVED_PATH
 import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.levels.LevelsType
+import tornadofx.launch
 import java.util.*
 
 /**
  * Initializes and starts game
  */
 fun main() {
+    launch<UserInteractionApp>()
+    return
+
     val levelInfo = askUserForLevelsType()
     val terminal = DefaultTerminalFactory()
         .setInitialTerminalSize(TerminalSize(100, 30))
