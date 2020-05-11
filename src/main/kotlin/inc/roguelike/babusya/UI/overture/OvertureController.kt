@@ -24,7 +24,7 @@ class OvertureController: Controller() {
         TODO()
     }
 
-    fun startGame(levelInfo: LevelInfo) {
+    fun startSinglePlayerGame(levelInfo: LevelInfo) {
         val terminal = DefaultTerminalFactory()
             .setInitialTerminalSize(TerminalSize(100, 30))
             .createTerminalEmulator()

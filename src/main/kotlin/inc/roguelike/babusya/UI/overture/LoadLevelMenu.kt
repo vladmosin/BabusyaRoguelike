@@ -26,7 +26,7 @@ class LoadLevelMenu: View() {
                 maxHeight = UserInteractionApp.BUTTON_MAX_HEIGHT
                 prefHeight = UserInteractionApp.BUTTON_MAX_HEIGHT
                 action {
-                    runAsync { controller.startGame(LevelInfo(id, LevelsType.LOADED))}
+                    runAsync { controller.startSinglePlayerGame(LevelInfo(id, LevelsType.LOADED))}
                     primaryStage.close()
                 }
             }

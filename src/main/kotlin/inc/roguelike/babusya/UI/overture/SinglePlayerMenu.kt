@@ -18,7 +18,7 @@ class SinglePlayerMenu: View("SinglePlayer") {
                 vgrow = Priority.ALWAYS
                 maxHeight = UserInteractionApp.BUTTON_MAX_HEIGHT
                 action {
-                    runAsync { controller.startGame(LevelInfo(1, LevelsType.GENERATED))}
+                    runAsync { controller.startSinglePlayerGame(LevelInfo(1, LevelsType.GENERATED))}
                     primaryStage.close()
                 }
             }
@@ -36,7 +36,7 @@ class SinglePlayerMenu: View("SinglePlayer") {
                     vgrow = Priority.ALWAYS
                     maxHeight = UserInteractionApp.BUTTON_MAX_HEIGHT
                     action {
-                        runAsync { controller.startGame(LevelInfo(1, LevelsType.SAVED))}
+                        runAsync { controller.startSinglePlayerGame(LevelInfo(1, LevelsType.SAVED))}
                         primaryStage.close()
                     }
                 }
