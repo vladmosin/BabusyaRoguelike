@@ -27,7 +27,7 @@ class Engine(val renderSystem: RenderSystem, val actionSystem: ActionSystem) {
         val heroes = newClients
             .map { client -> NetworkListener(client) }
             .map { inputListener -> HeroActionController(gameMap, inputListener) }
-            .map { controller -> Hero.create(controller)}
+            .map { controller -> Hero.create(controller) }
 
         for (hero in heroes) {
             gameMap.addCreature(hero)

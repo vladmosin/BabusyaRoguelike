@@ -17,4 +17,16 @@ class GameLog {
         if (count == null) return log
         return log.subList(max(0, log.size - count), log.size)
     }
+
+    fun serialize(): String {
+        TODO()
+    }
+
+    companion object {
+        private val name = "GameLog"
+
+        fun deserialize(line: String): GameLog? {
+            TODO()
+        }
+    }
 }

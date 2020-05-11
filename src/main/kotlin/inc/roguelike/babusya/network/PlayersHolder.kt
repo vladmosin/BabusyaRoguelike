@@ -41,4 +41,13 @@ class PlayersHolder {
     fun newClients(): List<Client> {
         TODO()
     }
+
+    /**
+     * Sends updated state to all players
+     * */
+    fun sendMessage(message: Message) {
+        for (player in players) {
+            player.sendMessage(message)
+        }
+    }
 }
