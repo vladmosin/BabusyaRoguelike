@@ -11,7 +11,7 @@ import inc.roguelike.babusya.levels.LevelInfo
 /**
  * Initializes and starts game
  */
-class Game(renderSystem: RenderSystem, val inputListener: InputListener,
+class Game(val inputListener: InputListener,
            val engine: Engine, levelInfo: LevelInfo) {
 
     companion object {
