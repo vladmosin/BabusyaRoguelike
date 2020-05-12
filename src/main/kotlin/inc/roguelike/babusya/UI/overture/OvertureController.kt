@@ -18,6 +18,7 @@ import tornadofx.Controller
 
 class OvertureController: Controller() {
 
+
     fun connectToServer(login: String, address: String, port: Int) {
     }
 
@@ -25,7 +26,7 @@ class OvertureController: Controller() {
 
     }
 
-    fun createRoom(roomId: Int, client: Client): Pair<Boolean, String> {
+    fun createRoom(client: Client): Pair<Boolean, String> {
         return Pair(false, "Server not implemented")
     }
 
@@ -46,12 +47,12 @@ class OvertureController: Controller() {
         val inputListener = ConsoleKeyboardListener(terminal)
 
         fun receive(input: InputData) {
-            client.sendPlayerInput(input)
+            client.sendInputData(input.name)
             inputListener.addCommand { inputData -> receive(inputData) }
         }
 
         if (!joinRoom(roomId, client)) {
-            createRoom(roomId, client)
+            createRoom(client)
         }
 
         inputListener.start()

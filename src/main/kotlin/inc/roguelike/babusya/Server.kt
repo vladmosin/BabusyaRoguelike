@@ -22,7 +22,7 @@ class Server private constructor(
 
     val rooms = ArrayList<Room>()
 
-    fun createRoom(roomId: Int, client: Client) {
+    fun createRoom(roomId: Int, client: Int) {
         val inputListener = EmptyInputListener()
         val actionSystem = MultiplayerActionSystem()
         val engine = MultiPlayerEngine(actionSystem)
@@ -43,7 +43,7 @@ class Server private constructor(
         return null
     }
 
-    fun joinRoom(roomId: Int, client: Client): Boolean {
+    fun joinRoom(roomId: Int, client: Int): Boolean {
         for (room in rooms) {
             if (room.id == roomId) {
                 room.addClient(client)

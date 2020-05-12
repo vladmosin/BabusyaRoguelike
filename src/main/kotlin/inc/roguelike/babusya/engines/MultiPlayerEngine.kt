@@ -6,6 +6,7 @@ import inc.roguelike.babusya.actionSystems.ActionSystem
 import inc.roguelike.babusya.actionSystems.MultiplayerActionSystem
 import inc.roguelike.babusya.controllers.HeroActionController
 import inc.roguelike.babusya.element.concrete.Hero
+import inc.roguelike.babusya.inputListeners.EmptyInputListener
 import inc.roguelike.babusya.inputListeners.NetworkListener
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.network.Player
@@ -29,13 +30,15 @@ class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
         val playersHolder = actionSystem.playersHolder
         val newClients = playersHolder.newClients()
 
-        val heroes = newClients
-            .map { client -> NetworkListener(client) }
-            .map { inputListener -> HeroActionController(gameMap, inputListener) }
+        val players = newClients.map { id -> Player(null, id) }
+
+        val heroes = players
+            .map { player -> HeroActionController(gameMap, NetworkListener(player)) }
             .map { controller -> Hero.create(controller) }
 
         for (i in heroes.indices) {
-            playersHolder.addPlayer(Player(heroes[i], newClients[i]))
+            players[i].hero = heroes[i]
+            playersHolder.addPlayer(players[i])
         }
 
         for (hero in heroes) {

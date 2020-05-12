@@ -6,14 +6,14 @@ import inc.roguelike.babusya.network.PlayersHolder
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class Room(private val game: Game, val id: Int, client: Client) {
+class Room(private val game: Game, val id: Int, client: Int) {
     private val playersHolder = PlayersHolder()
 
     init {
         playersHolder.addClient(client)
     }
 
-    fun addClient(client: Client) {
+    fun addClient(client: Int) {
         playersHolder.addClient(client)
     }
 
