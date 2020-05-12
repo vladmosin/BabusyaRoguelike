@@ -13,12 +13,11 @@ import java.util.concurrent.TimeUnit
  * Sends and receives messages
  * */
 class Client(address: String, port: Int, val login: String) : Closeable {
-    private val id = receiveNextId()
-
     private val SHUTDOWN_TIMEOUT: Long = 5
 
     private val channel = ManagedChannelBuilder.forAddress(address, port).usePlaintext().build()
     private val stub = GameGrpcKt.GameCoroutineStub(channel)
+    private val id = receiveNextId()
 
     fun createRoom(roomId: Int): Boolean = runBlocking {
         val room = Room.newBuilder().setId(roomId).build()
