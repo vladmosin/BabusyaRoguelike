@@ -20,10 +20,25 @@ public final class GameOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_inc_roguelike_babusya_network_gen_Empty_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_inc_roguelike_babusya_network_gen_Message_descriptor;
+    internal_static_inc_roguelike_babusya_network_gen_State_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_inc_roguelike_babusya_network_gen_Message_fieldAccessorTable;
+      internal_static_inc_roguelike_babusya_network_gen_State_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_inc_roguelike_babusya_network_gen_Response_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_inc_roguelike_babusya_network_gen_Response_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_inc_roguelike_babusya_network_gen_Room_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_inc_roguelike_babusya_network_gen_Room_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_inc_roguelike_babusya_network_gen_Player_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_inc_roguelike_babusya_network_gen_Player_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -34,14 +49,22 @@ public final class GameOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\ngame.proto\022!inc.roguelike.babusya.netw" +
-      "ork.gen\"\007\n\005Empty\"3\n\007Message\022\r\n\005level\030\001 \001" +
-      "(\t\022\014\n\004ends\030\002 \001(\010\022\013\n\003log\030\003 \001(\t2\325\001\n\004Game\022h" +
-      "\n\016receiveMessage\022(.inc.roguelike.babusya" +
-      ".network.gen.Empty\032*.inc.roguelike.babus" +
-      "ya.network.gen.Message0\001\022c\n\013sendMessage\022" +
-      "*.inc.roguelike.babusya.network.gen.Mess" +
-      "age\032(.inc.roguelike.babusya.network.gen." +
-      "EmptyB\002P\001b\006proto3"
+      "ork.gen\"\007\n\005Empty\"1\n\005State\022\r\n\005level\030\001 \001(\t" +
+      "\022\014\n\004ends\030\002 \001(\010\022\013\n\003log\030\003 \001(\t\"+\n\010Response\022" +
+      "\016\n\006status\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"\022\n\004Room" +
+      "\022\n\n\002id\030\001 \001(\005\"Z\n\006Player\022\n\n\002id\030\001 \001(\005\022\r\n\005lo" +
+      "gin\030\002 \001(\t\0225\n\004root\030\003 \001(\0132\'.inc.roguelike." +
+      "babusya.network.gen.Room2\221\003\n\004Game\022d\n\ncre" +
+      "ateRoom\022).inc.roguelike.babusya.network." +
+      "gen.Player\032+.inc.roguelike.babusya.netwo" +
+      "rk.gen.Response\022_\n\010getRooms\022(.inc.roguel" +
+      "ike.babusya.network.gen.Empty\032\'.inc.rogu" +
+      "elike.babusya.network.gen.Room0\001\022b\n\010join" +
+      "Room\022).inc.roguelike.babusya.network.gen" +
+      ".Player\032+.inc.roguelike.babusya.network." +
+      "gen.Response\022^\n\010getState\022(.inc.roguelike" +
+      ".babusya.network.gen.Empty\032(.inc.rogueli" +
+      "ke.babusya.network.gen.StateB\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -53,12 +76,30 @@ public final class GameOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_inc_roguelike_babusya_network_gen_Empty_descriptor,
         new java.lang.String[] { });
-    internal_static_inc_roguelike_babusya_network_gen_Message_descriptor =
+    internal_static_inc_roguelike_babusya_network_gen_State_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_inc_roguelike_babusya_network_gen_Message_fieldAccessorTable = new
+    internal_static_inc_roguelike_babusya_network_gen_State_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_inc_roguelike_babusya_network_gen_Message_descriptor,
+        internal_static_inc_roguelike_babusya_network_gen_State_descriptor,
         new java.lang.String[] { "Level", "Ends", "Log", });
+    internal_static_inc_roguelike_babusya_network_gen_Response_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_inc_roguelike_babusya_network_gen_Response_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_inc_roguelike_babusya_network_gen_Response_descriptor,
+        new java.lang.String[] { "Status", "Message", });
+    internal_static_inc_roguelike_babusya_network_gen_Room_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_inc_roguelike_babusya_network_gen_Room_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_inc_roguelike_babusya_network_gen_Room_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_inc_roguelike_babusya_network_gen_Player_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_inc_roguelike_babusya_network_gen_Player_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_inc_roguelike_babusya_network_gen_Player_descriptor,
+        new java.lang.String[] { "Id", "Login", "Root", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

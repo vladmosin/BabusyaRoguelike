@@ -79,7 +79,7 @@ class RoomsMenu: View() {
                 prefHeight = UserInteractionApp.BUTTON_MAX_HEIGHT
                 action {
                     val id = selectedRoom.value.removePrefix("Room ").toInt()
-                    runAsync { controller.startMultiplayerGame(id); }
+//                    runAsync { controller.startMultiplayerGame(id); }
                     primaryStage.close()
                 }
             }

@@ -12,8 +12,10 @@ import io.grpc.Status.UNIMPLEMENTED
 import io.grpc.StatusException
 import io.grpc.kotlin.AbstractCoroutineServerImpl
 import io.grpc.kotlin.AbstractCoroutineStub
+import io.grpc.kotlin.ClientCalls
 import io.grpc.kotlin.ClientCalls.serverStreamingRpc
 import io.grpc.kotlin.ClientCalls.unaryRpc
+import io.grpc.kotlin.ServerCalls
 import io.grpc.kotlin.ServerCalls.serverStreamingServerMethodDefinition
 import io.grpc.kotlin.ServerCalls.unaryServerMethodDefinition
 import io.grpc.kotlin.StubFor
@@ -40,6 +42,23 @@ object GameGrpcKt {
         GameCoroutineStub(channel, callOptions)
 
     /**
+     * Executes this RPC and returns the response message, suspending until the RPC completes
+     * with [`Status.OK`][Status].  If the RPC completes with another status, a corresponding
+     * [StatusException] is thrown.  If this coroutine is cancelled, the RPC is also cancelled
+     * with the corresponding exception as a cause.
+     *
+     * @param request The request message to send to the server.
+     *
+     * @return The single response from the server.
+     */
+    suspend fun createRoom(request: Player): Response = unaryRpc(
+      channel,
+      GameGrpc.getCreateRoomMethod(),
+      request,
+      callOptions,
+      Metadata()
+    )
+    /**
      * Returns a [Flow] that, when collected, executes this RPC and emits responses from the
      * server as they arrive.  That flow finishes normally if the server closes its response with
      * [`Status.OK`][Status], and fails by throwing a [StatusException] otherwise.  If
@@ -50,9 +69,9 @@ object GameGrpcKt {
      *
      * @return A flow that, when collected, emits the responses from the server.
      */
-    fun receiveMessage(request: Empty): Flow<Message> = serverStreamingRpc(
+    fun getRooms(request: Empty): Flow<Room> = serverStreamingRpc(
       channel,
-      GameGrpc.getReceiveMessageMethod(),
+      GameGrpc.getGetRoomsMethod(),
       request,
       callOptions,
       Metadata()
@@ -67,9 +86,26 @@ object GameGrpcKt {
      *
      * @return The single response from the server.
      */
-    suspend fun sendMessage(request: Message): Empty = unaryRpc(
+    suspend fun joinRoom(request: Player): Response = unaryRpc(
       channel,
-      GameGrpc.getSendMessageMethod(),
+      GameGrpc.getJoinRoomMethod(),
+      request,
+      callOptions,
+      Metadata()
+    )
+    /**
+     * Executes this RPC and returns the response message, suspending until the RPC completes
+     * with [`Status.OK`][Status].  If the RPC completes with another status, a corresponding
+     * [StatusException] is thrown.  If this coroutine is cancelled, the RPC is also cancelled
+     * with the corresponding exception as a cause.
+     *
+     * @param request The request message to send to the server.
+     *
+     * @return The single response from the server.
+     */
+    suspend fun getState(request: Empty): State = unaryRpc(
+      channel,
+      GameGrpc.getGetStateMethod(),
       request,
       callOptions,
       Metadata()
@@ -83,8 +119,21 @@ object GameGrpcKt {
     coroutineContext: CoroutineContext = EmptyCoroutineContext
   ) : AbstractCoroutineServerImpl(coroutineContext) {
     /**
-     * Returns a [Flow] of responses to an RPC for
-     * inc.roguelike.babusya.network.gen.Game.receiveMessage.
+     * Returns the response to an RPC for inc.roguelike.babusya.network.gen.Game.createRoom.
+     *
+     * If this method fails with a [StatusException], the RPC will fail with the corresponding
+     * [Status].  If this method fails with a [java.util.concurrent.CancellationException], the RPC
+     * will fail
+     * with status `Status.CANCELLED`.  If this method fails for any other reason, the RPC will
+     * fail with `Status.UNKNOWN` with the exception as a cause.
+     *
+     * @param request The request from the client.
+     */
+    open suspend fun createRoom(request: Player): Response = throw
+        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.createRoom is unimplemented"))
+
+    /**
+     * Returns a [Flow] of responses to an RPC for inc.roguelike.babusya.network.gen.Game.getRooms.
      *
      * If creating or collecting the returned flow fails with a [StatusException], the RPC
      * will fail with the corresponding [Status].  If it fails with a
@@ -95,11 +144,11 @@ object GameGrpcKt {
      *
      * @param request The request from the client.
      */
-    open fun receiveMessage(request: Empty): Flow<Message> = throw
-        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.receiveMessage is unimplemented"))
+    open fun getRooms(request: Empty): Flow<Room> = throw
+        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.getRooms is unimplemented"))
 
     /**
-     * Returns the response to an RPC for inc.roguelike.babusya.network.gen.Game.sendMessage.
+     * Returns the response to an RPC for inc.roguelike.babusya.network.gen.Game.joinRoom.
      *
      * If this method fails with a [StatusException], the RPC will fail with the corresponding
      * [Status].  If this method fails with a [java.util.concurrent.CancellationException], the RPC
@@ -109,19 +158,43 @@ object GameGrpcKt {
      *
      * @param request The request from the client.
      */
-    open suspend fun sendMessage(request: Message): Empty = throw
-        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.sendMessage is unimplemented"))
+    open suspend fun joinRoom(request: Player): Response = throw
+        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.joinRoom is unimplemented"))
+
+    /**
+     * Returns the response to an RPC for inc.roguelike.babusya.network.gen.Game.getState.
+     *
+     * If this method fails with a [StatusException], the RPC will fail with the corresponding
+     * [Status].  If this method fails with a [java.util.concurrent.CancellationException], the RPC
+     * will fail
+     * with status `Status.CANCELLED`.  If this method fails for any other reason, the RPC will
+     * fail with `Status.UNKNOWN` with the exception as a cause.
+     *
+     * @param request The request from the client.
+     */
+    open suspend fun getState(request: Empty): State = throw
+        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.getState is unimplemented"))
 
     final override fun bindService(): ServerServiceDefinition = builder(getServiceDescriptor())
+      .addMethod(unaryServerMethodDefinition(
+      context = this.context,
+      descriptor = GameGrpc.getCreateRoomMethod(),
+      implementation = ::createRoom
+    ))
       .addMethod(serverStreamingServerMethodDefinition(
       context = this.context,
-      descriptor = GameGrpc.getReceiveMessageMethod(),
-      implementation = ::receiveMessage
+      descriptor = GameGrpc.getGetRoomsMethod(),
+      implementation = ::getRooms
     ))
       .addMethod(unaryServerMethodDefinition(
       context = this.context,
-      descriptor = GameGrpc.getSendMessageMethod(),
-      implementation = ::sendMessage
+      descriptor = GameGrpc.getJoinRoomMethod(),
+      implementation = ::joinRoom
+    ))
+      .addMethod(unaryServerMethodDefinition(
+      context = this.context,
+      descriptor = GameGrpc.getGetStateMethod(),
+      implementation = ::getState
     )).build()
   }
 }

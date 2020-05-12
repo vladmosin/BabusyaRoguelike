@@ -1,15 +1,40 @@
 package inc.roguelike.babusya.network
 
 import inc.roguelike.babusya.inputListeners.InputData
-import inc.roguelike.babusya.network.gen.GameGrpcKt
+import inc.roguelike.babusya.network.gen.*
+import inc.roguelike.babusya.network.gen.Player
+
+import io.grpc.ManagedChannel
+import io.grpc.ManagedChannelBuilder
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.asExecutor
+import kotlinx.coroutines.runBlocking
+import java.io.Closeable
+import java.util.concurrent.TimeUnit
 
 /**
  * Sends and receives messages
  * */
-class Client(address: String, port: Int) {
+class Client(address: String, port: Int) : Closeable {
 
-//    val channel = ManagedChannelBuilder.forAddress(address, port).usePlaintext().build()
-//    val stub = GameGrpcKt.GameCoroutineStub(channel)
+    private val SHUTDOWN_TIMEOUT: Long = 5
+
+    val channel = ManagedChannelBuilder.forAddress(address, port).usePlaintext().build()
+    val stub = GameGrpcKt.GameCoroutineStub(channel)
+
+    fun getState(): Message = runBlocking {
+        val state: State = stub.getState(Empty.getDefaultInstance())
+        return@runBlocking Message(state.level, state.ends, state.log)
+    }
+
+//    fun createRoom(roomId: Int): Boolean = runBlocking {
+//        val room = Room.newBuilder().setId(roomId).build()
+//        val player = inc.roguelike.babusya.network.gen.Player
+//            .newBuilder()
+//            .setId()
+//            .
+//        return@runBlocking true
+//    }
 
     fun receiveMessage(): Message {
         TODO()
@@ -21,7 +46,6 @@ class Client(address: String, port: Int) {
 //            .setEnds(message.gameEnds)
 //            .setLog(message.serializedGameLog)
 //            .build()
-
     }
 
     fun sendPlayerInput(inputData: InputData) {
@@ -30,5 +54,9 @@ class Client(address: String, port: Int) {
 
     fun receiveInputData(): InputData {
         TODO()
+    }
+
+    override fun close() {
+        channel.shutdown().awaitTermination(SHUTDOWN_TIMEOUT, TimeUnit.SECONDS)
     }
 }
