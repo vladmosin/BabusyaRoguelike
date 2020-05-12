@@ -1,6 +1,9 @@
-package inc.roguelike.babusya
+package inc.roguelike.babusya.engines
 
+import inc.roguelike.babusya.GameState
 import inc.roguelike.babusya.UI.RenderSystem
+import inc.roguelike.babusya.actionSystems.ActionSystem
+import inc.roguelike.babusya.actionSystems.MultiplayerActionSystem
 import inc.roguelike.babusya.controllers.HeroActionController
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.inputListeners.NetworkListener
@@ -11,14 +14,15 @@ import java.lang.Thread.sleep
 /**
  * Launches game systems
  */
-class Engine(val renderSystem: RenderSystem, val actionSystem: ActionSystem) {
+class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
 
-    fun tick(gameState: GameState) {
-        renderSystem.render(gameState.getLevel(), gameState.gameLog)
+    override fun tick(gameState: GameState) {
         val level = gameState.getLevel()
-        //addNewPlayers(level.getMap())
+        addNewPlayers(level.getMap())
         actionSystem.action()
     }
+
+    override fun actionSystem() = actionSystem
 
     private fun addNewPlayers(gameMap: GameMap) {
         val playersHolder = actionSystem.playersHolder

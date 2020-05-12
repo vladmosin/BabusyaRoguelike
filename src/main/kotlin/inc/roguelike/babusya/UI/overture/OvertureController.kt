@@ -31,6 +31,10 @@ class OvertureController: Controller() {
         return IntRange(1, 30).toList()
     }
 
+    fun joinRoom() {
+        TODO()
+    }
+
     fun startMultiplayerGame(roomId: Int, client: Client) {
         val terminal = DefaultTerminalFactory()
             .setInitialTerminalSize(TerminalSize(100, 30))
@@ -43,6 +47,8 @@ class OvertureController: Controller() {
             client.sendPlayerInput(input)
             inputListener.addCommand { inputData -> receive(inputData) }
         }
+
+        if (roomId in getRooms())
 
         inputListener.start()
         inputListener.addCommand { input -> receive(input) }

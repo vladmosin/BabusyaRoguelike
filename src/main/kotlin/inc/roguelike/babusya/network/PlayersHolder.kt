@@ -7,6 +7,11 @@ import inc.roguelike.babusya.element.concrete.Hero
  * */
 class PlayersHolder {
     private val players = ArrayList<Player>()
+    private val newClients = ArrayList<Client>()
+
+    fun addClient(client: Client) {
+        newClients.add(client)
+    }
 
     /**
      * Checks that player did not disconnect
@@ -39,7 +44,9 @@ class PlayersHolder {
      * Returns recently connected clients
      * */
     fun newClients(): List<Client> {
-        TODO()
+        val clients = ArrayList(newClients)
+        newClients.clear()
+        return clients
     }
 
     /**
