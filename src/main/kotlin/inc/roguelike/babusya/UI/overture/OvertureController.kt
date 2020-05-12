@@ -16,6 +16,7 @@ import tornadofx.Controller
 class OvertureController: Controller() {
     private var client: Client? = null
 
+
     fun connectToServer(login: String, address: String, port: Int) {
         client = Client(address, port, login)
     }

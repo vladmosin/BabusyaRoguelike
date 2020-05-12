@@ -15,7 +15,7 @@ import java.io.File
  * Implements players controller
  * Collects loot in current cell after move
  * */
-class HeroActionController(gameMap: GameMap, val inputListener: InputListener): AbstractActionController(gameMap) {
+class HeroActionController(gameMap: GameMap, var inputListener: InputListener): AbstractActionController(gameMap) {
 
     private val inputDataChannel = Channel<InputData>(capacity = Channel.CONFLATED)
     private val heroCommands = listOf(

@@ -7,9 +7,9 @@ import inc.roguelike.babusya.element.concrete.Hero
  * */
 class PlayersHolder {
     private var players = ArrayList<Player>()
-    private val newClients = ArrayList<Client>()
+    private val newClients = ArrayList<Int>()
 
-    fun addClient(client: Client) {
+    fun addClient(client: Int) {
         newClients.add(client)
     }
 
@@ -36,10 +36,10 @@ class PlayersHolder {
     /**
      * Removes players who disconnects
      * */
-    fun removePlayerByClient(client: Client) {
+    fun removePlayerById(id: Int) {
         val updatedPlayers = ArrayList<Player>()
         for (player in players) {
-            if (player.client != client) {
+            if (player.id != id) {
                 updatedPlayers.add(player)
             }
         }
@@ -48,20 +48,11 @@ class PlayersHolder {
     }
 
     /**
-     * Returns recently connected clients
+     * Returns recently connected ids
      * */
-    fun newClients(): List<Client> {
+    fun newClients(): List<Int> {
         val clients = ArrayList(newClients)
         newClients.clear()
         return clients
-    }
-
-    /**
-     * Sends updated state to all players
-     * */
-    fun sendMessage(message: Message) {
-        for (player in players) {
-            player.sendMessage(message)
-        }
     }
 }

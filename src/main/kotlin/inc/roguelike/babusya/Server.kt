@@ -5,7 +5,6 @@ import inc.roguelike.babusya.engines.MultiPlayerEngine
 import inc.roguelike.babusya.inputListeners.EmptyInputListener
 import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.levels.LevelsType
-import inc.roguelike.babusya.network.Client
 import inc.roguelike.babusya.network.gen.*
 import io.grpc.ServerBuilder
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +20,7 @@ class Server constructor(port: Int) {
 
     val rooms = ArrayList<Room>()
 
-    fun createRoom(roomId: Int, client: Client) {
+    fun createRoom(roomId: Int, client: Int) {
         val inputListener = EmptyInputListener()
         val actionSystem = MultiplayerActionSystem()
         val engine = MultiPlayerEngine(actionSystem)
@@ -42,7 +41,7 @@ class Server constructor(port: Int) {
         return null
     }
 
-    fun joinRoom(roomId: Int, client: Client): Boolean {
+    fun joinRoom(roomId: Int, client: Int): Boolean {
         for (room in rooms) {
             if (room.id == roomId) {
                 room.addClient(client)
