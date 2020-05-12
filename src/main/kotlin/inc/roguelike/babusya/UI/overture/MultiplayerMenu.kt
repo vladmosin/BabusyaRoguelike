@@ -13,6 +13,9 @@ class MultiplayerMenu: View("Multiplayer") {
     val login = model.bind { SimpleStringProperty() }
     val address = model.bind { SimpleStringProperty() }
     val port = model.bind { SimpleStringProperty() }
+
+    val controller: OvertureController by inject()
+
     override val root =
         form {
             fieldset("Connect to server", labelPosition = Orientation.VERTICAL) {
@@ -59,7 +62,8 @@ class MultiplayerMenu: View("Multiplayer") {
                         useMaxSize = true
                         action {
                             model.commit {
-                                println("Commit")
+                                controller.connectToServer(login.value, address.value, port.value.toInt())
+                                replaceWith<RoomsMenu>(ViewTransition.Slide(0.3.seconds, ViewTransition.Direction.LEFT))
                             }
                         }
                     }

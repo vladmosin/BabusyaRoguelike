@@ -12,16 +12,19 @@ import tornadofx.Controller
 
 class OvertureController: Controller() {
 
-    fun connectToServer(address: String, port: Int) {
-        TODO()
+    fun connectToServer(login: String, address: String, port: Int) {
     }
 
     fun disconnectFromServer() {
-        TODO()
+
     }
 
-    fun getRooms() {
-        TODO()
+    fun getRooms(): List<Int> {
+        return IntRange(1, 30).toList()
+    }
+
+    fun startMultiplayerGame(roomId: Int) {
+
     }
 
     fun startSinglePlayerGame(levelInfo: LevelInfo) {
