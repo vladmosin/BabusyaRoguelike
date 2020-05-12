@@ -11,7 +11,6 @@ import tornadofx.launch
  */
 fun main(args: Array<String>) {
     if (args.size == 2 && args[0] == "server") {
-        assert(args.size == 2)
         val port = args[1].toInt()
         val server = Server(port)
         server.start()
