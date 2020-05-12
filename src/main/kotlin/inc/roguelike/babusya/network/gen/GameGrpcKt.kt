@@ -103,7 +103,7 @@ object GameGrpcKt {
      *
      * @return The single response from the server.
      */
-    suspend fun getState(request: Empty): State = unaryRpc(
+    suspend fun getState(request: Player): State = unaryRpc(
       channel,
       GameGrpc.getGetStateMethod(),
       request,
@@ -189,7 +189,7 @@ object GameGrpcKt {
      *
      * @param request The request from the client.
      */
-    open suspend fun getState(request: Empty): State = throw
+    open suspend fun getState(request: Player): State = throw
         StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.getState is unimplemented"))
 
     /**

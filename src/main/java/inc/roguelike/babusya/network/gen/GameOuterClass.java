@@ -60,7 +60,7 @@ public final class GameOuterClass {
       "\022\n\n\002id\030\001 \001(\005\"Z\n\006Player\022\n\n\002id\030\001 \001(\005\022\r\n\005lo" +
       "gin\030\002 \001(\t\0225\n\004room\030\003 \001(\0132\'.inc.roguelike." +
       "babusya.network.gen.Room\"+\n\tInputData\022\020\n" +
-      "\010playerId\030\001 \001(\005\022\014\n\004data\030\002 \001(\t2\372\003\n\004Game\022d" +
+      "\010playerId\030\001 \001(\005\022\014\n\004data\030\002 \001(\t2\373\003\n\004Game\022d" +
       "\n\ncreateRoom\022).inc.roguelike.babusya.net" +
       "work.gen.Player\032+.inc.roguelike.babusya." +
       "network.gen.Response\022_\n\010getRooms\022(.inc.r" +
@@ -68,12 +68,12 @@ public final class GameOuterClass {
       ".roguelike.babusya.network.gen.Room0\001\022b\n" +
       "\010joinRoom\022).inc.roguelike.babusya.networ" +
       "k.gen.Player\032+.inc.roguelike.babusya.net" +
-      "work.gen.Response\022^\n\010getState\022(.inc.rogu" +
-      "elike.babusya.network.gen.Empty\032(.inc.ro" +
-      "guelike.babusya.network.gen.State\022g\n\rsen" +
-      "dInputData\022,.inc.roguelike.babusya.netwo" +
-      "rk.gen.InputData\032(.inc.roguelike.babusya" +
-      ".network.gen.EmptyB\002P\001b\006proto3"
+      "work.gen.Response\022_\n\010getState\022).inc.rogu" +
+      "elike.babusya.network.gen.Player\032(.inc.r" +
+      "oguelike.babusya.network.gen.State\022g\n\rse" +
+      "ndInputData\022,.inc.roguelike.babusya.netw" +
+      "ork.gen.InputData\032(.inc.roguelike.babusy" +
+      "a.network.gen.EmptyB\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

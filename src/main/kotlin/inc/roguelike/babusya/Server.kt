@@ -6,19 +6,19 @@ import inc.roguelike.babusya.inputListeners.EmptyInputListener
 import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.levels.LevelsType
 import inc.roguelike.babusya.network.Client
-import inc.roguelike.babusya.network.gen.GameGrpcKt
-import java.util.logging.Level
+import inc.roguelike.babusya.network.gen.*
+import io.grpc.ServerBuilder
+import kotlinx.coroutines.flow.Flow
 
-class GameService : GameGrpcKt.GameCoroutineImplBase() {
-
-}
 
 class Server private constructor(
     val port: Int,
-    val addrss: String,
-    val server: Server
+    val server: io.grpc.Server
 ) {
-//    constructor(port: Int) : this(port, addrss, )
+    constructor(port: Int) : this(
+        port = port,
+        server = ServerBuilder.forPort(port).addService(GameService()).build()
+    )
 
     val rooms = ArrayList<Room>()
 
@@ -52,5 +52,57 @@ class Server private constructor(
         }
 
         return false
+    }
+
+    fun start() {
+        server.start()
+        Runtime.getRuntime().addShutdownHook(
+            Thread {
+                println("*** shutting down gRPC server since JVM is shutting down")
+                this@Server.stop()
+                println("*** server shut down")
+            }
+        )
+    }
+
+    fun stop() {
+        server.shutdown()
+    }
+
+    fun blockUntilShutdown() {
+        server.awaitTermination()
+    }
+
+    class GameService : GameGrpcKt.GameCoroutineImplBase() {
+        override suspend fun createRoom(request: Player): Response {
+            val playerId = request.id
+            val playerLogin = request.login
+            val roomId = request.room.id
+            TODO()
+        }
+
+        override fun getRooms(request: Empty): Flow<inc.roguelike.babusya.network.gen.Room> {
+            TODO()
+        }
+
+        override suspend fun joinRoom(request: Player): Response {
+            val playerId = request.id
+            val playerLogin = request.login
+            val roomId = request.room.id
+            TODO()
+        }
+
+        override suspend fun getState(request: Player): State {
+            val playerId = request.id
+            val playerLogin = request.login
+            val roomId = request.room.id
+            TODO()
+        }
+
+        override suspend fun sendInputData(request: InputData): Empty {
+            val playerId = request.playerId
+            val data = request.data
+            TODO()
+        }
     }
 }

@@ -47,8 +47,15 @@ class Client(address: String, port: Int, val login: String, val id: Int) : Close
         return@runBlocking response.status
     }
 
-    fun getState(): Message = runBlocking {
-        val state: State = stub.getState(Empty.getDefaultInstance())
+    fun getState(roomId: Int): Message = runBlocking {
+        val room = Room.newBuilder().setId(roomId).build()
+        val player = Player
+            .newBuilder()
+            .setId(id)
+            .setLogin(login)
+            .setRoom(room)
+            .build()
+        val state: State = stub.getState(player)
         return@runBlocking Message(state.level, state.ends, state.log)
     }
 
