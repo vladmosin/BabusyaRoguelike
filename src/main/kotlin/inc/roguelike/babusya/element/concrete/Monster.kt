@@ -34,10 +34,16 @@ class Monster(creatureCharacteristics: CreatureCharacteristics, actionController
         return listOf(MonsterPunchEffect(characteristics.attack))
     }
 
+    /**
+     * On attack monster applies MonsterPunchEffect with damage based on monster attack characteristic
+     */
     override fun attackEffects(): List<Effect> {
         return getKickEffects()
     }
 
+    /**
+     * On defense monster applies MonsterPunchEffect with damage based on monster attack characteristic
+     */
     override fun defensiveEffects(): List<Effect> {
         return getKickEffects()
     }

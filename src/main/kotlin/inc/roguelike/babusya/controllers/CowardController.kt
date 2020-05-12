@@ -6,7 +6,11 @@ import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.map.shortestPath
 
-//Will stop and fight if player is on neighbour cell
+/**
+ * Implementation of coward strategy.
+ * Mobs with this strategy tries finds shortest path to hero and
+ *  if such path exists, tries to move in opposite direction
+ * */
 class CowardController(gameMap: GameMap, var scaryElement: GameElement?): AbstractActionController(gameMap) {
     private var positionX = -1
     private var positionY = -1

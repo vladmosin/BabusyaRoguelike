@@ -8,7 +8,7 @@ import inc.roguelike.babusya.map.GameMap
 /**
  * Creates different controllers with predefined map and input listener
  * */
-class ControllerFactory(val gameMap: GameMap, inputListener: InputListener) {
+class ControllerFactory(private val gameMap: GameMap, inputListener: InputListener) {
 
     private val heroController = HeroActionController(gameMap, inputListener)
     private val passiveController = PassiveController(gameMap)

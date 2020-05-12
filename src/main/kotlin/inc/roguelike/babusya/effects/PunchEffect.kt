@@ -12,9 +12,10 @@ import java.lang.NumberFormatException
 import kotlin.math.max
 
 /**
- * Decreasing unit hp on given amount of damage effect
+ * Decreasing creatures hp on given amount of damage effect
+ * If target creatures hp becomes less or equal to zero, it status changes to DEAD
  * */
-open class PunchEffect(val damage: Int): Effect {
+open class PunchEffect(protected val damage: Int): Effect {
 
     override fun visitHero(hero: Hero): Boolean {
         punchCreature(hero)

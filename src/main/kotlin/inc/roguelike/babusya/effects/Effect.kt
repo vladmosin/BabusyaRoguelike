@@ -5,7 +5,9 @@ import inc.roguelike.babusya.element.concrete.*
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 /**
- * Interface for effects implementing visitor pattern and able to affect game elements
+ * Interface for effects which can be applied to gameElement
+ *  Implements visitor on gameElements which returns whether
+ *      the effect was successfully applied
  * */
 interface Effect : ElementVisitor<Boolean> {
     override fun visitStairs(stairs: Stairs): Boolean = false
@@ -18,11 +20,12 @@ interface Effect : ElementVisitor<Boolean> {
 
     /**
      * Applying effect to given game element
+     * Returns whether the element was successfully applied
      * */
     fun apply(gameElement: GameElement): Boolean = gameElement.accept(this)
 
     /**
-     * Returns description
+     * Returns description of effect applying which is supposed to be shown to player
      * */
     fun getDescription(from: GameElement?, to: GameElement?): String
 

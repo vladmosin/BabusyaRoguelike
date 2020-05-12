@@ -11,8 +11,10 @@ import kotlin.random.Random
 
 /**
  * Creature becomes confused with given probability when this effect applied
+ * Effects lasts for {@param effectDuration} turns
+ * Applies only to ConfusableCreature element
  * */
-class ConfusionChanceEffect(val probability: Double, val effectDuration: Int): Effect {
+class ConfusionChanceEffect(private val probability: Double, private val effectDuration: Int): Effect {
     override fun getDescription(from: GameElement?, to: GameElement?): String {
         return "Confusion: (from = " + (from?.id ?: "?") + ")" +
                 "(to = " + (to?.id ?: "?") + ")"
