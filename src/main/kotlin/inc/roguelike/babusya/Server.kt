@@ -9,6 +9,7 @@ import inc.roguelike.babusya.network.Client
 import inc.roguelike.babusya.network.gen.*
 import io.grpc.ServerBuilder
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 
 class Server constructor(port: Int) {
@@ -77,31 +78,68 @@ class Server constructor(port: Int) {
             val playerId = request.id
             val playerLogin = request.login
             val roomId = request.room.id
-            TODO()
+
+            for (room in rooms) {
+                if (room.id == roomId) {
+                    return Response.newBuilder().setMessage("Room already exists").build()
+                }
+            }
+
+            createRoom(roomId, playerId)
+            return Response.newBuilder().setMessage("").build()
         }
 
         override fun getRooms(request: Empty): Flow<inc.roguelike.babusya.network.gen.Room> {
-            TODO()
+            return flow {
+                rooms.map { room ->
+                    inc.roguelike.babusya.network.gen.Room.newBuilder().setId(room.id).build()
+                }
+            }
         }
 
         override suspend fun joinRoom(request: Player): Response {
             val playerId = request.id
             val playerLogin = request.login
             val roomId = request.room.id
-            TODO()
+
+            for (room in rooms) {
+                if (room.id == roomId) {
+                    joinRoom(roomId, playerId)
+                }
+            }
+
+            return Response.newBuilder().setMessage("").build()
         }
 
         override suspend fun getState(request: Player): State {
             val playerId = request.id
             val playerLogin = request.login
             val roomId = request.room.id
-            TODO()
+
+            val room = getRoom(roomId)!!
+            val log = room.game.gameState.gameLog
+            val level = room.game.gameState.getLevel()
+            val ends = room.game.gameState.didGameEnd()
+
+            return State.newBuilder()
+                .setLog(log.serialize())
+                .setLevel(level.serialize())
+                .setEnds(ends)
+                .build()
         }
 
         override suspend fun sendInputData(request: InputData): Empty {
             val playerId = request.playerId
             val data = request.data
-            TODO()
+
+            for (room in rooms) {
+                val player = room.findPlayer(playerId)
+                if (player != null) {
+                    player.lastInputData = inc.roguelike.babusya.inputListeners.InputData.valueOf(data)
+                }
+            }
+
+            return Empty.getDefaultInstance()
         }
     }
 }

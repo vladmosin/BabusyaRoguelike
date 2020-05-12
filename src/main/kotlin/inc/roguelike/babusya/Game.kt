@@ -19,7 +19,7 @@ class Game(val inputListener: InputListener,
     }
 
     private val levelCreator = LevelCreator(inputListener)
-    private val gameState = GameState(levelCreator, levelInfo)
+    val gameState = GameState(levelCreator, levelInfo)
     private val deathObserver = DeathObserver(gameState.getLevel().getMap())
 
     /**
