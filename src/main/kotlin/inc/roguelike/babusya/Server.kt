@@ -11,14 +11,13 @@ import io.grpc.ServerBuilder
 import kotlinx.coroutines.flow.Flow
 
 
-class Server private constructor(
-    val port: Int,
-    val server: io.grpc.Server
-) {
-    constructor(port: Int) : this(
-        port = port,
-        server = ServerBuilder.forPort(port).addService(GameService()).build()
-    )
+class Server constructor(port: Int) {
+    private val server: Server
+
+    init {
+        val serverBuilder = ServerBuilder.forPort(port)
+        server = serverBuilder.addService(GameService()).build()
+    }
 
     val rooms = ArrayList<Room>()
 
@@ -73,7 +72,7 @@ class Server private constructor(
         server.awaitTermination()
     }
 
-    class GameService : GameGrpcKt.GameCoroutineImplBase() {
+    inner class GameService : GameGrpcKt.GameCoroutineImplBase() {
         override suspend fun createRoom(request: Player): Response {
             val playerId = request.id
             val playerLogin = request.login
