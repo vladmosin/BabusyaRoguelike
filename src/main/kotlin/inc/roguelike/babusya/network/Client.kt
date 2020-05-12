@@ -1,14 +1,25 @@
 package inc.roguelike.babusya.network
 
+import inc.roguelike.babusya.network.gen.GameGrpcKt
+
 /**
  * Sends and receives messages
  * */
-class Client {
+class Client(address: String, port: Int) {
+
+//    val channel = ManagedChannelBuilder.forAddress(address, port).usePlaintext().build()
+//    val stub = GameGrpcKt.GameCoroutineStub(channel)
+
     fun receiveMessage(): Message {
         TODO()
     }
 
     fun sendMessage(message: Message) {
-        TODO()
+//        val request = inc.roguelike.babusya.network.gen.Message.newBuilder()
+//            .setLevel(message.serializedLevel)
+//            .setEnds(message.gameEnds)
+//            .setLog(message.serializedGameLog)
+//            .build()
+
     }
 }
