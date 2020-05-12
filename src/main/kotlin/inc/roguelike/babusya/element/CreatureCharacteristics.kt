@@ -5,12 +5,18 @@ import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 
 /**
- * Stores different characteristics of create
+ * Stores different characteristics of creature
+ * creature hit points and max hit points specify creatures current health and health bound
+ *  when creature's hit points become less than zero, creature will die
+ * on creatures attack based many damage effects, creature can apply
  * */
 data class CreatureCharacteristics(var hitPoints: Int, var maxHitPoints: Int, var attack: Int) {
     companion object {
         private const val name = "CreatureCharacteristics"
 
+        /**
+         * creates simple characteristic prototype
+         */
         fun createBasic(): CreatureCharacteristics {
             val maxHitPoints = 100
             val attack = 20

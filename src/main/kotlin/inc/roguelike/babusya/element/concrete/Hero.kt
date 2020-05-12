@@ -33,10 +33,20 @@ class Hero(
         return listOf(PunchEffect(characteristics.attack), ConfusionChanceEffect(0.5, 10))
     }
 
+    /**
+     * On attack hero applies
+     * MonsterPunchEffect with damage based on hero's attack characteristic
+     * and Confusion effect
+     */
     override fun attackEffects(): List<Effect> {
         return getKickEffects()
     }
 
+    /**
+     * On defense hero applies
+     * MonsterPunchEffect with damage based on hero's attack characteristic
+     * and Confusion effect
+     */
     override fun defensiveEffects(): List<Effect> {
         return getKickEffects()
     }
