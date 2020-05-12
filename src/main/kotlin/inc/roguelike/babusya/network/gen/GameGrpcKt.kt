@@ -1,6 +1,6 @@
-package inc.roguelike.babusya.network
+package inc.roguelike.babusya.network.gen
 
-import inc.roguelike.babusya.network.GameGrpc.getServiceDescriptor
+import inc.roguelike.babusya.network.gen.GameGrpc.getServiceDescriptor
 import io.grpc.CallOptions
 import io.grpc.CallOptions.DEFAULT
 import io.grpc.Channel
@@ -23,11 +23,12 @@ import kotlin.jvm.JvmOverloads
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Holder for Kotlin coroutine-based client and server APIs for inc.roguelike.babusya.network.Game.
+ * Holder for Kotlin coroutine-based client and server APIs for
+ * inc.roguelike.babusya.network.gen.Game.
  */
 object GameGrpcKt {
   /**
-   * A stub for issuing RPCs to a(n) inc.roguelike.babusya.network.Game service as suspending
+   * A stub for issuing RPCs to a(n) inc.roguelike.babusya.network.gen.Game service as suspending
    * coroutines.
    */
   @StubFor(GameGrpc::class)
@@ -75,7 +76,7 @@ object GameGrpcKt {
     )}
 
   /**
-   * Skeletal implementation of the inc.roguelike.babusya.network.Game service based on Kotlin
+   * Skeletal implementation of the inc.roguelike.babusya.network.gen.Game service based on Kotlin
    * coroutines.
    */
   abstract class GameCoroutineImplBase(
@@ -83,7 +84,7 @@ object GameGrpcKt {
   ) : AbstractCoroutineServerImpl(coroutineContext) {
     /**
      * Returns a [Flow] of responses to an RPC for
-     * inc.roguelike.babusya.network.Game.receiveMessage.
+     * inc.roguelike.babusya.network.gen.Game.receiveMessage.
      *
      * If creating or collecting the returned flow fails with a [StatusException], the RPC
      * will fail with the corresponding [Status].  If it fails with a
@@ -95,10 +96,10 @@ object GameGrpcKt {
      * @param request The request from the client.
      */
     open fun receiveMessage(request: Empty): Flow<Message> = throw
-        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.Game.receiveMessage is unimplemented"))
+        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.receiveMessage is unimplemented"))
 
     /**
-     * Returns the response to an RPC for inc.roguelike.babusya.network.Game.sendMessage.
+     * Returns the response to an RPC for inc.roguelike.babusya.network.gen.Game.sendMessage.
      *
      * If this method fails with a [StatusException], the RPC will fail with the corresponding
      * [Status].  If this method fails with a [java.util.concurrent.CancellationException], the RPC
@@ -109,7 +110,7 @@ object GameGrpcKt {
      * @param request The request from the client.
      */
     open suspend fun sendMessage(request: Message): Empty = throw
-        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.Game.sendMessage is unimplemented"))
+        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.sendMessage is unimplemented"))
 
     final override fun bindService(): ServerServiceDefinition = builder(getServiceDescriptor())
       .addMethod(serverStreamingServerMethodDefinition(
