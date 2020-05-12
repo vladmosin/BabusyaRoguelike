@@ -3,8 +3,8 @@
 
 package inc.roguelike.babusya.network.gen;
 
-public interface MessageOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:inc.roguelike.babusya.network.gen.Message)
+public interface StateOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:inc.roguelike.babusya.network.gen.State)
     com.google.protobuf.MessageOrBuilder {
 
   /**

@@ -27,66 +27,128 @@ public final class GameGrpc {
   public static final String SERVICE_NAME = "inc.roguelike.babusya.network.gen.Game";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty,
-      inc.roguelike.babusya.network.gen.Message> getReceiveMessageMethod;
+  private static volatile io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player,
+      inc.roguelike.babusya.network.gen.Response> getCreateRoomMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "receiveMessage",
-      requestType = inc.roguelike.babusya.network.gen.Empty.class,
-      responseType = inc.roguelike.babusya.network.gen.Message.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
-  public static io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty,
-      inc.roguelike.babusya.network.gen.Message> getReceiveMessageMethod() {
-    io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty, inc.roguelike.babusya.network.gen.Message> getReceiveMessageMethod;
-    if ((getReceiveMessageMethod = GameGrpc.getReceiveMessageMethod) == null) {
+      fullMethodName = SERVICE_NAME + '/' + "createRoom",
+      requestType = inc.roguelike.babusya.network.gen.Player.class,
+      responseType = inc.roguelike.babusya.network.gen.Response.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player,
+      inc.roguelike.babusya.network.gen.Response> getCreateRoomMethod() {
+    io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player, inc.roguelike.babusya.network.gen.Response> getCreateRoomMethod;
+    if ((getCreateRoomMethod = GameGrpc.getCreateRoomMethod) == null) {
       synchronized (GameGrpc.class) {
-        if ((getReceiveMessageMethod = GameGrpc.getReceiveMessageMethod) == null) {
-          GameGrpc.getReceiveMessageMethod = getReceiveMessageMethod =
-              io.grpc.MethodDescriptor.<inc.roguelike.babusya.network.gen.Empty, inc.roguelike.babusya.network.gen.Message>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "receiveMessage"))
+        if ((getCreateRoomMethod = GameGrpc.getCreateRoomMethod) == null) {
+          GameGrpc.getCreateRoomMethod = getCreateRoomMethod =
+              io.grpc.MethodDescriptor.<inc.roguelike.babusya.network.gen.Player, inc.roguelike.babusya.network.gen.Response>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "createRoom"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  inc.roguelike.babusya.network.gen.Empty.getDefaultInstance()))
+                  inc.roguelike.babusya.network.gen.Player.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  inc.roguelike.babusya.network.gen.Message.getDefaultInstance()))
-              .setSchemaDescriptor(new GameMethodDescriptorSupplier("receiveMessage"))
+                  inc.roguelike.babusya.network.gen.Response.getDefaultInstance()))
+              .setSchemaDescriptor(new GameMethodDescriptorSupplier("createRoom"))
               .build();
         }
       }
     }
-    return getReceiveMessageMethod;
+    return getCreateRoomMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Message,
-      inc.roguelike.babusya.network.gen.Empty> getSendMessageMethod;
+  private static volatile io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty,
+      inc.roguelike.babusya.network.gen.Room> getGetRoomsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "sendMessage",
-      requestType = inc.roguelike.babusya.network.gen.Message.class,
-      responseType = inc.roguelike.babusya.network.gen.Empty.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Message,
-      inc.roguelike.babusya.network.gen.Empty> getSendMessageMethod() {
-    io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Message, inc.roguelike.babusya.network.gen.Empty> getSendMessageMethod;
-    if ((getSendMessageMethod = GameGrpc.getSendMessageMethod) == null) {
+      fullMethodName = SERVICE_NAME + '/' + "getRooms",
+      requestType = inc.roguelike.babusya.network.gen.Empty.class,
+      responseType = inc.roguelike.babusya.network.gen.Room.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty,
+      inc.roguelike.babusya.network.gen.Room> getGetRoomsMethod() {
+    io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty, inc.roguelike.babusya.network.gen.Room> getGetRoomsMethod;
+    if ((getGetRoomsMethod = GameGrpc.getGetRoomsMethod) == null) {
       synchronized (GameGrpc.class) {
-        if ((getSendMessageMethod = GameGrpc.getSendMessageMethod) == null) {
-          GameGrpc.getSendMessageMethod = getSendMessageMethod =
-              io.grpc.MethodDescriptor.<inc.roguelike.babusya.network.gen.Message, inc.roguelike.babusya.network.gen.Empty>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "sendMessage"))
+        if ((getGetRoomsMethod = GameGrpc.getGetRoomsMethod) == null) {
+          GameGrpc.getGetRoomsMethod = getGetRoomsMethod =
+              io.grpc.MethodDescriptor.<inc.roguelike.babusya.network.gen.Empty, inc.roguelike.babusya.network.gen.Room>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getRooms"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  inc.roguelike.babusya.network.gen.Message.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   inc.roguelike.babusya.network.gen.Empty.getDefaultInstance()))
-              .setSchemaDescriptor(new GameMethodDescriptorSupplier("sendMessage"))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.Room.getDefaultInstance()))
+              .setSchemaDescriptor(new GameMethodDescriptorSupplier("getRooms"))
               .build();
         }
       }
     }
-    return getSendMessageMethod;
+    return getGetRoomsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player,
+      inc.roguelike.babusya.network.gen.Response> getJoinRoomMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "joinRoom",
+      requestType = inc.roguelike.babusya.network.gen.Player.class,
+      responseType = inc.roguelike.babusya.network.gen.Response.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player,
+      inc.roguelike.babusya.network.gen.Response> getJoinRoomMethod() {
+    io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player, inc.roguelike.babusya.network.gen.Response> getJoinRoomMethod;
+    if ((getJoinRoomMethod = GameGrpc.getJoinRoomMethod) == null) {
+      synchronized (GameGrpc.class) {
+        if ((getJoinRoomMethod = GameGrpc.getJoinRoomMethod) == null) {
+          GameGrpc.getJoinRoomMethod = getJoinRoomMethod =
+              io.grpc.MethodDescriptor.<inc.roguelike.babusya.network.gen.Player, inc.roguelike.babusya.network.gen.Response>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "joinRoom"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.Player.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.Response.getDefaultInstance()))
+              .setSchemaDescriptor(new GameMethodDescriptorSupplier("joinRoom"))
+              .build();
+        }
+      }
+    }
+    return getJoinRoomMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty,
+      inc.roguelike.babusya.network.gen.State> getGetStateMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getState",
+      requestType = inc.roguelike.babusya.network.gen.Empty.class,
+      responseType = inc.roguelike.babusya.network.gen.State.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty,
+      inc.roguelike.babusya.network.gen.State> getGetStateMethod() {
+    io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty, inc.roguelike.babusya.network.gen.State> getGetStateMethod;
+    if ((getGetStateMethod = GameGrpc.getGetStateMethod) == null) {
+      synchronized (GameGrpc.class) {
+        if ((getGetStateMethod = GameGrpc.getGetStateMethod) == null) {
+          GameGrpc.getGetStateMethod = getGetStateMethod =
+              io.grpc.MethodDescriptor.<inc.roguelike.babusya.network.gen.Empty, inc.roguelike.babusya.network.gen.State>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getState"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.State.getDefaultInstance()))
+              .setSchemaDescriptor(new GameMethodDescriptorSupplier("getState"))
+              .build();
+        }
+      }
+    }
+    return getGetStateMethod;
   }
 
   /**
@@ -139,34 +201,62 @@ public final class GameGrpc {
 
     /**
      */
-    public void receiveMessage(inc.roguelike.babusya.network.gen.Empty request,
-        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Message> responseObserver) {
-      asyncUnimplementedUnaryCall(getReceiveMessageMethod(), responseObserver);
+    public void createRoom(inc.roguelike.babusya.network.gen.Player request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Response> responseObserver) {
+      asyncUnimplementedUnaryCall(getCreateRoomMethod(), responseObserver);
     }
 
     /**
      */
-    public void sendMessage(inc.roguelike.babusya.network.gen.Message request,
-        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Empty> responseObserver) {
-      asyncUnimplementedUnaryCall(getSendMessageMethod(), responseObserver);
+    public void getRooms(inc.roguelike.babusya.network.gen.Empty request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Room> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetRoomsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void joinRoom(inc.roguelike.babusya.network.gen.Player request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Response> responseObserver) {
+      asyncUnimplementedUnaryCall(getJoinRoomMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getState(inc.roguelike.babusya.network.gen.Empty request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.State> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetStateMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getReceiveMessageMethod(),
+            getCreateRoomMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                inc.roguelike.babusya.network.gen.Player,
+                inc.roguelike.babusya.network.gen.Response>(
+                  this, METHODID_CREATE_ROOM)))
+          .addMethod(
+            getGetRoomsMethod(),
             asyncServerStreamingCall(
               new MethodHandlers<
                 inc.roguelike.babusya.network.gen.Empty,
-                inc.roguelike.babusya.network.gen.Message>(
-                  this, METHODID_RECEIVE_MESSAGE)))
+                inc.roguelike.babusya.network.gen.Room>(
+                  this, METHODID_GET_ROOMS)))
           .addMethod(
-            getSendMessageMethod(),
+            getJoinRoomMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                inc.roguelike.babusya.network.gen.Message,
-                inc.roguelike.babusya.network.gen.Empty>(
-                  this, METHODID_SEND_MESSAGE)))
+                inc.roguelike.babusya.network.gen.Player,
+                inc.roguelike.babusya.network.gen.Response>(
+                  this, METHODID_JOIN_ROOM)))
+          .addMethod(
+            getGetStateMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                inc.roguelike.babusya.network.gen.Empty,
+                inc.roguelike.babusya.network.gen.State>(
+                  this, METHODID_GET_STATE)))
           .build();
     }
   }
@@ -187,18 +277,34 @@ public final class GameGrpc {
 
     /**
      */
-    public void receiveMessage(inc.roguelike.babusya.network.gen.Empty request,
-        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Message> responseObserver) {
-      asyncServerStreamingCall(
-          getChannel().newCall(getReceiveMessageMethod(), getCallOptions()), request, responseObserver);
+    public void createRoom(inc.roguelike.babusya.network.gen.Player request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Response> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getCreateRoomMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void sendMessage(inc.roguelike.babusya.network.gen.Message request,
-        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Empty> responseObserver) {
+    public void getRooms(inc.roguelike.babusya.network.gen.Empty request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Room> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(getGetRoomsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void joinRoom(inc.roguelike.babusya.network.gen.Player request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Response> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getSendMessageMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getJoinRoomMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getState(inc.roguelike.babusya.network.gen.Empty request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.State> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetStateMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -218,17 +324,31 @@ public final class GameGrpc {
 
     /**
      */
-    public java.util.Iterator<inc.roguelike.babusya.network.gen.Message> receiveMessage(
-        inc.roguelike.babusya.network.gen.Empty request) {
-      return blockingServerStreamingCall(
-          getChannel(), getReceiveMessageMethod(), getCallOptions(), request);
+    public inc.roguelike.babusya.network.gen.Response createRoom(inc.roguelike.babusya.network.gen.Player request) {
+      return blockingUnaryCall(
+          getChannel(), getCreateRoomMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public inc.roguelike.babusya.network.gen.Empty sendMessage(inc.roguelike.babusya.network.gen.Message request) {
+    public java.util.Iterator<inc.roguelike.babusya.network.gen.Room> getRooms(
+        inc.roguelike.babusya.network.gen.Empty request) {
+      return blockingServerStreamingCall(
+          getChannel(), getGetRoomsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public inc.roguelike.babusya.network.gen.Response joinRoom(inc.roguelike.babusya.network.gen.Player request) {
       return blockingUnaryCall(
-          getChannel(), getSendMessageMethod(), getCallOptions(), request);
+          getChannel(), getJoinRoomMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public inc.roguelike.babusya.network.gen.State getState(inc.roguelike.babusya.network.gen.Empty request) {
+      return blockingUnaryCall(
+          getChannel(), getGetStateMethod(), getCallOptions(), request);
     }
   }
 
@@ -248,15 +368,33 @@ public final class GameGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<inc.roguelike.babusya.network.gen.Empty> sendMessage(
-        inc.roguelike.babusya.network.gen.Message request) {
+    public com.google.common.util.concurrent.ListenableFuture<inc.roguelike.babusya.network.gen.Response> createRoom(
+        inc.roguelike.babusya.network.gen.Player request) {
       return futureUnaryCall(
-          getChannel().newCall(getSendMessageMethod(), getCallOptions()), request);
+          getChannel().newCall(getCreateRoomMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<inc.roguelike.babusya.network.gen.Response> joinRoom(
+        inc.roguelike.babusya.network.gen.Player request) {
+      return futureUnaryCall(
+          getChannel().newCall(getJoinRoomMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<inc.roguelike.babusya.network.gen.State> getState(
+        inc.roguelike.babusya.network.gen.Empty request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetStateMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_RECEIVE_MESSAGE = 0;
-  private static final int METHODID_SEND_MESSAGE = 1;
+  private static final int METHODID_CREATE_ROOM = 0;
+  private static final int METHODID_GET_ROOMS = 1;
+  private static final int METHODID_JOIN_ROOM = 2;
+  private static final int METHODID_GET_STATE = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -275,13 +413,21 @@ public final class GameGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_RECEIVE_MESSAGE:
-          serviceImpl.receiveMessage((inc.roguelike.babusya.network.gen.Empty) request,
-              (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Message>) responseObserver);
+        case METHODID_CREATE_ROOM:
+          serviceImpl.createRoom((inc.roguelike.babusya.network.gen.Player) request,
+              (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Response>) responseObserver);
           break;
-        case METHODID_SEND_MESSAGE:
-          serviceImpl.sendMessage((inc.roguelike.babusya.network.gen.Message) request,
-              (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Empty>) responseObserver);
+        case METHODID_GET_ROOMS:
+          serviceImpl.getRooms((inc.roguelike.babusya.network.gen.Empty) request,
+              (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Room>) responseObserver);
+          break;
+        case METHODID_JOIN_ROOM:
+          serviceImpl.joinRoom((inc.roguelike.babusya.network.gen.Player) request,
+              (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Response>) responseObserver);
+          break;
+        case METHODID_GET_STATE:
+          serviceImpl.getState((inc.roguelike.babusya.network.gen.Empty) request,
+              (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.State>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -344,8 +490,10 @@ public final class GameGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new GameFileDescriptorSupplier())
-              .addMethod(getReceiveMessageMethod())
-              .addMethod(getSendMessageMethod())
+              .addMethod(getCreateRoomMethod())
+              .addMethod(getGetRoomsMethod())
+              .addMethod(getJoinRoomMethod())
+              .addMethod(getGetStateMethod())
               .build();
         }
       }

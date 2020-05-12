@@ -4,18 +4,18 @@
 package inc.roguelike.babusya.network.gen;
 
 /**
- * Protobuf type {@code inc.roguelike.babusya.network.gen.Message}
+ * Protobuf type {@code inc.roguelike.babusya.network.gen.State}
  */
-public  final class Message extends
+public  final class State extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:inc.roguelike.babusya.network.gen.Message)
-    MessageOrBuilder {
+    // @@protoc_insertion_point(message_implements:inc.roguelike.babusya.network.gen.State)
+    StateOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use Message.newBuilder() to construct.
-  private Message(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use State.newBuilder() to construct.
+  private State(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private Message() {
+  private State() {
     level_ = "";
     log_ = "";
   }
@@ -24,7 +24,7 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new Message();
+    return new State();
   }
 
   @java.lang.Override
@@ -32,7 +32,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private Message(
+  private State(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -88,15 +88,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return inc.roguelike.babusya.network.gen.GameOuterClass.internal_static_inc_roguelike_babusya_network_gen_Message_descriptor;
+    return inc.roguelike.babusya.network.gen.GameOuterClass.internal_static_inc_roguelike_babusya_network_gen_State_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return inc.roguelike.babusya.network.gen.GameOuterClass.internal_static_inc_roguelike_babusya_network_gen_Message_fieldAccessorTable
+    return inc.roguelike.babusya.network.gen.GameOuterClass.internal_static_inc_roguelike_babusya_network_gen_State_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            inc.roguelike.babusya.network.gen.Message.class, inc.roguelike.babusya.network.gen.Message.Builder.class);
+            inc.roguelike.babusya.network.gen.State.class, inc.roguelike.babusya.network.gen.State.Builder.class);
   }
 
   public static final int LEVEL_FIELD_NUMBER = 1;
@@ -233,10 +233,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof inc.roguelike.babusya.network.gen.Message)) {
+    if (!(obj instanceof inc.roguelike.babusya.network.gen.State)) {
       return super.equals(obj);
     }
-    inc.roguelike.babusya.network.gen.Message other = (inc.roguelike.babusya.network.gen.Message) obj;
+    inc.roguelike.babusya.network.gen.State other = (inc.roguelike.babusya.network.gen.State) obj;
 
     if (!getLevel()
         .equals(other.getLevel())) return false;
@@ -267,69 +267,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static inc.roguelike.babusya.network.gen.Message parseFrom(
+  public static inc.roguelike.babusya.network.gen.State parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseFrom(
+  public static inc.roguelike.babusya.network.gen.State parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseFrom(
+  public static inc.roguelike.babusya.network.gen.State parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseFrom(
+  public static inc.roguelike.babusya.network.gen.State parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseFrom(byte[] data)
+  public static inc.roguelike.babusya.network.gen.State parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseFrom(
+  public static inc.roguelike.babusya.network.gen.State parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseFrom(java.io.InputStream input)
+  public static inc.roguelike.babusya.network.gen.State parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseFrom(
+  public static inc.roguelike.babusya.network.gen.State parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseDelimitedFrom(java.io.InputStream input)
+  public static inc.roguelike.babusya.network.gen.State parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseDelimitedFrom(
+  public static inc.roguelike.babusya.network.gen.State parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseFrom(
+  public static inc.roguelike.babusya.network.gen.State parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static inc.roguelike.babusya.network.gen.Message parseFrom(
+  public static inc.roguelike.babusya.network.gen.State parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -342,7 +342,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(inc.roguelike.babusya.network.gen.Message prototype) {
+  public static Builder newBuilder(inc.roguelike.babusya.network.gen.State prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -358,26 +358,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code inc.roguelike.babusya.network.gen.Message}
+   * Protobuf type {@code inc.roguelike.babusya.network.gen.State}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:inc.roguelike.babusya.network.gen.Message)
-      inc.roguelike.babusya.network.gen.MessageOrBuilder {
+      // @@protoc_insertion_point(builder_implements:inc.roguelike.babusya.network.gen.State)
+      inc.roguelike.babusya.network.gen.StateOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return inc.roguelike.babusya.network.gen.GameOuterClass.internal_static_inc_roguelike_babusya_network_gen_Message_descriptor;
+      return inc.roguelike.babusya.network.gen.GameOuterClass.internal_static_inc_roguelike_babusya_network_gen_State_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return inc.roguelike.babusya.network.gen.GameOuterClass.internal_static_inc_roguelike_babusya_network_gen_Message_fieldAccessorTable
+      return inc.roguelike.babusya.network.gen.GameOuterClass.internal_static_inc_roguelike_babusya_network_gen_State_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              inc.roguelike.babusya.network.gen.Message.class, inc.roguelike.babusya.network.gen.Message.Builder.class);
+              inc.roguelike.babusya.network.gen.State.class, inc.roguelike.babusya.network.gen.State.Builder.class);
     }
 
-    // Construct using inc.roguelike.babusya.network.gen.Message.newBuilder()
+    // Construct using inc.roguelike.babusya.network.gen.State.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -407,17 +407,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return inc.roguelike.babusya.network.gen.GameOuterClass.internal_static_inc_roguelike_babusya_network_gen_Message_descriptor;
+      return inc.roguelike.babusya.network.gen.GameOuterClass.internal_static_inc_roguelike_babusya_network_gen_State_descriptor;
     }
 
     @java.lang.Override
-    public inc.roguelike.babusya.network.gen.Message getDefaultInstanceForType() {
-      return inc.roguelike.babusya.network.gen.Message.getDefaultInstance();
+    public inc.roguelike.babusya.network.gen.State getDefaultInstanceForType() {
+      return inc.roguelike.babusya.network.gen.State.getDefaultInstance();
     }
 
     @java.lang.Override
-    public inc.roguelike.babusya.network.gen.Message build() {
-      inc.roguelike.babusya.network.gen.Message result = buildPartial();
+    public inc.roguelike.babusya.network.gen.State build() {
+      inc.roguelike.babusya.network.gen.State result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -425,8 +425,8 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public inc.roguelike.babusya.network.gen.Message buildPartial() {
-      inc.roguelike.babusya.network.gen.Message result = new inc.roguelike.babusya.network.gen.Message(this);
+    public inc.roguelike.babusya.network.gen.State buildPartial() {
+      inc.roguelike.babusya.network.gen.State result = new inc.roguelike.babusya.network.gen.State(this);
       result.level_ = level_;
       result.ends_ = ends_;
       result.log_ = log_;
@@ -468,16 +468,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof inc.roguelike.babusya.network.gen.Message) {
-        return mergeFrom((inc.roguelike.babusya.network.gen.Message)other);
+      if (other instanceof inc.roguelike.babusya.network.gen.State) {
+        return mergeFrom((inc.roguelike.babusya.network.gen.State)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(inc.roguelike.babusya.network.gen.Message other) {
-      if (other == inc.roguelike.babusya.network.gen.Message.getDefaultInstance()) return this;
+    public Builder mergeFrom(inc.roguelike.babusya.network.gen.State other) {
+      if (other == inc.roguelike.babusya.network.gen.State.getDefaultInstance()) return this;
       if (!other.getLevel().isEmpty()) {
         level_ = other.level_;
         onChanged();
@@ -504,11 +504,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      inc.roguelike.babusya.network.gen.Message parsedMessage = null;
+      inc.roguelike.babusya.network.gen.State parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (inc.roguelike.babusya.network.gen.Message) e.getUnfinishedMessage();
+        parsedMessage = (inc.roguelike.babusya.network.gen.State) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -712,41 +712,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:inc.roguelike.babusya.network.gen.Message)
+    // @@protoc_insertion_point(builder_scope:inc.roguelike.babusya.network.gen.State)
   }
 
-  // @@protoc_insertion_point(class_scope:inc.roguelike.babusya.network.gen.Message)
-  private static final inc.roguelike.babusya.network.gen.Message DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:inc.roguelike.babusya.network.gen.State)
+  private static final inc.roguelike.babusya.network.gen.State DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new inc.roguelike.babusya.network.gen.Message();
+    DEFAULT_INSTANCE = new inc.roguelike.babusya.network.gen.State();
   }
 
-  public static inc.roguelike.babusya.network.gen.Message getDefaultInstance() {
+  public static inc.roguelike.babusya.network.gen.State getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<Message>
-      PARSER = new com.google.protobuf.AbstractParser<Message>() {
+  private static final com.google.protobuf.Parser<State>
+      PARSER = new com.google.protobuf.AbstractParser<State>() {
     @java.lang.Override
-    public Message parsePartialFrom(
+    public State parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Message(input, extensionRegistry);
+      return new State(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<Message> parser() {
+  public static com.google.protobuf.Parser<State> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<Message> getParserForType() {
+  public com.google.protobuf.Parser<State> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public inc.roguelike.babusya.network.gen.Message getDefaultInstanceForType() {
+  public inc.roguelike.babusya.network.gen.State getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 
