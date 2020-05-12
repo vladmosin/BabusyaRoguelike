@@ -10,17 +10,15 @@ import kotlinx.coroutines.launch
 class GameOnClient(private val renderSystem: RenderSystem, private val client: Client) {
     fun launch() {
         val inputListener = EmptyInputListener()
-        GlobalScope.launch {
-            while (true) {
-                val message = client.receiveMessage()
-                if (message.gameEnds) {
-                    break
-                } else {
-                    val level = Level.deserialize(message.serializedLevel, inputListener)
-                    val gameLog = GameLog.deserialize(message.serializedGameLog)
+        while (true) {
+            val message = client.receiveMessage()
+            if (message.gameEnds) {
+                break
+            } else {
+                val level = Level.deserialize(message.serializedLevel, inputListener)
+                val gameLog = GameLog.deserialize(message.serializedGameLog)
 
-                    renderSystem.render(level!!, gameLog!!)
-                }
+                renderSystem.render(level!!, gameLog!!)
             }
         }
     }

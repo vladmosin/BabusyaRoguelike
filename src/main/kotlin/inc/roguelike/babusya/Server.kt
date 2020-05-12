@@ -18,7 +18,7 @@ class Server private constructor(
     val addrss: String,
     val server: Server
 ) {
-    constructor(port: Int) : this(port, addrss, )
+//    constructor(port: Int) : this(port, addrss, )
 
     val rooms = ArrayList<Room>()
 
@@ -28,7 +28,9 @@ class Server private constructor(
         val engine = MultiPlayerEngine(actionSystem)
         val levelInfo = LevelInfo(1, LevelsType.GENERATED)
         val game = Game(inputListener, engine, levelInfo)
-        rooms.add(Room(game, roomId, client))
+
+        val room = Room(game, roomId, client)
+        rooms.add(room)
     }
 
     fun getRoom(roomId: Int): Room? {
@@ -39,5 +41,16 @@ class Server private constructor(
         }
 
         return null
+    }
+
+    fun joinRoom(roomId: Int, client: Client): Boolean {
+        for (room in rooms) {
+            if (room.id == roomId) {
+                room.addClient(client)
+                return true
+            }
+        }
+
+        return false
     }
 }
