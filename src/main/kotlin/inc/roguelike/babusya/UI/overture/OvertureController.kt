@@ -19,6 +19,10 @@ class OvertureController: Controller() {
 
     }
 
+    fun createRoom(): Pair<Boolean, String> {
+        return Pair(false, "Server not implemented")
+    }
+
     fun getRooms(): List<Int> {
         return IntRange(1, 30).toList()
     }
