@@ -7,6 +7,8 @@ import inc.roguelike.babusya.Game
 import inc.roguelike.babusya.GameOnClient
 import inc.roguelike.babusya.UI.ConsoleRenderSystem
 import inc.roguelike.babusya.UI.RenderSystem
+import inc.roguelike.babusya.actionSystems.SinglePlayerActionSystem
+import inc.roguelike.babusya.engines.SinglePlayerEngine
 import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
 import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.levels.LevelInfo
@@ -66,7 +68,9 @@ class OvertureController: Controller() {
         val inputListener = ConsoleKeyboardListener(terminal)
         inputListener.start()
 
-        Game(renderSystem, inputListener, levelInfo).launch()
+        Game(renderSystem, inputListener,
+            SinglePlayerEngine(renderSystem, SinglePlayerActionSystem()),
+            levelInfo).launch()
 
         renderSystem.close()
     }
