@@ -6,5 +6,6 @@ package inc.roguelike.babusya.levels
 enum class LevelsType {
     GENERATED,
     LOADED,
-    SAVED
+    SAVED,
+    MULTIPLE_HEROES
 }

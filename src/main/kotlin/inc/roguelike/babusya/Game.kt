@@ -5,6 +5,7 @@ import inc.roguelike.babusya.UI.RenderSystem
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.engines.Engine
+import inc.roguelike.babusya.engines.SinglePlayerEngine
 import inc.roguelike.babusya.levels.LevelCreator
 import inc.roguelike.babusya.levels.LevelInfo
 

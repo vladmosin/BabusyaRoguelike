@@ -25,7 +25,7 @@ class Server constructor(port: Int) {
         val inputListener = EmptyInputListener()
         val actionSystem = MultiplayerActionSystem()
         val engine = MultiPlayerEngine(actionSystem)
-        val levelInfo = LevelInfo(1, LevelsType.GENERATED)
+        val levelInfo = LevelInfo(1, LevelsType.MULTIPLE_HEROES)
         val game = Game(inputListener, engine, levelInfo)
 
         val room = Room(game, roomId, client)
