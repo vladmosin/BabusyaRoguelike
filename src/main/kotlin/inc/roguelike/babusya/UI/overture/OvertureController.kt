@@ -25,7 +25,7 @@ class OvertureController: Controller() {
 
     }
 
-    fun createRoom(): Pair<Boolean, String> {
+    fun createRoom(roomId: Int, client: Client): Pair<Boolean, String> {
         return Pair(false, "Server not implemented")
     }
 
@@ -33,7 +33,7 @@ class OvertureController: Controller() {
         return IntRange(1, 30).toList()
     }
 
-    fun joinRoom() {
+    fun joinRoom(roomId: Int, client: Client): Boolean {
         TODO()
     }
 
@@ -50,7 +50,9 @@ class OvertureController: Controller() {
             inputListener.addCommand { inputData -> receive(inputData) }
         }
 
-        if (roomId in getRooms())
+        if (!joinRoom(roomId, client)) {
+            createRoom(roomId, client)
+        }
 
         inputListener.start()
         inputListener.addCommand { input -> receive(input) }
@@ -68,7 +70,7 @@ class OvertureController: Controller() {
         val inputListener = ConsoleKeyboardListener(terminal)
         inputListener.start()
 
-        Game(renderSystem, inputListener,
+        Game(inputListener,
             SinglePlayerEngine(renderSystem, SinglePlayerActionSystem()),
             levelInfo).launch()
 

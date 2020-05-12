@@ -8,6 +8,7 @@ import inc.roguelike.babusya.controllers.HeroActionController
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.inputListeners.NetworkListener
 import inc.roguelike.babusya.map.GameMap
+import inc.roguelike.babusya.network.Player
 import inc.roguelike.babusya.network.PlayersHolder
 import java.lang.Thread.sleep
 
@@ -32,6 +33,10 @@ class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
             .map { client -> NetworkListener(client) }
             .map { inputListener -> HeroActionController(gameMap, inputListener) }
             .map { controller -> Hero.create(controller) }
+
+        for (i in heroes.indices) {
+            playersHolder.addPlayer(Player(heroes[i], newClients[i]))
+        }
 
         for (hero in heroes) {
             gameMap.addCreature(hero)
