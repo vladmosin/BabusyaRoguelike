@@ -10,8 +10,7 @@ import tornadofx.launch
  * Initializes and starts game
  */
 fun main(args: Array<String>) {
-    if (args.size == 1 && args[0] == "server") {
-        assert(args.size == 2)
+    if (args.size == 2 && args[0] == "server") {
         val port = args[1].toInt()
         val server = Server(port)
         server.start()

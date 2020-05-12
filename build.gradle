@@ -17,7 +17,9 @@ repositories {
     google()
 }
 
-run { standardInput = System.in }
+run {
+    standardInput = System.in
+}
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
