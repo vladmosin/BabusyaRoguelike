@@ -4,10 +4,14 @@ import InputListener
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import inc.roguelike.babusya.Game
+import inc.roguelike.babusya.GameOnClient
 import inc.roguelike.babusya.UI.ConsoleRenderSystem
 import inc.roguelike.babusya.UI.RenderSystem
 import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
+import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.levels.LevelInfo
+import inc.roguelike.babusya.network.Client
+import kotlinx.coroutines.runBlocking
 import tornadofx.Controller
 
 class OvertureController: Controller() {
@@ -27,8 +31,24 @@ class OvertureController: Controller() {
         return IntRange(1, 30).toList()
     }
 
-    fun startMultiplayerGame(roomId: Int) {
+    fun startMultiplayerGame(roomId: Int, client: Client) {
+        val terminal = DefaultTerminalFactory()
+            .setInitialTerminalSize(TerminalSize(100, 30))
+            .createTerminalEmulator()
 
+        val renderSystem = ConsoleRenderSystem(terminal)
+        val inputListener = ConsoleKeyboardListener(terminal)
+
+        fun receive(input: InputData) {
+            client.sendPlayerInput(input)
+            inputListener.addCommand { inputData -> receive(inputData) }
+        }
+
+        inputListener.start()
+        inputListener.addCommand { input -> receive(input) }
+
+        GameOnClient(renderSystem, client).launch()
+        renderSystem.close()
     }
 
     fun startSinglePlayerGame(levelInfo: LevelInfo) {
