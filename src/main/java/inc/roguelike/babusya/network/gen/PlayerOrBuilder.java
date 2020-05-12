@@ -8,10 +8,19 @@ public interface PlayerOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 id = 1;</code>
-   * @return The id.
+   * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+   * @return Whether the playerId field is set.
    */
-  int getId();
+  boolean hasPlayerId();
+  /**
+   * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+   * @return The playerId.
+   */
+  inc.roguelike.babusya.network.gen.PlayerId getPlayerId();
+  /**
+   * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+   */
+  inc.roguelike.babusya.network.gen.PlayerIdOrBuilder getPlayerIdOrBuilder();
 
   /**
    * <code>string login = 2;</code>

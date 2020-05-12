@@ -5,7 +5,6 @@ import inc.roguelike.babusya.engines.MultiPlayerEngine
 import inc.roguelike.babusya.inputListeners.EmptyInputListener
 import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.levels.LevelsType
-import inc.roguelike.babusya.network.Client
 import inc.roguelike.babusya.network.gen.*
 import io.grpc.ServerBuilder
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +12,7 @@ import kotlinx.coroutines.flow.flow
 
 
 class Server constructor(port: Int) {
-    private val server: Server
+    private val server: io.grpc.Server
 
     init {
         val serverBuilder = ServerBuilder.forPort(port)
@@ -74,8 +73,10 @@ class Server constructor(port: Int) {
     }
 
     inner class GameService : GameGrpcKt.GameCoroutineImplBase() {
+        private var currentId = 0
+
         override suspend fun createRoom(request: Player): Response {
-            val playerId = request.id
+            val playerId = request.playerId.id
             val playerLogin = request.login
             val roomId = request.room.id
 
@@ -98,7 +99,7 @@ class Server constructor(port: Int) {
         }
 
         override suspend fun joinRoom(request: Player): Response {
-            val playerId = request.id
+            val playerId = request.playerId.id
             val playerLogin = request.login
             val roomId = request.room.id
 
@@ -112,7 +113,7 @@ class Server constructor(port: Int) {
         }
 
         override suspend fun getState(request: Player): State {
-            val playerId = request.id
+            val playerId = request.playerId.id
             val playerLogin = request.login
             val roomId = request.room.id
 
@@ -140,6 +141,12 @@ class Server constructor(port: Int) {
             }
 
             return Empty.getDefaultInstance()
+        }
+
+        override suspend fun receiveNextId(request: Empty): PlayerId {
+            val response = PlayerId.newBuilder().setId(currentId).build()
+            currentId++
+            return response
         }
     }
 }

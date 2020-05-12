@@ -182,6 +182,37 @@ public final class GameGrpc {
     return getSendInputDataMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty,
+      inc.roguelike.babusya.network.gen.PlayerId> getReceiveNextIdMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "receiveNextId",
+      requestType = inc.roguelike.babusya.network.gen.Empty.class,
+      responseType = inc.roguelike.babusya.network.gen.PlayerId.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty,
+      inc.roguelike.babusya.network.gen.PlayerId> getReceiveNextIdMethod() {
+    io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Empty, inc.roguelike.babusya.network.gen.PlayerId> getReceiveNextIdMethod;
+    if ((getReceiveNextIdMethod = GameGrpc.getReceiveNextIdMethod) == null) {
+      synchronized (GameGrpc.class) {
+        if ((getReceiveNextIdMethod = GameGrpc.getReceiveNextIdMethod) == null) {
+          GameGrpc.getReceiveNextIdMethod = getReceiveNextIdMethod =
+              io.grpc.MethodDescriptor.<inc.roguelike.babusya.network.gen.Empty, inc.roguelike.babusya.network.gen.PlayerId>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "receiveNextId"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.PlayerId.getDefaultInstance()))
+              .setSchemaDescriptor(new GameMethodDescriptorSupplier("receiveNextId"))
+              .build();
+        }
+      }
+    }
+    return getReceiveNextIdMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -265,6 +296,13 @@ public final class GameGrpc {
       asyncUnimplementedUnaryCall(getSendInputDataMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void receiveNextId(inc.roguelike.babusya.network.gen.Empty request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.PlayerId> responseObserver) {
+      asyncUnimplementedUnaryCall(getReceiveNextIdMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -302,6 +340,13 @@ public final class GameGrpc {
                 inc.roguelike.babusya.network.gen.InputData,
                 inc.roguelike.babusya.network.gen.Empty>(
                   this, METHODID_SEND_INPUT_DATA)))
+          .addMethod(
+            getReceiveNextIdMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                inc.roguelike.babusya.network.gen.Empty,
+                inc.roguelike.babusya.network.gen.PlayerId>(
+                  this, METHODID_RECEIVE_NEXT_ID)))
           .build();
     }
   }
@@ -359,6 +404,14 @@ public final class GameGrpc {
       asyncUnaryCall(
           getChannel().newCall(getSendInputDataMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void receiveNextId(inc.roguelike.babusya.network.gen.Empty request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.PlayerId> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getReceiveNextIdMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -410,6 +463,13 @@ public final class GameGrpc {
       return blockingUnaryCall(
           getChannel(), getSendInputDataMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public inc.roguelike.babusya.network.gen.PlayerId receiveNextId(inc.roguelike.babusya.network.gen.Empty request) {
+      return blockingUnaryCall(
+          getChannel(), getReceiveNextIdMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -457,6 +517,14 @@ public final class GameGrpc {
       return futureUnaryCall(
           getChannel().newCall(getSendInputDataMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<inc.roguelike.babusya.network.gen.PlayerId> receiveNextId(
+        inc.roguelike.babusya.network.gen.Empty request) {
+      return futureUnaryCall(
+          getChannel().newCall(getReceiveNextIdMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_ROOM = 0;
@@ -464,6 +532,7 @@ public final class GameGrpc {
   private static final int METHODID_JOIN_ROOM = 2;
   private static final int METHODID_GET_STATE = 3;
   private static final int METHODID_SEND_INPUT_DATA = 4;
+  private static final int METHODID_RECEIVE_NEXT_ID = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -501,6 +570,10 @@ public final class GameGrpc {
         case METHODID_SEND_INPUT_DATA:
           serviceImpl.sendInputData((inc.roguelike.babusya.network.gen.InputData) request,
               (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Empty>) responseObserver);
+          break;
+        case METHODID_RECEIVE_NEXT_ID:
+          serviceImpl.receiveNextId((inc.roguelike.babusya.network.gen.Empty) request,
+              (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.PlayerId>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -568,6 +641,7 @@ public final class GameGrpc {
               .addMethod(getJoinRoomMethod())
               .addMethod(getGetStateMethod())
               .addMethod(getSendInputDataMethod())
+              .addMethod(getReceiveNextIdMethod())
               .build();
         }
       }

@@ -21,8 +21,12 @@ message Room {
     int32 id = 1;
 }
 
-message Player {
+message PlayerId {
     int32 id = 1;
+}
+
+message Player {
+    PlayerId playerId = 1;
     string login = 2;
     Room room = 3;
 }
@@ -38,4 +42,5 @@ service Game {
     rpc joinRoom (Player) returns (Response);
     rpc getState (Player) returns (State);
     rpc sendInputData (InputData) returns (Empty);
+    rpc receiveNextId (Empty) returns (PlayerId);
 }
