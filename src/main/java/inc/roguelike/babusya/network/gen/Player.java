@@ -49,9 +49,17 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            inc.roguelike.babusya.network.gen.PlayerId.Builder subBuilder = null;
+            if (playerId_ != null) {
+              subBuilder = playerId_.toBuilder();
+            }
+            playerId_ = input.readMessage(inc.roguelike.babusya.network.gen.PlayerId.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(playerId_);
+              playerId_ = subBuilder.buildPartial();
+            }
 
-            id_ = input.readInt32();
             break;
           }
           case 18: {
@@ -105,14 +113,27 @@ private static final long serialVersionUID = 0L;
             inc.roguelike.babusya.network.gen.Player.class, inc.roguelike.babusya.network.gen.Player.Builder.class);
   }
 
-  public static final int ID_FIELD_NUMBER = 1;
-  private int id_;
+  public static final int PLAYERID_FIELD_NUMBER = 1;
+  private inc.roguelike.babusya.network.gen.PlayerId playerId_;
   /**
-   * <code>int32 id = 1;</code>
-   * @return The id.
+   * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+   * @return Whether the playerId field is set.
    */
-  public int getId() {
-    return id_;
+  public boolean hasPlayerId() {
+    return playerId_ != null;
+  }
+  /**
+   * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+   * @return The playerId.
+   */
+  public inc.roguelike.babusya.network.gen.PlayerId getPlayerId() {
+    return playerId_ == null ? inc.roguelike.babusya.network.gen.PlayerId.getDefaultInstance() : playerId_;
+  }
+  /**
+   * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+   */
+  public inc.roguelike.babusya.network.gen.PlayerIdOrBuilder getPlayerIdOrBuilder() {
+    return getPlayerId();
   }
 
   public static final int LOGIN_FIELD_NUMBER = 2;
@@ -188,8 +209,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (id_ != 0) {
-      output.writeInt32(1, id_);
+    if (playerId_ != null) {
+      output.writeMessage(1, getPlayerId());
     }
     if (!getLoginBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, login_);
@@ -206,9 +227,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (id_ != 0) {
+    if (playerId_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, id_);
+        .computeMessageSize(1, getPlayerId());
     }
     if (!getLoginBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, login_);
@@ -232,8 +253,11 @@ private static final long serialVersionUID = 0L;
     }
     inc.roguelike.babusya.network.gen.Player other = (inc.roguelike.babusya.network.gen.Player) obj;
 
-    if (getId()
-        != other.getId()) return false;
+    if (hasPlayerId() != other.hasPlayerId()) return false;
+    if (hasPlayerId()) {
+      if (!getPlayerId()
+          .equals(other.getPlayerId())) return false;
+    }
     if (!getLogin()
         .equals(other.getLogin())) return false;
     if (hasRoom() != other.hasRoom()) return false;
@@ -252,8 +276,10 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + ID_FIELD_NUMBER;
-    hash = (53 * hash) + getId();
+    if (hasPlayerId()) {
+      hash = (37 * hash) + PLAYERID_FIELD_NUMBER;
+      hash = (53 * hash) + getPlayerId().hashCode();
+    }
     hash = (37 * hash) + LOGIN_FIELD_NUMBER;
     hash = (53 * hash) + getLogin().hashCode();
     if (hasRoom()) {
@@ -393,8 +419,12 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      id_ = 0;
-
+      if (playerIdBuilder_ == null) {
+        playerId_ = null;
+      } else {
+        playerId_ = null;
+        playerIdBuilder_ = null;
+      }
       login_ = "";
 
       if (roomBuilder_ == null) {
@@ -429,7 +459,11 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public inc.roguelike.babusya.network.gen.Player buildPartial() {
       inc.roguelike.babusya.network.gen.Player result = new inc.roguelike.babusya.network.gen.Player(this);
-      result.id_ = id_;
+      if (playerIdBuilder_ == null) {
+        result.playerId_ = playerId_;
+      } else {
+        result.playerId_ = playerIdBuilder_.build();
+      }
       result.login_ = login_;
       if (roomBuilder_ == null) {
         result.room_ = room_;
@@ -484,8 +518,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(inc.roguelike.babusya.network.gen.Player other) {
       if (other == inc.roguelike.babusya.network.gen.Player.getDefaultInstance()) return this;
-      if (other.getId() != 0) {
-        setId(other.getId());
+      if (other.hasPlayerId()) {
+        mergePlayerId(other.getPlayerId());
       }
       if (!other.getLogin().isEmpty()) {
         login_ = other.login_;
@@ -523,34 +557,123 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int id_ ;
+    private inc.roguelike.babusya.network.gen.PlayerId playerId_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        inc.roguelike.babusya.network.gen.PlayerId, inc.roguelike.babusya.network.gen.PlayerId.Builder, inc.roguelike.babusya.network.gen.PlayerIdOrBuilder> playerIdBuilder_;
     /**
-     * <code>int32 id = 1;</code>
-     * @return The id.
+     * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+     * @return Whether the playerId field is set.
      */
-    public int getId() {
-      return id_;
+    public boolean hasPlayerId() {
+      return playerIdBuilder_ != null || playerId_ != null;
     }
     /**
-     * <code>int32 id = 1;</code>
-     * @param value The id to set.
-     * @return This builder for chaining.
+     * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+     * @return The playerId.
      */
-    public Builder setId(int value) {
-      
-      id_ = value;
-      onChanged();
+    public inc.roguelike.babusya.network.gen.PlayerId getPlayerId() {
+      if (playerIdBuilder_ == null) {
+        return playerId_ == null ? inc.roguelike.babusya.network.gen.PlayerId.getDefaultInstance() : playerId_;
+      } else {
+        return playerIdBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+     */
+    public Builder setPlayerId(inc.roguelike.babusya.network.gen.PlayerId value) {
+      if (playerIdBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        playerId_ = value;
+        onChanged();
+      } else {
+        playerIdBuilder_.setMessage(value);
+      }
+
       return this;
     }
     /**
-     * <code>int32 id = 1;</code>
-     * @return This builder for chaining.
+     * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
      */
-    public Builder clearId() {
-      
-      id_ = 0;
-      onChanged();
+    public Builder setPlayerId(
+        inc.roguelike.babusya.network.gen.PlayerId.Builder builderForValue) {
+      if (playerIdBuilder_ == null) {
+        playerId_ = builderForValue.build();
+        onChanged();
+      } else {
+        playerIdBuilder_.setMessage(builderForValue.build());
+      }
+
       return this;
+    }
+    /**
+     * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+     */
+    public Builder mergePlayerId(inc.roguelike.babusya.network.gen.PlayerId value) {
+      if (playerIdBuilder_ == null) {
+        if (playerId_ != null) {
+          playerId_ =
+            inc.roguelike.babusya.network.gen.PlayerId.newBuilder(playerId_).mergeFrom(value).buildPartial();
+        } else {
+          playerId_ = value;
+        }
+        onChanged();
+      } else {
+        playerIdBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+     */
+    public Builder clearPlayerId() {
+      if (playerIdBuilder_ == null) {
+        playerId_ = null;
+        onChanged();
+      } else {
+        playerId_ = null;
+        playerIdBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+     */
+    public inc.roguelike.babusya.network.gen.PlayerId.Builder getPlayerIdBuilder() {
+      
+      onChanged();
+      return getPlayerIdFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+     */
+    public inc.roguelike.babusya.network.gen.PlayerIdOrBuilder getPlayerIdOrBuilder() {
+      if (playerIdBuilder_ != null) {
+        return playerIdBuilder_.getMessageOrBuilder();
+      } else {
+        return playerId_ == null ?
+            inc.roguelike.babusya.network.gen.PlayerId.getDefaultInstance() : playerId_;
+      }
+    }
+    /**
+     * <code>.inc.roguelike.babusya.network.gen.PlayerId playerId = 1;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        inc.roguelike.babusya.network.gen.PlayerId, inc.roguelike.babusya.network.gen.PlayerId.Builder, inc.roguelike.babusya.network.gen.PlayerIdOrBuilder> 
+        getPlayerIdFieldBuilder() {
+      if (playerIdBuilder_ == null) {
+        playerIdBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            inc.roguelike.babusya.network.gen.PlayerId, inc.roguelike.babusya.network.gen.PlayerId.Builder, inc.roguelike.babusya.network.gen.PlayerIdOrBuilder>(
+                getPlayerId(),
+                getParentForChildren(),
+                isClean());
+        playerId_ = null;
+      }
+      return playerIdBuilder_;
     }
 
     private java.lang.Object login_ = "";

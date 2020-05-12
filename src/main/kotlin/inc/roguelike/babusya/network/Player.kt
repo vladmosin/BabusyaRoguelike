@@ -5,6 +5,6 @@ import inc.roguelike.babusya.levels.Level
 
 class Player(val hero: Hero, val client: Client) {
     fun sendMessage(message: Message) {
-        client.sendMessage(message)
+//        client.sendMessage(message)
     }
 }

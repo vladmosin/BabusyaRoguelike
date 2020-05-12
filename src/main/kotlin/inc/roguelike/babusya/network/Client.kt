@@ -12,18 +12,20 @@ import java.util.concurrent.TimeUnit
 /**
  * Sends and receives messages
  * */
-class Client(address: String, port: Int, val login: String, val id: Int) : Closeable {
+class Client(address: String, port: Int, val login: String) : Closeable {
+    private val id = receiveNextId()
 
     private val SHUTDOWN_TIMEOUT: Long = 5
 
-    val channel = ManagedChannelBuilder.forAddress(address, port).usePlaintext().build()
-    val stub = GameGrpcKt.GameCoroutineStub(channel)
+    private val channel = ManagedChannelBuilder.forAddress(address, port).usePlaintext().build()
+    private val stub = GameGrpcKt.GameCoroutineStub(channel)
 
     fun createRoom(roomId: Int): Boolean = runBlocking {
         val room = Room.newBuilder().setId(roomId).build()
+        val playerId = PlayerId.newBuilder().setId(id).build()
         val player = Player
             .newBuilder()
-            .setId(id)
+            .setPlayerId(playerId)
             .setLogin(login)
             .setRoom(room)
             .build()
@@ -37,9 +39,10 @@ class Client(address: String, port: Int, val login: String, val id: Int) : Close
 
     fun joinRoom(roomId: Int): Boolean = runBlocking {
         val room = Room.newBuilder().setId(roomId).build()
+        val playerId = PlayerId.newBuilder().setId(id).build()
         val player = Player
             .newBuilder()
-            .setId(id)
+            .setPlayerId(playerId)
             .setLogin(login)
             .setRoom(room)
             .build()
@@ -49,9 +52,10 @@ class Client(address: String, port: Int, val login: String, val id: Int) : Close
 
     fun getState(roomId: Int): Message = runBlocking {
         val room = Room.newBuilder().setId(roomId).build()
+        val playerId = PlayerId.newBuilder().setId(id).build()
         val player = Player
             .newBuilder()
-            .setId(id)
+            .setPlayerId(playerId)
             .setLogin(login)
             .setRoom(room)
             .build()
@@ -65,6 +69,10 @@ class Client(address: String, port: Int, val login: String, val id: Int) : Close
             .setPlayerId(id)
             .build()
         stub.sendInputData(inputData)
+    }
+
+    private fun receiveNextId(): Int = runBlocking {
+        return@runBlocking stub.receiveNextId(Empty.getDefaultInstance()).id
     }
 
     override fun close() {
