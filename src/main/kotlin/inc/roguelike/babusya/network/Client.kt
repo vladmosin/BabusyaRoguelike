@@ -6,7 +6,7 @@ import inc.roguelike.babusya.network.gen.GameGrpcKt
 /**
  * Sends and receives messages
  * */
-class Client(address: String, port: Int) {
+class Client(val address: String, val port: Int, val login: String, val id: Int) {
 
 //    val channel = ManagedChannelBuilder.forAddress(address, port).usePlaintext().build()
 //    val stub = GameGrpcKt.GameCoroutineStub(channel)
