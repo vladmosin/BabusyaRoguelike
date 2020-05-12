@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-package grpc;
+option java_package = "inc.roguelike.babusya.network";
+
+message Empty {}
 
 message Message {
     string level = 1;
