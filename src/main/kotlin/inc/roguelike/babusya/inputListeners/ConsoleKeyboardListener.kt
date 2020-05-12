@@ -13,11 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * Blocked by input
  * Works in separate thread
  */
-class ConsoleKeyboardListener(val terminal: Terminal): InputListener {
-
-    var commandId = AtomicInteger(0)
-    val commandQueue = ConcurrentLinkedQueue<(InputData) -> Unit>()
-
+class ConsoleKeyboardListener(val terminal: Terminal): AbstractInputListener() {
     private fun keyStrokeToInputData(keyStroke: KeyStroke?): InputData? {
         if (keyStroke == null) {
             return null
@@ -37,49 +33,11 @@ class ConsoleKeyboardListener(val terminal: Terminal): InputListener {
         }
     }
 
-    private fun readInput(): InputData {
+    public override fun readInput(): InputData {
         var inputData: InputData?
         do {
             inputData = keyStrokeToInputData(terminal.readInput())
         } while (inputData == null)
         return inputData
     }
-
-    /**
-     * Adds command.
-     * Received input processed by commands in order of registration
-     * Returns unique command identification
-     */
-    override fun addCommand(command: (InputData) -> Unit): Int {
-        val id = commandId.getAndIncrement()
-        commandQueue.add(command)
-        return id
-    }
-
-
-    var job: Job? = null
-
-    /**
-     * Starts receiving input
-     */
-    fun start() {
-        job = GlobalScope.launch {
-            while (true) {
-                val inputData = readInput()
-                val curOperations = commandQueue.size
-
-                for (i in 0 until curOperations) {
-                    val command = commandQueue.poll()
-                    command(inputData)
-                }
-            }
-        }
-    }
-
-    fun stop() {
-        runBlocking {
-            job!!.cancelAndJoin()
-        }
-    }
-
 }

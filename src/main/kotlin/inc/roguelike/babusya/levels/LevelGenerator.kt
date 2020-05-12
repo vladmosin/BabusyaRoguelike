@@ -10,7 +10,6 @@ class LevelGenerator(val inputListener: InputListener) {
 
     fun generateLevel(id: Int): Level {
         val map = RectangularMapBuilder(10, 20)
-            .addHero()
             .addRandomWalls()
             .addRandomMonsters()
             .addRandomLoot()

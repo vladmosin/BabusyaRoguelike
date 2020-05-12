@@ -4,10 +4,14 @@ import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import inc.roguelike.babusya.UI.ConsoleRenderSystem
 import inc.roguelike.babusya.inputListeners.ConsoleKeyboardListener
+import inc.roguelike.babusya.inputListeners.InputData
+import inc.roguelike.babusya.inputListeners.NetworkListener
 import inc.roguelike.babusya.levels.LevelCreator
 import inc.roguelike.babusya.levels.LevelCreator.Companion.SAVED_PATH
 import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.levels.LevelsType
+import inc.roguelike.babusya.network.Client
+import kotlinx.coroutines.runBlocking
 import java.util.*
 
 /**
@@ -26,6 +30,31 @@ fun main() {
     Game(renderSystem, inputListener, levelInfo).launch()
 
     renderSystem.close()
+}
+
+fun clientMain() {
+    val client = Client()
+    val terminal = DefaultTerminalFactory()
+        .setInitialTerminalSize(TerminalSize(100, 30))
+        .createTerminalEmulator()
+
+    val renderSystem = ConsoleRenderSystem(terminal)
+    val inputListener = ConsoleKeyboardListener(terminal)
+
+    fun receive(input: InputData) {
+        runBlocking { client.sendPlayerInput(input) }
+        inputListener.addCommand { inputData -> receive(inputData) }
+    }
+
+    inputListener.addCommand { input -> receive(input) }
+    inputListener.start()
+
+    GameOnClient(renderSystem, client).launch()
+    renderSystem.close()
+}
+
+fun serverMain() {
+
 }
 
 /**
