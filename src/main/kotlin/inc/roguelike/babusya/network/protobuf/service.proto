@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package grpc;
+
+message Message {
+    string level = 1;
+    bool ends = 2;
+    string log = 3;
+}
+
+service Game {
+    rpc receiveMessage (Empty) returns (stream Message);
+    rpc sendMessage (Message) returns (Empty);
+}
