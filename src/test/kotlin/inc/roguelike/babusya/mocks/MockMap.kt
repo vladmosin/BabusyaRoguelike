@@ -1,5 +1,6 @@
 package inc.roguelike.babusya.mocks
 
+import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
@@ -7,6 +8,10 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class MockMap: GameMap {
+
+    override fun addCreature(creature: Creature) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     val nextLeftCell: Queue<Cell?> = LinkedList()
     val nextRightCell: Queue<Cell?> = LinkedList()
