@@ -11,6 +11,7 @@ import inc.roguelike.babusya.map.GameMap
 interface ActionController {
     /**
      * Moves creature due to its strategy
+     * Returns whether turn consuming move was made
      * */
     fun makeTurn(creature: Creature): Boolean
 

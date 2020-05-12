@@ -6,7 +6,8 @@ import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.map.GameMap
 
 /**
- * Does not move
+ * Implementation of passive strategy.
+ * Mobs with this strategy do not move
  * */
 class PassiveController(gameMap: GameMap): AbstractActionController(gameMap) {
     override fun makeTurn(creature: Creature): Boolean {

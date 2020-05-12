@@ -11,7 +11,12 @@ import inc.roguelike.babusya.getName
 import java.lang.NumberFormatException
 import kotlin.math.min
 
-class HealEffect(val healAmount: Int): Effect {
+/**
+ * Effect which successfully applies to creatures only
+ * Creature restores {@param healAmount} hit points
+ *  creature hit points remain bounded by creates max hit points
+ */
+class HealEffect(private val healAmount: Int): Effect {
     override fun visitHero(hero: Hero): Boolean {
         healCreature(hero)
         return true

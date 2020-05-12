@@ -51,7 +51,9 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
     }
 
     /**
-     * Receives command from inputListener and makes move to the target cell
+     * Receives command from inputListener
+     * If command specifies direction, makes move to the target cell
+     * If command is one of the inventory commands, executes it without consuming turn
      */
     override fun makeTurn(creature: Creature): Boolean {
 
