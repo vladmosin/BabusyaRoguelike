@@ -109,6 +109,23 @@ object GameGrpcKt {
       request,
       callOptions,
       Metadata()
+    )
+    /**
+     * Executes this RPC and returns the response message, suspending until the RPC completes
+     * with [`Status.OK`][Status].  If the RPC completes with another status, a corresponding
+     * [StatusException] is thrown.  If this coroutine is cancelled, the RPC is also cancelled
+     * with the corresponding exception as a cause.
+     *
+     * @param request The request message to send to the server.
+     *
+     * @return The single response from the server.
+     */
+    suspend fun sendInputData(request: InputData): Empty = unaryRpc(
+      channel,
+      GameGrpc.getSendInputDataMethod(),
+      request,
+      callOptions,
+      Metadata()
     )}
 
   /**
@@ -175,6 +192,20 @@ object GameGrpcKt {
     open suspend fun getState(request: Empty): State = throw
         StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.getState is unimplemented"))
 
+    /**
+     * Returns the response to an RPC for inc.roguelike.babusya.network.gen.Game.sendInputData.
+     *
+     * If this method fails with a [StatusException], the RPC will fail with the corresponding
+     * [Status].  If this method fails with a [java.util.concurrent.CancellationException], the RPC
+     * will fail
+     * with status `Status.CANCELLED`.  If this method fails for any other reason, the RPC will
+     * fail with `Status.UNKNOWN` with the exception as a cause.
+     *
+     * @param request The request from the client.
+     */
+    open suspend fun sendInputData(request: InputData): Empty = throw
+        StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.sendInputData is unimplemented"))
+
     final override fun bindService(): ServerServiceDefinition = builder(getServiceDescriptor())
       .addMethod(unaryServerMethodDefinition(
       context = this.context,
@@ -195,6 +226,11 @@ object GameGrpcKt {
       context = this.context,
       descriptor = GameGrpc.getGetStateMethod(),
       implementation = ::getState
+    ))
+      .addMethod(unaryServerMethodDefinition(
+      context = this.context,
+      descriptor = GameGrpc.getSendInputDataMethod(),
+      implementation = ::sendInputData
     )).build()
   }
 }

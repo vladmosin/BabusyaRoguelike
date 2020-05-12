@@ -6,9 +6,20 @@ import inc.roguelike.babusya.inputListeners.EmptyInputListener
 import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.levels.LevelsType
 import inc.roguelike.babusya.network.Client
+import inc.roguelike.babusya.network.gen.GameGrpcKt
 import java.util.logging.Level
 
-class Server {
+class GameService : GameGrpcKt.GameCoroutineImplBase() {
+
+}
+
+class Server private constructor(
+    val port: Int,
+    val addrss: String,
+    val server: Server
+) {
+    constructor(port: Int) : this(port, addrss, )
+
     val rooms = ArrayList<Room>()
 
     fun createRoom(roomId: Int, client: Client) {

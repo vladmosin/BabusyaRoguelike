@@ -24,7 +24,12 @@ message Room {
 message Player {
     int32 id = 1;
     string login = 2;
-    Room root = 3;
+    Room room = 3;
+}
+
+message InputData {
+    int32 playerId = 1;
+    string data = 2;
 }
 
 service Game {
@@ -32,4 +37,5 @@ service Game {
     rpc getRooms (Empty) returns (stream Room);
     rpc joinRoom (Player) returns (Response);
     rpc getState (Empty) returns (State);
+    rpc sendInputData (InputData) returns (Empty);
 }

@@ -151,6 +151,37 @@ public final class GameGrpc {
     return getGetStateMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.InputData,
+      inc.roguelike.babusya.network.gen.Empty> getSendInputDataMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "sendInputData",
+      requestType = inc.roguelike.babusya.network.gen.InputData.class,
+      responseType = inc.roguelike.babusya.network.gen.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.InputData,
+      inc.roguelike.babusya.network.gen.Empty> getSendInputDataMethod() {
+    io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.InputData, inc.roguelike.babusya.network.gen.Empty> getSendInputDataMethod;
+    if ((getSendInputDataMethod = GameGrpc.getSendInputDataMethod) == null) {
+      synchronized (GameGrpc.class) {
+        if ((getSendInputDataMethod = GameGrpc.getSendInputDataMethod) == null) {
+          GameGrpc.getSendInputDataMethod = getSendInputDataMethod =
+              io.grpc.MethodDescriptor.<inc.roguelike.babusya.network.gen.InputData, inc.roguelike.babusya.network.gen.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "sendInputData"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.InputData.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new GameMethodDescriptorSupplier("sendInputData"))
+              .build();
+        }
+      }
+    }
+    return getSendInputDataMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -227,6 +258,13 @@ public final class GameGrpc {
       asyncUnimplementedUnaryCall(getGetStateMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void sendInputData(inc.roguelike.babusya.network.gen.InputData request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Empty> responseObserver) {
+      asyncUnimplementedUnaryCall(getSendInputDataMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -257,6 +295,13 @@ public final class GameGrpc {
                 inc.roguelike.babusya.network.gen.Empty,
                 inc.roguelike.babusya.network.gen.State>(
                   this, METHODID_GET_STATE)))
+          .addMethod(
+            getSendInputDataMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                inc.roguelike.babusya.network.gen.InputData,
+                inc.roguelike.babusya.network.gen.Empty>(
+                  this, METHODID_SEND_INPUT_DATA)))
           .build();
     }
   }
@@ -306,6 +351,14 @@ public final class GameGrpc {
       asyncUnaryCall(
           getChannel().newCall(getGetStateMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void sendInputData(inc.roguelike.babusya.network.gen.InputData request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Empty> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSendInputDataMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -350,6 +403,13 @@ public final class GameGrpc {
       return blockingUnaryCall(
           getChannel(), getGetStateMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public inc.roguelike.babusya.network.gen.Empty sendInputData(inc.roguelike.babusya.network.gen.InputData request) {
+      return blockingUnaryCall(
+          getChannel(), getSendInputDataMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -389,12 +449,21 @@ public final class GameGrpc {
       return futureUnaryCall(
           getChannel().newCall(getGetStateMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<inc.roguelike.babusya.network.gen.Empty> sendInputData(
+        inc.roguelike.babusya.network.gen.InputData request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSendInputDataMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_ROOM = 0;
   private static final int METHODID_GET_ROOMS = 1;
   private static final int METHODID_JOIN_ROOM = 2;
   private static final int METHODID_GET_STATE = 3;
+  private static final int METHODID_SEND_INPUT_DATA = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -428,6 +497,10 @@ public final class GameGrpc {
         case METHODID_GET_STATE:
           serviceImpl.getState((inc.roguelike.babusya.network.gen.Empty) request,
               (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.State>) responseObserver);
+          break;
+        case METHODID_SEND_INPUT_DATA:
+          serviceImpl.sendInputData((inc.roguelike.babusya.network.gen.InputData) request,
+              (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Empty>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -494,6 +567,7 @@ public final class GameGrpc {
               .addMethod(getGetRoomsMethod())
               .addMethod(getJoinRoomMethod())
               .addMethod(getGetStateMethod())
+              .addMethod(getSendInputDataMethod())
               .build();
         }
       }

@@ -26,17 +26,17 @@ public interface PlayerOrBuilder extends
       getLoginBytes();
 
   /**
-   * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
-   * @return Whether the root field is set.
+   * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
+   * @return Whether the room field is set.
    */
-  boolean hasRoot();
+  boolean hasRoom();
   /**
-   * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
-   * @return The root.
+   * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
+   * @return The room.
    */
-  inc.roguelike.babusya.network.gen.Room getRoot();
+  inc.roguelike.babusya.network.gen.Room getRoom();
   /**
-   * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
+   * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
    */
-  inc.roguelike.babusya.network.gen.RoomOrBuilder getRootOrBuilder();
+  inc.roguelike.babusya.network.gen.RoomOrBuilder getRoomOrBuilder();
 }

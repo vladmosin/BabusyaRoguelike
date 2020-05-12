@@ -62,13 +62,13 @@ private static final long serialVersionUID = 0L;
           }
           case 26: {
             inc.roguelike.babusya.network.gen.Room.Builder subBuilder = null;
-            if (root_ != null) {
-              subBuilder = root_.toBuilder();
+            if (room_ != null) {
+              subBuilder = room_.toBuilder();
             }
-            root_ = input.readMessage(inc.roguelike.babusya.network.gen.Room.parser(), extensionRegistry);
+            room_ = input.readMessage(inc.roguelike.babusya.network.gen.Room.parser(), extensionRegistry);
             if (subBuilder != null) {
-              subBuilder.mergeFrom(root_);
-              root_ = subBuilder.buildPartial();
+              subBuilder.mergeFrom(room_);
+              room_ = subBuilder.buildPartial();
             }
 
             break;
@@ -151,27 +151,27 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int ROOT_FIELD_NUMBER = 3;
-  private inc.roguelike.babusya.network.gen.Room root_;
+  public static final int ROOM_FIELD_NUMBER = 3;
+  private inc.roguelike.babusya.network.gen.Room room_;
   /**
-   * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
-   * @return Whether the root field is set.
+   * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
+   * @return Whether the room field is set.
    */
-  public boolean hasRoot() {
-    return root_ != null;
+  public boolean hasRoom() {
+    return room_ != null;
   }
   /**
-   * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
-   * @return The root.
+   * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
+   * @return The room.
    */
-  public inc.roguelike.babusya.network.gen.Room getRoot() {
-    return root_ == null ? inc.roguelike.babusya.network.gen.Room.getDefaultInstance() : root_;
+  public inc.roguelike.babusya.network.gen.Room getRoom() {
+    return room_ == null ? inc.roguelike.babusya.network.gen.Room.getDefaultInstance() : room_;
   }
   /**
-   * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
+   * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
    */
-  public inc.roguelike.babusya.network.gen.RoomOrBuilder getRootOrBuilder() {
-    return getRoot();
+  public inc.roguelike.babusya.network.gen.RoomOrBuilder getRoomOrBuilder() {
+    return getRoom();
   }
 
   private byte memoizedIsInitialized = -1;
@@ -194,8 +194,8 @@ private static final long serialVersionUID = 0L;
     if (!getLoginBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, login_);
     }
-    if (root_ != null) {
-      output.writeMessage(3, getRoot());
+    if (room_ != null) {
+      output.writeMessage(3, getRoom());
     }
     unknownFields.writeTo(output);
   }
@@ -213,9 +213,9 @@ private static final long serialVersionUID = 0L;
     if (!getLoginBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, login_);
     }
-    if (root_ != null) {
+    if (room_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(3, getRoot());
+        .computeMessageSize(3, getRoom());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -236,10 +236,10 @@ private static final long serialVersionUID = 0L;
         != other.getId()) return false;
     if (!getLogin()
         .equals(other.getLogin())) return false;
-    if (hasRoot() != other.hasRoot()) return false;
-    if (hasRoot()) {
-      if (!getRoot()
-          .equals(other.getRoot())) return false;
+    if (hasRoom() != other.hasRoom()) return false;
+    if (hasRoom()) {
+      if (!getRoom()
+          .equals(other.getRoom())) return false;
     }
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
@@ -256,9 +256,9 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getId();
     hash = (37 * hash) + LOGIN_FIELD_NUMBER;
     hash = (53 * hash) + getLogin().hashCode();
-    if (hasRoot()) {
-      hash = (37 * hash) + ROOT_FIELD_NUMBER;
-      hash = (53 * hash) + getRoot().hashCode();
+    if (hasRoom()) {
+      hash = (37 * hash) + ROOM_FIELD_NUMBER;
+      hash = (53 * hash) + getRoom().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -397,11 +397,11 @@ private static final long serialVersionUID = 0L;
 
       login_ = "";
 
-      if (rootBuilder_ == null) {
-        root_ = null;
+      if (roomBuilder_ == null) {
+        room_ = null;
       } else {
-        root_ = null;
-        rootBuilder_ = null;
+        room_ = null;
+        roomBuilder_ = null;
       }
       return this;
     }
@@ -431,10 +431,10 @@ private static final long serialVersionUID = 0L;
       inc.roguelike.babusya.network.gen.Player result = new inc.roguelike.babusya.network.gen.Player(this);
       result.id_ = id_;
       result.login_ = login_;
-      if (rootBuilder_ == null) {
-        result.root_ = root_;
+      if (roomBuilder_ == null) {
+        result.room_ = room_;
       } else {
-        result.root_ = rootBuilder_.build();
+        result.room_ = roomBuilder_.build();
       }
       onBuilt();
       return result;
@@ -491,8 +491,8 @@ private static final long serialVersionUID = 0L;
         login_ = other.login_;
         onChanged();
       }
-      if (other.hasRoot()) {
-        mergeRoot(other.getRoot());
+      if (other.hasRoom()) {
+        mergeRoom(other.getRoom());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -629,123 +629,123 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private inc.roguelike.babusya.network.gen.Room root_;
+    private inc.roguelike.babusya.network.gen.Room room_;
     private com.google.protobuf.SingleFieldBuilderV3<
-        inc.roguelike.babusya.network.gen.Room, inc.roguelike.babusya.network.gen.Room.Builder, inc.roguelike.babusya.network.gen.RoomOrBuilder> rootBuilder_;
+        inc.roguelike.babusya.network.gen.Room, inc.roguelike.babusya.network.gen.Room.Builder, inc.roguelike.babusya.network.gen.RoomOrBuilder> roomBuilder_;
     /**
-     * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
-     * @return Whether the root field is set.
+     * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
+     * @return Whether the room field is set.
      */
-    public boolean hasRoot() {
-      return rootBuilder_ != null || root_ != null;
+    public boolean hasRoom() {
+      return roomBuilder_ != null || room_ != null;
     }
     /**
-     * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
-     * @return The root.
+     * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
+     * @return The room.
      */
-    public inc.roguelike.babusya.network.gen.Room getRoot() {
-      if (rootBuilder_ == null) {
-        return root_ == null ? inc.roguelike.babusya.network.gen.Room.getDefaultInstance() : root_;
+    public inc.roguelike.babusya.network.gen.Room getRoom() {
+      if (roomBuilder_ == null) {
+        return room_ == null ? inc.roguelike.babusya.network.gen.Room.getDefaultInstance() : room_;
       } else {
-        return rootBuilder_.getMessage();
+        return roomBuilder_.getMessage();
       }
     }
     /**
-     * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
+     * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
      */
-    public Builder setRoot(inc.roguelike.babusya.network.gen.Room value) {
-      if (rootBuilder_ == null) {
+    public Builder setRoom(inc.roguelike.babusya.network.gen.Room value) {
+      if (roomBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        root_ = value;
+        room_ = value;
         onChanged();
       } else {
-        rootBuilder_.setMessage(value);
+        roomBuilder_.setMessage(value);
       }
 
       return this;
     }
     /**
-     * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
+     * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
      */
-    public Builder setRoot(
+    public Builder setRoom(
         inc.roguelike.babusya.network.gen.Room.Builder builderForValue) {
-      if (rootBuilder_ == null) {
-        root_ = builderForValue.build();
+      if (roomBuilder_ == null) {
+        room_ = builderForValue.build();
         onChanged();
       } else {
-        rootBuilder_.setMessage(builderForValue.build());
+        roomBuilder_.setMessage(builderForValue.build());
       }
 
       return this;
     }
     /**
-     * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
+     * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
      */
-    public Builder mergeRoot(inc.roguelike.babusya.network.gen.Room value) {
-      if (rootBuilder_ == null) {
-        if (root_ != null) {
-          root_ =
-            inc.roguelike.babusya.network.gen.Room.newBuilder(root_).mergeFrom(value).buildPartial();
+    public Builder mergeRoom(inc.roguelike.babusya.network.gen.Room value) {
+      if (roomBuilder_ == null) {
+        if (room_ != null) {
+          room_ =
+            inc.roguelike.babusya.network.gen.Room.newBuilder(room_).mergeFrom(value).buildPartial();
         } else {
-          root_ = value;
+          room_ = value;
         }
         onChanged();
       } else {
-        rootBuilder_.mergeFrom(value);
+        roomBuilder_.mergeFrom(value);
       }
 
       return this;
     }
     /**
-     * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
+     * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
      */
-    public Builder clearRoot() {
-      if (rootBuilder_ == null) {
-        root_ = null;
+    public Builder clearRoom() {
+      if (roomBuilder_ == null) {
+        room_ = null;
         onChanged();
       } else {
-        root_ = null;
-        rootBuilder_ = null;
+        room_ = null;
+        roomBuilder_ = null;
       }
 
       return this;
     }
     /**
-     * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
+     * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
      */
-    public inc.roguelike.babusya.network.gen.Room.Builder getRootBuilder() {
+    public inc.roguelike.babusya.network.gen.Room.Builder getRoomBuilder() {
       
       onChanged();
-      return getRootFieldBuilder().getBuilder();
+      return getRoomFieldBuilder().getBuilder();
     }
     /**
-     * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
+     * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
      */
-    public inc.roguelike.babusya.network.gen.RoomOrBuilder getRootOrBuilder() {
-      if (rootBuilder_ != null) {
-        return rootBuilder_.getMessageOrBuilder();
+    public inc.roguelike.babusya.network.gen.RoomOrBuilder getRoomOrBuilder() {
+      if (roomBuilder_ != null) {
+        return roomBuilder_.getMessageOrBuilder();
       } else {
-        return root_ == null ?
-            inc.roguelike.babusya.network.gen.Room.getDefaultInstance() : root_;
+        return room_ == null ?
+            inc.roguelike.babusya.network.gen.Room.getDefaultInstance() : room_;
       }
     }
     /**
-     * <code>.inc.roguelike.babusya.network.gen.Room root = 3;</code>
+     * <code>.inc.roguelike.babusya.network.gen.Room room = 3;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         inc.roguelike.babusya.network.gen.Room, inc.roguelike.babusya.network.gen.Room.Builder, inc.roguelike.babusya.network.gen.RoomOrBuilder> 
-        getRootFieldBuilder() {
-      if (rootBuilder_ == null) {
-        rootBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+        getRoomFieldBuilder() {
+      if (roomBuilder_ == null) {
+        roomBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
             inc.roguelike.babusya.network.gen.Room, inc.roguelike.babusya.network.gen.Room.Builder, inc.roguelike.babusya.network.gen.RoomOrBuilder>(
-                getRoot(),
+                getRoom(),
                 getParentForChildren(),
                 isClean());
-        root_ = null;
+        room_ = null;
       }
-      return rootBuilder_;
+      return roomBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(
