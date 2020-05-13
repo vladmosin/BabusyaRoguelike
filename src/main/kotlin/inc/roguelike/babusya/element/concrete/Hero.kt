@@ -71,13 +71,9 @@ class Hero(
         /**
          * Creates hero with random characteristics
          * */
-        fun create(actionController: ActionController) = Hero(
-            actionController = actionController,
-            creatureCharacteristics = CreatureCharacteristics.createBasic(),
-            elementStatus = ElementStatus.ALIVE,
-            experience = 0,
-            id = "h"
-        )
+        fun create(actionController: ActionController): Hero {
+            TODO()
+        }
 
         fun deserialize(controllerFactory: ControllerFactory, string: String): Hero? {
             val name = getName(string)
