@@ -7,9 +7,14 @@ import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.levels.LevelsType
 import inc.roguelike.babusya.network.gen.*
 import io.grpc.ServerBuilder
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.isActive
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.coroutines.coroutineContext
+import io.grpc.Context
 
 /**
  * Server implementation for multiplayer game mode
@@ -155,42 +160,26 @@ class Server constructor(port: Int) {
         /**
          * Get current state request
          * */
-        override fun getState(request: Player): Flow<State> {
-            try {
-                return flow {
+        override fun getState(request: Player): Flow<State> = flow {
+            val playerId = request.playerId.id
+            val playerLogin = request.login
+            val roomId = request.room.id
+            var cur = 0
+            while (!Context.current().isCancelled) {
 
-                    val playerId = request.playerId.id
-                    val playerLogin = request.login
-                    val roomId = request.room.id
-
-                    //            println("RECEIVE REQUEST: GET STATE get State playerId=$playerId, playerLogin=$playerLogin, roomId=$roomId, ")
-
-                    var cur = 0
-                    while (true) {
-
-                        val room = getRoom(roomId)!!
-                        val log = room.game.gameState.gameLog
-                        val level = room.game.gameState.getLevel()
-                        val ends = room.game.gameState.didGameEnd()
-
-                        //            println("ends=$ends")
-                        //            println("level=${level.serialize()}")
-                        //            println("log=${log.serialize()}")
-
-
-                        if (cur < room.game.tick.get()) {
-                            cur = room.game.tick.get()
-                            val state = State.newBuilder()
-                                .setLog(log.serialize())
-                                .setLevel(level.serialize())
-                                .setEnds(ends)
-                                .build()
-                            emit(state)
-                        }
-                    }
+                val room = getRoom(roomId)!!
+                val log = room.game.gameState.gameLog
+                val level = room.game.gameState.getLevel()
+                val ends = room.game.gameState.didGameEnd()
+                if (cur < room.game.tick.get()) {
+                    cur = room.game.tick.get()
+                    val state = State.newBuilder()
+                        .setLog(log.serialize())
+                        .setLevel(level.serialize())
+                        .setEnds(ends)
+                        .build()
+                    emit(state)
                 }
-            } finally {
-
             }
         }
 

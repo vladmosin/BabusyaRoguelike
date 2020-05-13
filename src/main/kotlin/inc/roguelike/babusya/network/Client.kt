@@ -3,6 +3,8 @@ package inc.roguelike.babusya.network
 import inc.roguelike.babusya.network.gen.*
 import inc.roguelike.babusya.network.gen.Player
 import io.grpc.ManagedChannelBuilder
+import io.grpc.stub.ClientCallStreamObserver
+import io.grpc.stub.ClientResponseObserver
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking

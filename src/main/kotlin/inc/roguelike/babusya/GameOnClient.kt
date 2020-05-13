@@ -8,7 +8,15 @@ import inc.roguelike.babusya.network.Message
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 
+/**
+ * Processes game on client
+ * Get state from server and renders it
+ * */
 class GameOnClient(private val renderSystem: RenderSystem, private val client: Client, private val roomId: Int) {
+
+    /**
+     * Launches game
+     * */
     fun launch() = runBlocking {
         val inputListener = EmptyInputListener()
 
