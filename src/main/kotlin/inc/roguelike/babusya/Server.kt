@@ -165,6 +165,7 @@ class Server constructor(port: Int) {
 
                     //            println("RECEIVE REQUEST: GET STATE get State playerId=$playerId, playerLogin=$playerLogin, roomId=$roomId, ")
 
+                    var cur = 0
                     while (true) {
 
                         val room = getRoom(roomId)!!
@@ -176,13 +177,16 @@ class Server constructor(port: Int) {
                         //            println("level=${level.serialize()}")
                         //            println("log=${log.serialize()}")
 
-                        val state = State.newBuilder()
-                            .setLog(log.serialize())
-                            .setLevel(level.serialize())
-                            .setEnds(ends)
-                            .build()
 
-                        emit(state)
+                        if (cur < room.game.tick.get()) {
+                            cur = room.game.tick.get()
+                            val state = State.newBuilder()
+                                .setLog(log.serialize())
+                                .setLevel(level.serialize())
+                                .setEnds(ends)
+                                .build()
+                            emit(state)
+                        }
                     }
                 }
             } finally {
