@@ -124,14 +124,21 @@ class Server constructor(port: Int) {
         }
 
         override suspend fun getState(request: Player): State {
+
             val playerId = request.playerId.id
             val playerLogin = request.login
             val roomId = request.room.id
+
+//            println("RECEIVE REQUEST: GET STATE get State playerId=$playerId, playerLogin=$playerLogin, roomId=$roomId, ")
 
             val room = getRoom(roomId)!!
             val log = room.game.gameState.gameLog
             val level = room.game.gameState.getLevel()
             val ends = room.game.gameState.didGameEnd()
+
+//            println("ends=$ends")
+//            println("level=${level.serialize()}")
+//            println("log=${log.serialize()}")
 
             return State.newBuilder()
                 .setLog(log.serialize())
@@ -148,9 +155,9 @@ class Server constructor(port: Int) {
 
             for (room in rooms) {
                 val player = room.findPlayer(playerId)
-                println("room = ${room.id}, player = ${player?.id ?: -1}")
                 if (player != null) {
                     player.lastInputData = inc.roguelike.babusya.inputListeners.InputData.valueOf(data)
+                    println("room = ${room.id}, player = ${player?.id ?: -1} inputData = ${player.lastInputData}")
                 }
             }
 

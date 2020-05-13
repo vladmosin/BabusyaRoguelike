@@ -27,6 +27,8 @@ class Game(val inputListener: InputListener,
      * Launches new game
      * */
     fun launch() {
+        println("GAME LAUNCHED")
+
         for (cell in gameState.getLevel().getMap()) {
             if (cell.storesActiveItem() && cell.storedItem is Creature) {
                 engine.actionSystem().addElement(cell.storedItem as Creature)
@@ -38,9 +40,14 @@ class Game(val inputListener: InputListener,
             }
         }
 
+        println("DID GAME END = ${gameState.didGameEnd()}")
+
         while (!gameState.didGameEnd()) {
+            println("tick in while")
             engine.tick(gameState)
         }
+
+        println("AFTER WHILE")
     }
 
     /**
