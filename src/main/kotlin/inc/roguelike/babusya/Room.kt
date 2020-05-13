@@ -10,12 +10,17 @@ class Room(
     val id: Int,
     val playersHolder: PlayersHolder
 ) {
+    private var isNew = true
 
     fun addClient(client: Int) {
         playersHolder.addClient(client)
+        if (isNew) {
+            isNew = false
+            launch()
+        }
     }
 
-    fun launch() {
+    private fun launch() {
         println("Launch room")
         GlobalScope.launch {
             game.launch()

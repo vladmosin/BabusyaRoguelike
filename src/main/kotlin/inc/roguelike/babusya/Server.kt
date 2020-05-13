@@ -35,7 +35,6 @@ class Server constructor(port: Int) {
         println("createRoom ${room.playersHolder.newClients}")
         
         rooms.add(room)
-        room.launch()
     }
 
     fun getRoom(roomId: Int): Room? {
@@ -158,7 +157,6 @@ class Server constructor(port: Int) {
             for (room in rooms) {
                 val player = room.findPlayer(playerId)
                 if (player != null) {
-//                    player.lastInputData = inc.roguelike.babusya.inputListeners.InputData.valueOf(data)
                     player.setInputData(inc.roguelike.babusya.inputListeners.InputData.valueOf(data))
                     println("room = ${room.id}, player = ${player.id} inputData = ${player.lastInputData}")
                 }
