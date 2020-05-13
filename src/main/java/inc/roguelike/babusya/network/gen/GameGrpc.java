@@ -158,7 +158,7 @@ public final class GameGrpc {
       fullMethodName = SERVICE_NAME + '/' + "getState",
       requestType = inc.roguelike.babusya.network.gen.Player.class,
       responseType = inc.roguelike.babusya.network.gen.State.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
   public static io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player,
       inc.roguelike.babusya.network.gen.State> getGetStateMethod() {
     io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player, inc.roguelike.babusya.network.gen.State> getGetStateMethod;
@@ -167,7 +167,7 @@ public final class GameGrpc {
         if ((getGetStateMethod = GameGrpc.getGetStateMethod) == null) {
           GameGrpc.getGetStateMethod = getGetStateMethod =
               io.grpc.MethodDescriptor.<inc.roguelike.babusya.network.gen.Player, inc.roguelike.babusya.network.gen.State>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getState"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -373,7 +373,7 @@ public final class GameGrpc {
                   this, METHODID_LEAVE_ROOM)))
           .addMethod(
             getGetStateMethod(),
-            asyncUnaryCall(
+            asyncServerStreamingCall(
               new MethodHandlers<
                 inc.roguelike.babusya.network.gen.Player,
                 inc.roguelike.babusya.network.gen.State>(
@@ -446,7 +446,7 @@ public final class GameGrpc {
      */
     public void getState(inc.roguelike.babusya.network.gen.Player request,
         io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.State> responseObserver) {
-      asyncUnaryCall(
+      asyncServerStreamingCall(
           getChannel().newCall(getGetStateMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -512,8 +512,9 @@ public final class GameGrpc {
 
     /**
      */
-    public inc.roguelike.babusya.network.gen.State getState(inc.roguelike.babusya.network.gen.Player request) {
-      return blockingUnaryCall(
+    public java.util.Iterator<inc.roguelike.babusya.network.gen.State> getState(
+        inc.roguelike.babusya.network.gen.Player request) {
+      return blockingServerStreamingCall(
           getChannel(), getGetStateMethod(), getCallOptions(), request);
     }
 
@@ -568,14 +569,6 @@ public final class GameGrpc {
         inc.roguelike.babusya.network.gen.Player request) {
       return futureUnaryCall(
           getChannel().newCall(getLeaveRoomMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<inc.roguelike.babusya.network.gen.State> getState(
-        inc.roguelike.babusya.network.gen.Player request) {
-      return futureUnaryCall(
-          getChannel().newCall(getGetStateMethod(), getCallOptions()), request);
     }
 
     /**

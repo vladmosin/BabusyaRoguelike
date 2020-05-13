@@ -111,16 +111,17 @@ object GameGrpcKt {
       Metadata()
     )
     /**
-     * Executes this RPC and returns the response message, suspending until the RPC completes
-     * with [`Status.OK`][Status].  If the RPC completes with another status, a corresponding
-     * [StatusException] is thrown.  If this coroutine is cancelled, the RPC is also cancelled
-     * with the corresponding exception as a cause.
+     * Returns a [Flow] that, when collected, executes this RPC and emits responses from the
+     * server as they arrive.  That flow finishes normally if the server closes its response with
+     * [`Status.OK`][Status], and fails by throwing a [StatusException] otherwise.  If
+     * collecting the flow downstream fails exceptionally (including via cancellation), the RPC
+     * is cancelled with that exception as a cause.
      *
      * @param request The request message to send to the server.
      *
-     * @return The single response from the server.
+     * @return A flow that, when collected, emits the responses from the server.
      */
-    suspend fun getState(request: Player): State = unaryRpc(
+    fun getState(request: Player): Flow<State> = serverStreamingRpc(
       channel,
       GameGrpc.getGetStateMethod(),
       request,
@@ -227,17 +228,18 @@ object GameGrpcKt {
         StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.leaveRoom is unimplemented"))
 
     /**
-     * Returns the response to an RPC for inc.roguelike.babusya.network.gen.Game.getState.
+     * Returns a [Flow] of responses to an RPC for inc.roguelike.babusya.network.gen.Game.getState.
      *
-     * If this method fails with a [StatusException], the RPC will fail with the corresponding
-     * [Status].  If this method fails with a [java.util.concurrent.CancellationException], the RPC
-     * will fail
-     * with status `Status.CANCELLED`.  If this method fails for any other reason, the RPC will
-     * fail with `Status.UNKNOWN` with the exception as a cause.
+     * If creating or collecting the returned flow fails with a [StatusException], the RPC
+     * will fail with the corresponding [Status].  If it fails with a
+     * [java.util.concurrent.CancellationException], the RPC will fail with status
+     * `Status.CANCELLED`.  If creating
+     * or collecting the returned flow fails for any other reason, the RPC will fail with
+     * `Status.UNKNOWN` with the exception as a cause.
      *
      * @param request The request from the client.
      */
-    open suspend fun getState(request: Player): State = throw
+    open fun getState(request: Player): Flow<State> = throw
         StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.getState is unimplemented"))
 
     /**
@@ -289,7 +291,7 @@ object GameGrpcKt {
       descriptor = GameGrpc.getLeaveRoomMethod(),
       implementation = ::leaveRoom
     ))
-      .addMethod(unaryServerMethodDefinition(
+      .addMethod(serverStreamingServerMethodDefinition(
       context = this.context,
       descriptor = GameGrpc.getGetStateMethod(),
       implementation = ::getState

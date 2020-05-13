@@ -3,6 +3,7 @@ package inc.roguelike.babusya.network
 import inc.roguelike.babusya.network.gen.*
 import inc.roguelike.babusya.network.gen.Player
 import io.grpc.ManagedChannelBuilder
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import java.io.Closeable
@@ -32,6 +33,18 @@ class Client(address: String, port: Int, val login: String) : Closeable {
         return@runBlocking stub.getRooms(Empty.getDefaultInstance()).toList()
     }
 
+    fun getStatesFlow(roomId: Int): Flow<State> {
+        val room = Room.newBuilder().setId(roomId).build()
+        val playerId = PlayerId.newBuilder().setId(id).build()
+        val player = Player
+            .newBuilder()
+            .setPlayerId(playerId)
+            .setLogin(login)
+            .setRoom(room)
+            .build()
+        return stub.getState(player)
+    }
+
     fun joinRoom(roomId: Int): Boolean = runBlocking {
         val room = Room.newBuilder().setId(roomId).build()
         val playerId = PlayerId.newBuilder().setId(id).build()
@@ -56,19 +69,6 @@ class Client(address: String, port: Int, val login: String) : Closeable {
             .build()
         val response = stub.leaveRoom(player)
         return@runBlocking response.status
-    }
-
-    fun getState(roomId: Int): Message = runBlocking {
-        val room = Room.newBuilder().setId(roomId).build()
-        val playerId = PlayerId.newBuilder().setId(id).build()
-        val player = Player
-            .newBuilder()
-            .setPlayerId(playerId)
-            .setLogin(login)
-            .setRoom(room)
-            .build()
-        val state: State = stub.getState(player)
-        return@runBlocking Message(state.level, state.ends, state.log)
     }
 
     fun sendInputData(data: String) = runBlocking {

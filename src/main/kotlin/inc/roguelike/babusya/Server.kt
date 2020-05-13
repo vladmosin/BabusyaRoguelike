@@ -120,28 +120,32 @@ class Server constructor(port: Int) {
             return Response.newBuilder().setMessage("").setStatus(status).build()
         }
 
-        override suspend fun getState(request: Player): State {
-
+        override fun getState(request: Player): Flow<State> = flow {
             val playerId = request.playerId.id
             val playerLogin = request.login
             val roomId = request.room.id
 
 //            println("RECEIVE REQUEST: GET STATE get State playerId=$playerId, playerLogin=$playerLogin, roomId=$roomId, ")
 
-            val room = getRoom(roomId)!!
-            val log = room.game.gameState.gameLog
-            val level = room.game.gameState.getLevel()
-            val ends = room.game.gameState.didGameEnd()
+            while (true) {
+
+                val room = getRoom(roomId)!!
+                val log = room.game.gameState.gameLog
+                val level = room.game.gameState.getLevel()
+                val ends = room.game.gameState.didGameEnd()
 
 //            println("ends=$ends")
 //            println("level=${level.serialize()}")
 //            println("log=${log.serialize()}")
 
-            return State.newBuilder()
-                .setLog(log.serialize())
-                .setLevel(level.serialize())
-                .setEnds(ends)
-                .build()
+                val state = State.newBuilder()
+                    .setLog(log.serialize())
+                    .setLevel(level.serialize())
+                    .setEnds(ends)
+                    .build()
+
+                emit(state)
+            }
         }
 
         override suspend fun sendInputData(request: InputData): Empty {
