@@ -13,6 +13,7 @@ import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.loot.Inventory
 import inc.roguelike.babusya.visitors.ElementVisitor
+import kotlin.random.Random
 
 
 /**
@@ -72,7 +73,13 @@ class Hero(
          * Creates hero with random characteristics
          * */
         fun create(actionController: ActionController): Hero {
-            TODO()
+            return Hero(
+                actionController = actionController,
+                creatureCharacteristics = CreatureCharacteristics.createBasic(),
+                elementStatus = ElementStatus.ALIVE,
+                experience = 0,
+                id = "h" + Random.nextInt().toString()
+            )
         }
 
         fun deserialize(controllerFactory: ControllerFactory, string: String): Hero? {
