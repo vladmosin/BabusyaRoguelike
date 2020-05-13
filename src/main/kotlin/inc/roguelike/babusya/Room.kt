@@ -1,16 +1,15 @@
 package inc.roguelike.babusya
 
-import inc.roguelike.babusya.network.Client
 import inc.roguelike.babusya.network.Player
 import inc.roguelike.babusya.network.PlayersHolder
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class Room(val game: Game, val id: Int, client: Int, val playersHolder: PlayersHolder) {
-
-    init {
-        playersHolder.addClient(client)
-    }
+class Room(
+    val game: Game,
+    val id: Int,
+    val playersHolder: PlayersHolder
+) {
 
     fun addClient(client: Int) {
         playersHolder.addClient(client)

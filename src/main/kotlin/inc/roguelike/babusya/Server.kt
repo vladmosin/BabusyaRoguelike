@@ -9,6 +9,8 @@ import inc.roguelike.babusya.network.gen.*
 import io.grpc.ServerBuilder
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.sync.Mutex
+import java.util.concurrent.atomic.AtomicInteger
 
 
 class Server constructor(port: Int) {
@@ -28,7 +30,7 @@ class Server constructor(port: Int) {
         val levelInfo = LevelInfo(1, LevelsType.MULTIPLE_HEROES)
         val game = Game(inputListener, engine, levelInfo)
 
-        val room = Room(game, roomId, client, engine.actionSystem.playersHolder)
+        val room = Room(game, roomId, engine.actionSystem.playersHolder)
 
         println("createRoom ${room.playersHolder.newClients}")
         
@@ -78,7 +80,7 @@ class Server constructor(port: Int) {
     }
 
     inner class GameService : GameGrpcKt.GameCoroutineImplBase() {
-        private var currentId = 0
+        private var currentId = AtomicInteger(0)
 
         override suspend fun createRoom(request: Player): Response {
             val playerId = request.playerId.id
@@ -166,9 +168,7 @@ class Server constructor(port: Int) {
         }
 
         override suspend fun receiveNextId(request: Empty): PlayerId {
-            val response = PlayerId.newBuilder().setId(currentId).build()
-            currentId++
-            return response
+            return PlayerId.newBuilder().setId(currentId.addAndGet(1)).build()
         }
     }
 }

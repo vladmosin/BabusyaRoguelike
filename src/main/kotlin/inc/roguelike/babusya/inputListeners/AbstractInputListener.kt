@@ -34,7 +34,6 @@ abstract class AbstractInputListener: InputListener {
                 println("abstract input listener while")
                 val inputData = readInput()
                 val curOperations = commandQueue.size
-
                 for (i in 0 until curOperations) {
                     val command = commandQueue.poll()
                     command(inputData)

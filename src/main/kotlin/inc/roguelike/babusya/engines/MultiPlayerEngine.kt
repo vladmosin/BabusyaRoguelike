@@ -49,6 +49,7 @@ class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
         }
 
         for (hero in heroes) {
+            println("Add hero ${hero.id}")
             gameMap.addCreature(hero)
             actionSystem.addElement(hero)
         }
