@@ -1,6 +1,9 @@
 package inc.roguelike.babusya.network
 
+import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.concrete.Hero
+import inc.roguelike.babusya.inputListeners.InputData
+import kotlinx.coroutines.runBlocking
 
 /**
  * Stores active players for concrete game
@@ -37,25 +40,21 @@ class PlayersHolder {
      * Removes players who disconnects
      * */
     fun removePlayerById(id: Int) {
-        // TODO: correctly remove player from game
+        println("HERE WE ARE!")
+        val removedPlayer: Player = players.find { it.id == id } ?: return
 
-        val updatedPlayers = ArrayList<Player>()
-        for (player in players) {
-            if (player.id != id) {
-                updatedPlayers.add(player)
-            }
-        }
+        removedPlayer.hero?.elementStatus = ElementStatus.DEAD
+        players.remove(removedPlayer)
 
-        players = updatedPlayers
+        runBlocking { removedPlayer.setInputData(InputData.INVENTORY_TOGGLE) }
     }
 
     /**
      * Returns recently connected ids
      * */
     fun newClients(): List<Int> {
-        val clients = ArrayList<Int>()
-        clients.addAll(newClients)
-        newClients.clear()
+        val clients = ArrayList<Int>(newClients)
+        newClients.removeAll(clients)
         return clients
     }
 }

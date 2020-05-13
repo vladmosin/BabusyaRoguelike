@@ -21,14 +21,14 @@ class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
     override fun tick(gameState: GameState) {
         println("ENGINE TICK")
 
-        val level = gameState.getLevel()
-        addNewPlayers(level.getMap())
+        addNewPlayers(gameState)
         actionSystem.action()
     }
 
     override fun actionSystem() = actionSystem
 
-    private fun addNewPlayers(gameMap: GameMap) {
+    private fun addNewPlayers(gameState: GameState) {
+        val gameMap = gameState.getLevel().getMap()
         val playersHolder = actionSystem.playersHolder
         val newClients = playersHolder.newClients()
 
@@ -46,6 +46,7 @@ class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
         for (i in heroes.indices) {
             players[i].hero = heroes[i]
             playersHolder.addPlayer(players[i])
+            heroes[i].actionController?.useLog(gameState.gameLog)
         }
 
         for (hero in heroes) {

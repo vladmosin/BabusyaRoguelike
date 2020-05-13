@@ -144,6 +144,9 @@ class Inventory(val owner: Hero) {
         private fun serializeMap(equipped: Map<EquipmentType, Equipment>, items: ArrayList<Loot>): String {
             val args = ArrayList<String>()
             for (item in equipped) {
+                if (item.value is EmptyEquipment) {
+                    continue
+                }
                 val index = items.indexOf(item.value)
                 assert(index > -1)
                 args.add(collectToString(keyValueName, listOf(item.key.name, index.toString())))
