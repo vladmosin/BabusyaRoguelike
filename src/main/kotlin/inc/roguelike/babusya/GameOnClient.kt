@@ -12,8 +12,7 @@ class GameOnClient(private val renderSystem: RenderSystem, private val client: C
     fun launch() {
         val inputListener = EmptyInputListener()
         while (true) {
-//            val message = client.receiveMessage()
-            val message = Message("", true, "")
+            val message = client.getState(123) // TODO: remove room id plug
             if (message.gameEnds) {
                 break
             } else {

@@ -41,6 +41,8 @@ class OvertureController: Controller() {
     }
 
     fun startMultiplayerGame(roomId: Int) {
+        println("Start multiplayer game with room_id = $roomId")
+
         val terminal = DefaultTerminalFactory()
             .setInitialTerminalSize(TerminalSize(100, 30))
             .createTerminalEmulator()
