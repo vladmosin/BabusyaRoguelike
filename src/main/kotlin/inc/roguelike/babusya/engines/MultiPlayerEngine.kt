@@ -18,6 +18,9 @@ import java.lang.Thread.sleep
  */
 class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
 
+    /**
+     * Processes one tick of multiplayer game
+     * */
     override fun tick(gameState: GameState) {
         println("ENGINE TICK")
 
@@ -25,6 +28,9 @@ class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
         actionSystem.action()
     }
 
+    /**
+     * Returns action system
+     * */
     override fun actionSystem() = actionSystem
 
     private fun addNewPlayers(gameState: GameState) {

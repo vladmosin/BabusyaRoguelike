@@ -13,24 +13,45 @@ import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.network.Client
 import tornadofx.Controller
 
+/**
+ * Controller, which choose game to start and performs basic initialization
+ * */
 class OvertureController: Controller() {
     private var client: Client? = null
 
 
+    /**
+     * Connects to server with given login, address and port
+     * */
     fun connectToServer(login: String, address: String, port: Int) {
         client = Client(address, port, login)
     }
 
+    /**
+     * Disconnects from server
+     * */
     fun disconnectFromServer() {
         // TODO
     }
 
+    /**
+     * Creates room
+     * */
     fun createRoom(): Pair<Boolean, String> = client?.createRoom() ?: Pair(false, "Error")
 
+    /**
+     * Returns list of rooms id
+     * */
     fun getRooms(): List<Int> = client?.getRooms()?.map { room -> room.id } ?: emptyList()
 
+    /**
+     * Joins room
+     * */
     fun joinRoom(roomId: Int): Boolean = client?.joinRoom(roomId) ?: false
 
+    /**
+     * Start multiplayer game
+     * */
     fun startMultiplayerGame(roomId: Int) {
         println("Start multiplayer game with room_id = $roomId")
 
@@ -62,6 +83,9 @@ class OvertureController: Controller() {
         }
     }
 
+    /**
+     * Start single player game
+     * */
     fun startSinglePlayerGame(levelInfo: LevelInfo) {
         val terminal = DefaultTerminalFactory()
             .setInitialTerminalSize(TerminalSize(100, 30))

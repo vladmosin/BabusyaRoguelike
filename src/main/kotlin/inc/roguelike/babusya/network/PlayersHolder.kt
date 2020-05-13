@@ -12,6 +12,9 @@ class PlayersHolder {
     val newClients = ArrayList<Int>()
     var players = ArrayList<Player>()
 
+    /**
+     * Adds new client's id
+     * */
     fun addClient(client: Int) {
         newClients.add(client)
     }

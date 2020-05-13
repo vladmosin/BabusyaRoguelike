@@ -57,6 +57,9 @@ class Game(val inputListener: InputListener,
         gameState.endGame()
     }
 
+    /**
+     * Resumes game
+     * */
     fun resume() {
         gameState.resume()
     }
