@@ -25,19 +25,11 @@ class OvertureController: Controller() {
         // TODO
     }
 
-    fun createRoom(roomId: Int): Pair<Boolean, String> {
-        val status = client?.createRoom(roomId) ?: false
-        val message = if (status) "OK" else "Error"
-        return Pair(status, message)
-    }
+    fun createRoom(): Pair<Boolean, String> = client?.createRoom() ?: Pair(false, "Error")
 
-    fun getRooms(): List<Int> {
-        return client?.getRooms()?.map { room -> room.id } ?: emptyList()
-    }
+    fun getRooms(): List<Int> = client?.getRooms()?.map { room -> room.id } ?: emptyList()
 
-    fun joinRoom(roomId: Int): Boolean {
-        return client?.joinRoom(roomId) ?: false
-    }
+    fun joinRoom(roomId: Int): Boolean = client?.joinRoom(roomId) ?: false
 
     fun startMultiplayerGame(roomId: Int) {
         println("Start multiplayer game with room_id = $roomId")
@@ -55,14 +47,12 @@ class OvertureController: Controller() {
             inputListener.addCommand { inputData -> receive(inputData) }
         }
 
-        if (!joinRoom(roomId)) {
-            createRoom(roomId)
-        }
+        joinRoom(roomId)
 
         inputListener.start()
         inputListener.addCommand { input -> receive(input) }
 
-        GameOnClient(renderSystem, client!!).launch()
+        GameOnClient(renderSystem, client!!, roomId).launch()
         renderSystem.close()
     }
 

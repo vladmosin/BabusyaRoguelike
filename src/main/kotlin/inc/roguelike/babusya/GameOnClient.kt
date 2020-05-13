@@ -8,12 +8,12 @@ import inc.roguelike.babusya.network.Message
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class GameOnClient(private val renderSystem: RenderSystem, private val client: Client) {
+class GameOnClient(private val renderSystem: RenderSystem, private val client: Client, private val roomId: Int) {
     fun launch() {
         val inputListener = EmptyInputListener()
         while (true) {
 //            println("LISTEN STATE")
-            val message = client.getState(123) // TODO: remove room id plug
+            val message = client.getState(roomId) // TODO: remove room id plug
             if (message.gameEnds) {
                 break
             } else {

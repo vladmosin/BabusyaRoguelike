@@ -37,7 +37,7 @@ message InputData {
 }
 
 service Game {
-    rpc createRoom (Player) returns (Response);
+    rpc createRoom (Empty) returns (Response);
     rpc getRooms (Empty) returns (stream Room);
     rpc joinRoom (Player) returns (Response);
     rpc getState (Player) returns (State);

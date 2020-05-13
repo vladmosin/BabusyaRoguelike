@@ -67,23 +67,23 @@ public final class GameOuterClass {
       "e.babusya.network.gen.PlayerId\022\r\n\005login\030" +
       "\002 \001(\t\0225\n\004room\030\003 \001(\0132\'.inc.roguelike.babu" +
       "sya.network.gen.Room\"+\n\tInputData\022\020\n\010pla" +
-      "yerId\030\001 \001(\005\022\014\n\004data\030\002 \001(\t2\343\004\n\004Game\022d\n\ncr" +
-      "eateRoom\022).inc.roguelike.babusya.network" +
-      ".gen.Player\032+.inc.roguelike.babusya.netw" +
-      "ork.gen.Response\022_\n\010getRooms\022(.inc.rogue" +
-      "like.babusya.network.gen.Empty\032\'.inc.rog" +
-      "uelike.babusya.network.gen.Room0\001\022b\n\010joi" +
-      "nRoom\022).inc.roguelike.babusya.network.ge" +
-      "n.Player\032+.inc.roguelike.babusya.network" +
-      ".gen.Response\022_\n\010getState\022).inc.roguelik" +
-      "e.babusya.network.gen.Player\032(.inc.rogue" +
-      "like.babusya.network.gen.State\022g\n\rsendIn" +
-      "putData\022,.inc.roguelike.babusya.network." +
-      "gen.InputData\032(.inc.roguelike.babusya.ne" +
-      "twork.gen.Empty\022f\n\rreceiveNextId\022(.inc.r" +
-      "oguelike.babusya.network.gen.Empty\032+.inc" +
-      ".roguelike.babusya.network.gen.PlayerIdB" +
-      "\002P\001b\006proto3"
+      "yerId\030\001 \001(\005\022\014\n\004data\030\002 \001(\t2\342\004\n\004Game\022c\n\ncr" +
+      "eateRoom\022(.inc.roguelike.babusya.network" +
+      ".gen.Empty\032+.inc.roguelike.babusya.netwo" +
+      "rk.gen.Response\022_\n\010getRooms\022(.inc.roguel" +
+      "ike.babusya.network.gen.Empty\032\'.inc.rogu" +
+      "elike.babusya.network.gen.Room0\001\022b\n\010join" +
+      "Room\022).inc.roguelike.babusya.network.gen" +
+      ".Player\032+.inc.roguelike.babusya.network." +
+      "gen.Response\022_\n\010getState\022).inc.roguelike" +
+      ".babusya.network.gen.Player\032(.inc.roguel" +
+      "ike.babusya.network.gen.State\022g\n\rsendInp" +
+      "utData\022,.inc.roguelike.babusya.network.g" +
+      "en.InputData\032(.inc.roguelike.babusya.net" +
+      "work.gen.Empty\022f\n\rreceiveNextId\022(.inc.ro" +
+      "guelike.babusya.network.gen.Empty\032+.inc." +
+      "roguelike.babusya.network.gen.PlayerIdB\002" +
+      "P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

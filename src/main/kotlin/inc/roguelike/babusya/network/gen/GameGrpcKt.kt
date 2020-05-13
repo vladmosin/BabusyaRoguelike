@@ -51,7 +51,7 @@ object GameGrpcKt {
      *
      * @return The single response from the server.
      */
-    suspend fun createRoom(request: Player): Response = unaryRpc(
+    suspend fun createRoom(request: Empty): Response = unaryRpc(
       channel,
       GameGrpc.getCreateRoomMethod(),
       request,
@@ -163,7 +163,7 @@ object GameGrpcKt {
      *
      * @param request The request from the client.
      */
-    open suspend fun createRoom(request: Player): Response = throw
+    open suspend fun createRoom(request: Empty): Response = throw
         StatusException(UNIMPLEMENTED.withDescription("Method inc.roguelike.babusya.network.gen.Game.createRoom is unimplemented"))
 
     /**
