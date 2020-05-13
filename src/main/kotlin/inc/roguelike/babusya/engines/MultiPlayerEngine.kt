@@ -42,10 +42,15 @@ class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
         val newClients = playersHolder.newClients()
 
         val players = newClients.map { id -> Player(null, id) }
+        val listeners = players.map { player -> NetworkListener(player) }
 
-        val heroes = players
-            .map { player -> HeroActionController(gameMap, NetworkListener(player)) }
+        val heroes = listeners
+            .map { listener -> HeroActionController(gameMap, listener) }
             .map { controller -> Hero.create(controller) }
+
+        for (listener in listeners) {
+            listener.start()
+        }
 
         for (i in heroes.indices) {
             players[i].hero = heroes[i]
