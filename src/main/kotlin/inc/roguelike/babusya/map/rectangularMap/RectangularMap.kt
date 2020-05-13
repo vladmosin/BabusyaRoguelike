@@ -3,12 +3,14 @@ package inc.roguelike.babusya.map.rectangularMap
 import InputListener
 import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.controllers.ControllerFactory
+import inc.roguelike.babusya.element.concrete.EmptyGameElement
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
+import kotlin.random.Random
 
 /**
  * Implements simple rectangular game map.
@@ -230,6 +232,26 @@ class RectangularMap(
     }
 
     override fun addCreature(creature: Creature) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val emptyPositions = getEmptyCellsPositions()
+        val emptyCellsNumber = emptyPositions.size
+
+        check(emptyCellsNumber > 0) { "No place for creature" }
+
+        val (i, j) = emptyPositions[Random.nextInt(emptyCellsNumber)]
+        rectangle[i][j].storedItem = creature
+    }
+
+    private fun getEmptyCellsPositions(): List<Pair<Int, Int>> {
+        val emptyPositions = ArrayList<Pair<Int, Int>>()
+        for (i in 0 until height) {
+            for (j in 0 until width) {
+                val cell = rectangle[i][j]
+                if (cell.storedItem is EmptyGameElement && cell.loot == null) {
+                    emptyPositions.add(Pair(i, j))
+                }
+            }
+        }
+
+        return emptyPositions
     }
 }
