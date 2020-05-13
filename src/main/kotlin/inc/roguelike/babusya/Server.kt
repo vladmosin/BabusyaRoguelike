@@ -117,7 +117,7 @@ class Server constructor(port: Int) {
             println("create room room_id=${roomId}")
 
             createRoom(roomId)
-            val result =  Response.newBuilder().setMessage(roomId.toString()).setStatus(true).build()
+            val result = Response.newBuilder().setMessage(roomId.toString()).setStatus(true).build()
             println("after creating num of rooms = ${rooms.size}")
 
             return result
@@ -155,32 +155,38 @@ class Server constructor(port: Int) {
         /**
          * Get current state request
          * */
-        override fun getState(request: Player): Flow<State> = flow {
+        override fun getState(request: Player): Flow<State> {
+            try {
+                return flow {
 
-            val playerId = request.playerId.id
-            val playerLogin = request.login
-            val roomId = request.room.id
+                    val playerId = request.playerId.id
+                    val playerLogin = request.login
+                    val roomId = request.room.id
 
-//            println("RECEIVE REQUEST: GET STATE get State playerId=$playerId, playerLogin=$playerLogin, roomId=$roomId, ")
+                    //            println("RECEIVE REQUEST: GET STATE get State playerId=$playerId, playerLogin=$playerLogin, roomId=$roomId, ")
 
-            while (true) {
+                    while (true) {
 
-                val room = getRoom(roomId)!!
-                val log = room.game.gameState.gameLog
-                val level = room.game.gameState.getLevel()
-                val ends = room.game.gameState.didGameEnd()
+                        val room = getRoom(roomId)!!
+                        val log = room.game.gameState.gameLog
+                        val level = room.game.gameState.getLevel()
+                        val ends = room.game.gameState.didGameEnd()
 
-//            println("ends=$ends")
-//            println("level=${level.serialize()}")
-//            println("log=${log.serialize()}")
+                        //            println("ends=$ends")
+                        //            println("level=${level.serialize()}")
+                        //            println("log=${log.serialize()}")
 
-                val state = State.newBuilder()
-                    .setLog(log.serialize())
-                    .setLevel(level.serialize())
-                    .setEnds(ends)
-                    .build()
+                        val state = State.newBuilder()
+                            .setLog(log.serialize())
+                            .setLevel(level.serialize())
+                            .setEnds(ends)
+                            .build()
 
-                emit(state)
+                        emit(state)
+                    }
+                }
+            } finally {
+
             }
         }
 
