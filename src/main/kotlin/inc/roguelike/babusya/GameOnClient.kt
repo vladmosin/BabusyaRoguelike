@@ -12,6 +12,7 @@ class GameOnClient(private val renderSystem: RenderSystem, private val client: C
     fun launch() {
         val inputListener = EmptyInputListener()
         while (true) {
+//            println("LISTEN STATE")
             val message = client.getState(123) // TODO: remove room id plug
             if (message.gameEnds) {
                 break
@@ -19,7 +20,13 @@ class GameOnClient(private val renderSystem: RenderSystem, private val client: C
                 val level = Level.deserialize(message.serializedLevel, inputListener)
                 val gameLog = GameLog.deserialize(message.serializedGameLog)
 
+//                println("CLIENT receive: level=${message.serializedLevel}, log=${message.serializedGameLog}, ends=${message.gameEnds}")
+//                println("Level = ${level}")
+//                println("gameLog = ${gameLog}")
+
                 renderSystem.render(level!!, gameLog!!)
+
+//                println("rendered updated level")
             }
         }
     }

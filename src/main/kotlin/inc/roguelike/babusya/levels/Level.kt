@@ -19,14 +19,18 @@ class Level(private var map: GameMap, private var name: String, private val id: 
 
     fun clone() = Level(map.clone(), name, id)
 
-    fun serialize() = collectToString(name, listOf(map.serialize(), name, id.toString()))
+    fun serialize() = collectToString(Level.name, listOf(map.serialize(), name, id.toString()))
 
     companion object {
         private val name = "Level"
 
         fun deserialize(line: String, inputListener: InputListener): Level? {
+//            println("Deserializing level")
+
             val name = getName(line)
             val args = getArguments(line)
+
+//            println("name $name, args=$args")
 
             if (name == null || args == null || name != this.name || args.size != 3) {
                 return null

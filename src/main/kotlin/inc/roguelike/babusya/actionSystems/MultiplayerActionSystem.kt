@@ -9,10 +9,13 @@ class MultiplayerActionSystem: ActionSystem() {
     val playersHolder = PlayersHolder()
 
     override fun action() {
+        println("ACTION queue size = ${queue.size}")
         val elem = queue.pollFirst()
         if (elem != null && elem.isActive() && creatureOwnerActive(elem)) {
+            println("ENTER IF ${elem is Hero}")
             action(elem)
         }
+        println("END ACTION")
     }
 
     private fun creatureOwnerActive(creature: Creature): Boolean {
