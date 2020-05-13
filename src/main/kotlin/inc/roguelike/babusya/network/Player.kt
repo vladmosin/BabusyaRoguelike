@@ -9,10 +9,7 @@ class Player(var hero: Hero?, val id: Int) {
     private val inputDataChannel = Channel<InputData>(capacity = Channel.CONFLATED)
 
     suspend fun receiveInputData(): InputData {
-        println("RECEIVE INPUT DATA BEGIN")
-        while (true) {
-            return inputDataChannel.receive()
-        }
+        return inputDataChannel.receive()
     }
 
     suspend fun setInputData(inputData: InputData) {

@@ -22,6 +22,7 @@ class Room(
 
     private fun launch() {
         println("Launch room")
+        game.resume()
         GlobalScope.launch {
             game.launch()
         }
@@ -39,13 +40,5 @@ class Room(
         }
     }
 
-    fun findPlayer(id: Int): Player? {
-        for (player in playersHolder.players) {
-            if (player.id == id) {
-                return player
-            }
-        }
-
-        return null
-    }
+    fun findPlayer(id: Int): Player? = playersHolder.players.find { it.id == id }
 }

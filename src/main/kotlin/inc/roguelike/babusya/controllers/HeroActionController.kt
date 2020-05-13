@@ -45,7 +45,7 @@ class HeroActionController(gameMap: GameMap, var inputListener: InputListener): 
 
         inputListener.addCommand { input -> receive(input) }
 
-        var data: InputData? = null
+        var data: InputData? = inputDataChannel.poll()
         runBlocking { data = inputDataChannel.receive() }
         return data!!
     }

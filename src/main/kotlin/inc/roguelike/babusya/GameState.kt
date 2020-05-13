@@ -30,6 +30,10 @@ class GameState(private val levelCreator: LevelCreator, private val levelInfo: L
         didGameEnd = true
     }
 
+    fun resume() {
+        didGameEnd = false
+    }
+
     fun didGameEnd(): Boolean = didGameEnd
 
     fun getLevel(): Level = level
