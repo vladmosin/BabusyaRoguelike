@@ -7,16 +7,17 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class Room(val game: Game, val id: Int, client: Int, val playersHolder: PlayersHolder) {
-
-    init {
-        playersHolder.addClient(client)
-    }
+    private var isNew = true
 
     fun addClient(client: Int) {
         playersHolder.addClient(client)
+        if (isNew) {
+            isNew = false
+            launch()
+        }
     }
 
-    fun launch() {
+    private fun launch() {
         println("Launch room")
         GlobalScope.launch {
             game.launch()
