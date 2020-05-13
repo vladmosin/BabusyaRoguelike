@@ -160,30 +160,23 @@ class Server constructor(port: Int) {
             val playerId = request.playerId.id
             val playerLogin = request.login
             val roomId = request.room.id
-
-            //            println("RECEIVE REQUEST: GET STATE get State playerId=$playerId, playerLogin=$playerLogin, roomId=$roomId, ")
-
+            var cur = 0
             while (!Context.current().isCancelled) {
 
                 val room = getRoom(roomId)!!
                 val log = room.game.gameState.gameLog
                 val level = room.game.gameState.getLevel()
                 val ends = room.game.gameState.didGameEnd()
-
-                //            println("ends=$ends")
-                //            println("level=${level.serialize()}")
-                //            println("log=${log.serialize()}")
-
-                val state = State.newBuilder()
-                    .setLog(log.serialize())
-                    .setLevel(level.serialize())
-                    .setEnds(ends)
-                    .build()
-
-                emit(state)
+                if (cur < room.game.tick.get()) {
+                    cur = room.game.tick.get()
+                    val state = State.newBuilder()
+                        .setLog(log.serialize())
+                        .setLevel(level.serialize())
+                        .setEnds(ends)
+                        .build()
+                    emit(state)
+                }
             }
-
-            println("player $playerId disconnected")
         }
 
         /**

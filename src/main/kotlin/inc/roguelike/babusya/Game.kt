@@ -8,12 +8,15 @@ import inc.roguelike.babusya.engines.Engine
 import inc.roguelike.babusya.engines.SinglePlayerEngine
 import inc.roguelike.babusya.levels.LevelCreator
 import inc.roguelike.babusya.levels.LevelInfo
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Initializes and starts game
  */
 class Game(val inputListener: InputListener,
            val engine: Engine, levelInfo: LevelInfo) {
+
+    var tick = AtomicInteger(1)
 
     companion object {
         const val SAVED_LEVELS = 2
@@ -44,6 +47,7 @@ class Game(val inputListener: InputListener,
 
         while (!gameState.didGameEnd()) {
             println("tick in while")
+            tick.incrementAndGet()
             engine.tick(gameState)
         }
 
