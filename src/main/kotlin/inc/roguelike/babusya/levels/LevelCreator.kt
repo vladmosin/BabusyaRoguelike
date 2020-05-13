@@ -15,7 +15,8 @@ class LevelCreator(inputListener: InputListener) {
     private val actionMap = mapOf(
         LevelsType.GENERATED to { id: Int -> levelGenerator.generateLevel(id)},
         LevelsType.LOADED to { id: Int -> levelLoader.loadLevel("Levels" + File.separator + "Level${id}", "Loaded level ${id}")},
-        LevelsType.SAVED to {id: Int -> levelLoader.loadLevel(SAVED_PATH, "SavedLevel")}
+        LevelsType.SAVED to {id: Int -> levelLoader.loadLevel(SAVED_PATH, "SavedLevel")},
+        LevelsType.MULTIPLE_HEROES to {id: Int -> levelGenerator.generateWithoutHero(id)}
     )
 
     fun createLevel(id: Int, levelsType: LevelsType): Level {
