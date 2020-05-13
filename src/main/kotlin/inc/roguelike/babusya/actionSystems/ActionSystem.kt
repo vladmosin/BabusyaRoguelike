@@ -11,6 +11,9 @@ import java.util.*
 abstract class ActionSystem {
     protected val queue: Deque<Creature> = LinkedList<Creature>()
 
+    /**
+     * Adds element to the end of turn queue
+     * */
     fun addElement(creature: Creature) {
         queue.add(creature)
     }
@@ -23,5 +26,8 @@ abstract class ActionSystem {
         }
     }
 
+    /**
+     * Selects creature and performs its action
+     * */
     abstract fun action()
 }

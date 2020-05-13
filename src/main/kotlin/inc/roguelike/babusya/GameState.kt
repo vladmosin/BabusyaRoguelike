@@ -26,15 +26,27 @@ class GameState(private val levelCreator: LevelCreator, private val levelInfo: L
         level = levelCreator.createLevel(level.getId() + 1, levelInfo.levelsType)
     }
 
+    /**
+     * Ends game
+     * */
     fun endGame() {
         didGameEnd = true
     }
 
+    /**
+     * Resumes game
+     * */
     fun resume() {
         didGameEnd = false
     }
 
+    /**
+     * Checks that game is finished
+     * */
     fun didGameEnd(): Boolean = didGameEnd
 
+    /**
+     * Returns current level
+     * */
     fun getLevel(): Level = level
 }

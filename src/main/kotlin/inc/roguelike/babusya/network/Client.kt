@@ -24,15 +24,24 @@ class Client(address: String, port: Int, val login: String) : Closeable {
         println("id = $id")
     }
 
+    /**
+     * Create room request
+     * */
     fun createRoom(): Pair<Boolean, String> = runBlocking {
         val response = stub.createRoom(Empty.getDefaultInstance())
         return@runBlocking Pair(response.status, response.message)
     }
 
+    /**
+     * Get list of rooms id request
+     * */
     fun getRooms(): List<Room>? = runBlocking {
         return@runBlocking stub.getRooms(Empty.getDefaultInstance()).toList()
     }
 
+    /**
+     * Get state request
+     * */
     fun getStatesFlow(roomId: Int): Flow<State> {
         val room = Room.newBuilder().setId(roomId).build()
         val playerId = PlayerId.newBuilder().setId(id).build()
@@ -45,6 +54,9 @@ class Client(address: String, port: Int, val login: String) : Closeable {
         return stub.getState(player)
     }
 
+    /**
+     * Join room request
+     * */
     fun joinRoom(roomId: Int): Boolean = runBlocking {
         val room = Room.newBuilder().setId(roomId).build()
         val playerId = PlayerId.newBuilder().setId(id).build()
@@ -58,6 +70,9 @@ class Client(address: String, port: Int, val login: String) : Closeable {
         return@runBlocking response.status
     }
 
+    /**
+     * Leave room request
+     * */
     fun leaveRoom(roomId: Int): Boolean = runBlocking {
         val room = Room.newBuilder().setId(roomId).build()
         val playerId = PlayerId.newBuilder().setId(id).build()
@@ -71,6 +86,9 @@ class Client(address: String, port: Int, val login: String) : Closeable {
         return@runBlocking response.status
     }
 
+    /**
+     * Send user action request
+     * */
     fun sendInputData(data: String) = runBlocking {
         val inputData = inc.roguelike.babusya.network.gen.InputData.newBuilder()
             .setData(data)
@@ -79,10 +97,16 @@ class Client(address: String, port: Int, val login: String) : Closeable {
         stub.sendInputData(inputData)
     }
 
+    /**
+     * Receive id for new player request
+     * */
     private fun receiveNextId(): Int = runBlocking {
         return@runBlocking stub.receiveNextId(Empty.getDefaultInstance()).id
     }
 
+    /**
+     * Closes client
+     * */
     override fun close() {
         channel.shutdown().awaitTermination(SHUTDOWN_TIMEOUT, TimeUnit.SECONDS)
     }

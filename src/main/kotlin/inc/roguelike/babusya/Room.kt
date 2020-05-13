@@ -5,6 +5,9 @@ import inc.roguelike.babusya.network.PlayersHolder
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+/**
+ * Stores and manages one game on server
+ * */
 class Room(
     val game: Game,
     val id: Int,
@@ -12,6 +15,9 @@ class Room(
 ) {
     private var isNew = true
 
+    /**
+     * Adds new player with given id
+     * */
     fun addClient(client: Int) {
         playersHolder.addClient(client)
         if (isNew) {
@@ -33,6 +39,9 @@ class Room(
         isNew = true
     }
 
+    /**
+     * Removes player from game
+     * */
     fun removePlayer(player: Player) {
         playersHolder.removePlayerById(player.id)
         if (playersHolder.newClients.isEmpty() && playersHolder.players.isEmpty()) {
@@ -40,5 +49,8 @@ class Room(
         }
     }
 
+    /**
+     * Finds player in a game, or returns null if he does not exists
+     * */
     fun findPlayer(id: Int): Player? = playersHolder.players.find { it.id == id }
 }

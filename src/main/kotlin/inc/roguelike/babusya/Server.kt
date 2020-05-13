@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.concurrent.atomic.AtomicInteger
 
-
+/**
+ * Server implementation for multiplayer game mode
+ * */
 class Server constructor(port: Int) {
     private val server: io.grpc.Server
 
@@ -22,6 +24,9 @@ class Server constructor(port: Int) {
 
     val rooms = ArrayList<Room>()
 
+    /**
+     * Creates room with given id
+     * */
     fun createRoom(roomId: Int) {
         val inputListener = EmptyInputListener()
         val actionSystem = MultiplayerActionSystem()
@@ -36,6 +41,9 @@ class Server constructor(port: Int) {
         rooms.add(room)
     }
 
+    /**
+     * Returns room with given id, or null if such room does not exists
+     * */
     fun getRoom(roomId: Int): Room? {
         for (room in rooms) {
             if (room.id == roomId) {
@@ -46,6 +54,9 @@ class Server constructor(port: Int) {
         return null
     }
 
+    /**
+     * Joins to room with given id, if such room exists or returns false otherwise
+     * */
     fun joinRoom(roomId: Int, client: Int): Boolean {
         val room = getRoom(roomId)
         return if (room != null) {
@@ -56,6 +67,9 @@ class Server constructor(port: Int) {
         }
     }
 
+    /**
+     * Starts server
+     * */
     fun start() {
         server.start()
         println("Server is working")
@@ -68,17 +82,29 @@ class Server constructor(port: Int) {
         )
     }
 
+    /**
+     * Stops server
+     * */
     fun stop() {
         server.shutdown()
     }
 
+    /**
+     * Blocks server until shutdown
+     * */
     fun blockUntilShutdown() {
         server.awaitTermination()
     }
 
+    /**
+     * Implementation of grpc service
+     * */
     inner class GameService : GameGrpcKt.GameCoroutineImplBase() {
         private var currentId = AtomicInteger(0)
 
+        /**
+         * Create room request
+         * */
         override suspend fun createRoom(request: Empty): Response {
             val roomId = currentId.addAndGet(1)
 
@@ -97,6 +123,9 @@ class Server constructor(port: Int) {
             return result
         }
 
+        /**
+         * Get rooms request
+         * */
         override fun getRooms(request: Empty): Flow<inc.roguelike.babusya.network.gen.Room> = flow {
             rooms.map { room ->
                 inc.roguelike.babusya.network.gen.Room.newBuilder().setId(room.id).build()
@@ -105,6 +134,9 @@ class Server constructor(port: Int) {
             }
         }
 
+        /**
+         * Join room request
+         * */
         override suspend fun joinRoom(request: Player): Response {
             val playerId = request.playerId.id
             val playerLogin = request.login
@@ -120,7 +152,11 @@ class Server constructor(port: Int) {
             return Response.newBuilder().setMessage("").setStatus(status).build()
         }
 
+        /**
+         * Get current state request
+         * */
         override fun getState(request: Player): Flow<State> = flow {
+
             val playerId = request.playerId.id
             val playerLogin = request.login
             val roomId = request.room.id
@@ -148,6 +184,9 @@ class Server constructor(port: Int) {
             }
         }
 
+        /**
+         * Send player action request
+         * */
         override suspend fun sendInputData(request: InputData): Empty {
             val playerId = request.playerId
             val data = request.data
@@ -165,10 +204,16 @@ class Server constructor(port: Int) {
             return Empty.getDefaultInstance()
         }
 
+        /**
+         * Receive next id for room request
+         * */
         override suspend fun receiveNextId(request: Empty): PlayerId {
             return PlayerId.newBuilder().setId(currentId.addAndGet(1)).build()
         }
 
+        /**
+         * Leave room request
+         * */
         override suspend fun leaveRoom(request: Player): Response {
             val playerId = request.playerId.id
             val playerLogin = request.login
