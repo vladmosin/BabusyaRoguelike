@@ -26,7 +26,6 @@ class RoomsMenu: View() {
             vgrow = Priority.ALWAYS
             useMaxSize = true
             selectionModel.selectionMode = SelectionMode.SINGLE
-            items.addAll("Room 23", "Room 9")
         }
 
         hbox {
@@ -52,9 +51,7 @@ class RoomsMenu: View() {
                 maxHeight = UserInteractionApp.BUTTON_MAX_HEIGHT
                 prefHeight = UserInteractionApp.BUTTON_MAX_HEIGHT
                 action {
-                    val (success, message) = controller.createRoom(123) // TODO: generate room id
-//                    val success = false
-//                    val message = "?"
+                    val (success, message) = controller.createRoom()
                     if (success) {
                         listOfRooms.items.setAll(controller.getRooms().map { id -> "Room $id" })
                     }  else {

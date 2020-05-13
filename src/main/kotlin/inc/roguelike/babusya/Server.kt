@@ -9,7 +9,6 @@ import inc.roguelike.babusya.network.gen.*
 import io.grpc.ServerBuilder
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.sync.Mutex
 import java.util.concurrent.atomic.AtomicInteger
 
 
@@ -23,7 +22,7 @@ class Server constructor(port: Int) {
 
     val rooms = ArrayList<Room>()
 
-    fun createRoom(roomId: Int, client: Int) {
+    fun createRoom(roomId: Int) {
         val inputListener = EmptyInputListener()
         val actionSystem = MultiplayerActionSystem()
         val engine = MultiPlayerEngine(actionSystem)
@@ -81,10 +80,8 @@ class Server constructor(port: Int) {
     inner class GameService : GameGrpcKt.GameCoroutineImplBase() {
         private var currentId = AtomicInteger(0)
 
-        override suspend fun createRoom(request: Player): Response {
-            val playerId = request.playerId.id
-            val playerLogin = request.login
-            val roomId = request.room.id
+        override suspend fun createRoom(request: Empty): Response {
+            val roomId = currentId.addAndGet(1)
 
             for (room in rooms) {
                 if (room.id == roomId) {
@@ -92,10 +89,10 @@ class Server constructor(port: Int) {
                 }
             }
 
-            println("create room room_id=${roomId} playerId=${playerId}")
+            println("create room room_id=${roomId}")
 
-            createRoom(roomId, playerId)
-            val result =  Response.newBuilder().setMessage("").setStatus(true).build()
+            createRoom(roomId)
+            val result =  Response.newBuilder().setMessage(roomId.toString()).setStatus(true).build()
             println("after creating num of rooms = ${rooms.size}")
 
             return result

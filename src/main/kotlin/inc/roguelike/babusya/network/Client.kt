@@ -23,18 +23,9 @@ class Client(address: String, port: Int, val login: String) : Closeable {
         println("id = $id")
     }
 
-    fun createRoom(roomId: Int): Boolean = runBlocking {
-        val room = Room.newBuilder().setId(roomId).build()
-        val playerId = PlayerId.newBuilder().setId(id).build()
-        val player = Player
-            .newBuilder()
-            .setPlayerId(playerId)
-            .setLogin(login)
-            .setRoom(room)
-            .build()
-        println("login=${player.login} room_id=${player.room.id} player_id=${player.playerId.id}")
-        val response = stub.createRoom(player)
-        return@runBlocking response.status
+    fun createRoom(): Pair<Boolean, String> = runBlocking {
+        val response = stub.createRoom(Empty.getDefaultInstance())
+        return@runBlocking Pair(response.status, response.message)
     }
 
     fun getRooms(): List<Room>? = runBlocking {
