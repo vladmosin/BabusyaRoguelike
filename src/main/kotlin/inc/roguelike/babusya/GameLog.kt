@@ -18,15 +18,23 @@ class GameLog {
         return log.subList(max(0, log.size - count), log.size)
     }
 
-    fun serialize(): String {
-        TODO()
-    }
+    fun serialize() = collectToString(name, log)
 
     companion object {
         private val name = "GameLog"
 
         fun deserialize(line: String): GameLog? {
-            TODO()
+            val name = getName(line)
+            val args = getArguments(line)
+
+            if (name == null || name != this.name || args == null) {
+                return null
+            }
+
+            val gameLog = GameLog()
+            gameLog.log.addAll(args)
+
+            return gameLog
         }
     }
 }
