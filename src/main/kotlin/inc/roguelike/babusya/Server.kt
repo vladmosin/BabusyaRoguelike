@@ -55,6 +55,7 @@ class Server constructor(port: Int) {
 
     fun start() {
         server.start()
+        println("Server is working")
         Runtime.getRuntime().addShutdownHook(
             Thread {
                 println("*** shutting down gRPC server since JVM is shutting down")
@@ -82,19 +83,24 @@ class Server constructor(port: Int) {
 
             for (room in rooms) {
                 if (room.id == roomId) {
-                    return Response.newBuilder().setMessage("Room already exists").build()
+                    return Response.newBuilder().setMessage("Room already exists").setStatus(false).build()
                 }
             }
 
+            println("create room room_id=${roomId} playerId=${playerId}")
+
             createRoom(roomId, playerId)
-            return Response.newBuilder().setMessage("").build()
+            val result =  Response.newBuilder().setMessage("").setStatus(true).build()
+            println("after creating room size = ${rooms.size}")
+
+            return result
         }
 
-        override fun getRooms(request: Empty): Flow<inc.roguelike.babusya.network.gen.Room> {
-            return flow {
-                rooms.map { room ->
-                    inc.roguelike.babusya.network.gen.Room.newBuilder().setId(room.id).build()
-                }
+        override fun getRooms(request: Empty): Flow<inc.roguelike.babusya.network.gen.Room> = flow {
+            rooms.map { room ->
+                inc.roguelike.babusya.network.gen.Room.newBuilder().setId(room.id).build()
+            }.forEach { room ->
+                emit(room)
             }
         }
 
@@ -109,7 +115,7 @@ class Server constructor(port: Int) {
                 }
             }
 
-            return Response.newBuilder().setMessage("").build()
+            return Response.newBuilder().setMessage("").setStatus(true).build()
         }
 
         override suspend fun getState(request: Player): State {

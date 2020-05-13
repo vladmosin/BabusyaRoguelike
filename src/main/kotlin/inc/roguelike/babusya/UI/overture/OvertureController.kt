@@ -26,6 +26,7 @@ class OvertureController: Controller() {
     }
 
     fun createRoom(roomId: Int): Pair<Boolean, String> {
+        println(client == null)
         val status = client?.createRoom(roomId) ?: false
         val message = if (status) "OK" else "Error"
         return Pair(status, message)

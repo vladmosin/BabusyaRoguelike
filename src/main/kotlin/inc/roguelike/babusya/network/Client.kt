@@ -19,6 +19,10 @@ class Client(address: String, port: Int, val login: String) : Closeable {
     private val stub = GameGrpcKt.GameCoroutineStub(channel)
     private val id = receiveNextId()
 
+    init {
+        println("id = $id")
+    }
+
     fun createRoom(roomId: Int): Boolean = runBlocking {
         val room = Room.newBuilder().setId(roomId).build()
         val playerId = PlayerId.newBuilder().setId(id).build()
@@ -28,6 +32,7 @@ class Client(address: String, port: Int, val login: String) : Closeable {
             .setLogin(login)
             .setRoom(room)
             .build()
+        println("login=${player.login} room_id=${player.room.id} player_id=${player.playerId.id}")
         val response = stub.createRoom(player)
         return@runBlocking response.status
     }
