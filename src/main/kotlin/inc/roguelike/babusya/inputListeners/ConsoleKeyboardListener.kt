@@ -23,6 +23,7 @@ class ConsoleKeyboardListener(val terminal: Terminal): AbstractInputListener() {
             keyStroke.character == 'i' -> InputData.INVENTORY_UP
             keyStroke.character == 'j' -> InputData.INVENTORY_DOWN
             keyStroke.character == 's' -> InputData.SAVE
+            keyStroke.character == 'q' -> InputData.QUIT
             else -> when (keyStroke.keyType) {
                 KeyType.ArrowRight -> InputData.RIGHT
                 KeyType.ArrowUp -> InputData.UP

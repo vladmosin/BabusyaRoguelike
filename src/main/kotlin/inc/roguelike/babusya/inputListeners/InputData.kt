@@ -12,4 +12,5 @@ enum class InputData {
     INVENTORY_DOWN,
     INVENTORY_TOGGLE,
     SAVE,
+    QUIT,
 }

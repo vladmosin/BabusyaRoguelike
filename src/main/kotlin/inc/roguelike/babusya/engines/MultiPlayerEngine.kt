@@ -39,7 +39,7 @@ class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
         val newClients = playersHolder.newClients()
 
         val players = newClients.map { id -> Player(null, id) }
-        val listeners = players.map { player -> NetworkListener(player) }
+        val listeners = players.map { player -> NetworkListener(player, actionSystem.playersHolder) }
 
         val heroes = listeners
             .map { listener -> HeroActionController(gameMap, listener) }
