@@ -64,7 +64,13 @@ class OvertureController: Controller() {
 
         fun receive(input: InputData) {
             println("Receive input data = ${input.name}")
-            client.get()!!.sendInputData(input.toString())
+
+            if (input == InputData.QUIT) {
+                client.get()!!.leaveRoom(roomId)
+            } else {
+                client.get()!!.sendInputData(input.toString())
+            }
+
             inputListener.addCommand { inputData -> receive(inputData) }
         }
 
