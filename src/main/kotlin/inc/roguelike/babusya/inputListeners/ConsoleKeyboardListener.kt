@@ -33,7 +33,7 @@ class ConsoleKeyboardListener(val terminal: Terminal): AbstractInputListener() {
         }
     }
 
-    public override fun readInput(): InputData {
+    public override suspend fun readInput(): InputData {
         var inputData: InputData?
         do {
             inputData = keyStrokeToInputData(terminal.readInput())

@@ -23,7 +23,7 @@ abstract class AbstractInputListener: InputListener {
 
     var job: Job? = null
 
-    protected abstract fun readInput(): InputData
+    protected abstract suspend fun readInput(): InputData
 
     /**
      * Starts receiving input
@@ -31,6 +31,7 @@ abstract class AbstractInputListener: InputListener {
     fun start() {
         job = GlobalScope.launch {
             while (true) {
+                println("abstract input listener while")
                 val inputData = readInput()
                 val curOperations = commandQueue.size
 
