@@ -47,14 +47,13 @@ class Server constructor(port: Int) {
     }
 
     fun joinRoom(roomId: Int, client: Int): Boolean {
-        for (room in rooms) {
-            if (room.id == roomId) {
-                room.addClient(client)
-                return true
-            }
+        val room = getRoom(roomId)
+        return if (room != null) {
+            room.addClient(client)
+            true
+        } else {
+            false
         }
-
-        return false
     }
 
     fun start() {
@@ -164,6 +163,31 @@ class Server constructor(port: Int) {
 
         override suspend fun receiveNextId(request: Empty): PlayerId {
             return PlayerId.newBuilder().setId(currentId.addAndGet(1)).build()
+        }
+
+        override suspend fun leaveRoom(request: Player): Response {
+            val playerId = request.playerId.id
+            val playerLogin = request.login
+            val roomId = request.room.id
+
+            val room = getRoom(roomId)
+
+            if (room == null) {
+                return Response.newBuilder().setStatus(false).setMessage("Room (id=$roomId) not found").build()
+            }
+
+            val player = room.findPlayer(playerId)
+
+            if (player == null) {
+                return Response.newBuilder()
+                    .setStatus(false)
+                    .setMessage("Player (id=$playerId, login=$playerLogin) room (id=$roomId) not found")
+                    .build()
+            }
+
+            room.removePlayer(player)
+
+            return Response.newBuilder().setStatus(true).setMessage("OK").build()
         }
     }
 }

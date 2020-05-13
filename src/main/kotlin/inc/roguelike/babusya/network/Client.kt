@@ -45,6 +45,19 @@ class Client(address: String, port: Int, val login: String) : Closeable {
         return@runBlocking response.status
     }
 
+    fun leaveRoom(roomId: Int): Boolean = runBlocking {
+        val room = Room.newBuilder().setId(roomId).build()
+        val playerId = PlayerId.newBuilder().setId(id).build()
+        val player = Player
+            .newBuilder()
+            .setPlayerId(playerId)
+            .setLogin(login)
+            .setRoom(room)
+            .build()
+        val response = stub.leaveRoom(player)
+        return@runBlocking response.status
+    }
+
     fun getState(roomId: Int): Message = runBlocking {
         val room = Room.newBuilder().setId(roomId).build()
         val playerId = PlayerId.newBuilder().setId(id).build()

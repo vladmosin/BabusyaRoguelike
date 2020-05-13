@@ -52,8 +52,14 @@ class OvertureController: Controller() {
         inputListener.start()
         inputListener.addCommand { input -> receive(input) }
 
-        GameOnClient(renderSystem, client!!, roomId).launch()
-        renderSystem.close()
+        val gameOnClient = GameOnClient(renderSystem, client!!, roomId)
+
+        try {
+            gameOnClient.launch()
+        } finally {
+            client?.leaveRoom(roomId)
+            renderSystem.close()
+        }
     }
 
     fun startSinglePlayerGame(levelInfo: LevelInfo) {

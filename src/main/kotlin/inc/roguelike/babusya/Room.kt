@@ -27,6 +27,18 @@ class Room(
         }
     }
 
+    private fun stop() {
+        game.endGame()
+        isNew = true
+    }
+
+    fun removePlayer(player: Player) {
+        playersHolder.removePlayerById(player.id)
+        if (playersHolder.newClients.isEmpty() && playersHolder.players.isEmpty()) {
+            stop()
+        }
+    }
+
     fun findPlayer(id: Int): Player? {
         for (player in playersHolder.players) {
             if (player.id == id) {

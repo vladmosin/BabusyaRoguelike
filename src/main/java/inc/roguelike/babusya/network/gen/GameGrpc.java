@@ -121,6 +121,37 @@ public final class GameGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player,
+      inc.roguelike.babusya.network.gen.Response> getLeaveRoomMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "leaveRoom",
+      requestType = inc.roguelike.babusya.network.gen.Player.class,
+      responseType = inc.roguelike.babusya.network.gen.Response.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player,
+      inc.roguelike.babusya.network.gen.Response> getLeaveRoomMethod() {
+    io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player, inc.roguelike.babusya.network.gen.Response> getLeaveRoomMethod;
+    if ((getLeaveRoomMethod = GameGrpc.getLeaveRoomMethod) == null) {
+      synchronized (GameGrpc.class) {
+        if ((getLeaveRoomMethod = GameGrpc.getLeaveRoomMethod) == null) {
+          GameGrpc.getLeaveRoomMethod = getLeaveRoomMethod =
+              io.grpc.MethodDescriptor.<inc.roguelike.babusya.network.gen.Player, inc.roguelike.babusya.network.gen.Response>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "leaveRoom"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.Player.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  inc.roguelike.babusya.network.gen.Response.getDefaultInstance()))
+              .setSchemaDescriptor(new GameMethodDescriptorSupplier("leaveRoom"))
+              .build();
+        }
+      }
+    }
+    return getLeaveRoomMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<inc.roguelike.babusya.network.gen.Player,
       inc.roguelike.babusya.network.gen.State> getGetStateMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
@@ -284,6 +315,13 @@ public final class GameGrpc {
 
     /**
      */
+    public void leaveRoom(inc.roguelike.babusya.network.gen.Player request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Response> responseObserver) {
+      asyncUnimplementedUnaryCall(getLeaveRoomMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void getState(inc.roguelike.babusya.network.gen.Player request,
         io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.State> responseObserver) {
       asyncUnimplementedUnaryCall(getGetStateMethod(), responseObserver);
@@ -326,6 +364,13 @@ public final class GameGrpc {
                 inc.roguelike.babusya.network.gen.Player,
                 inc.roguelike.babusya.network.gen.Response>(
                   this, METHODID_JOIN_ROOM)))
+          .addMethod(
+            getLeaveRoomMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                inc.roguelike.babusya.network.gen.Player,
+                inc.roguelike.babusya.network.gen.Response>(
+                  this, METHODID_LEAVE_ROOM)))
           .addMethod(
             getGetStateMethod(),
             asyncUnaryCall(
@@ -391,6 +436,14 @@ public final class GameGrpc {
 
     /**
      */
+    public void leaveRoom(inc.roguelike.babusya.network.gen.Player request,
+        io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Response> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getLeaveRoomMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void getState(inc.roguelike.babusya.network.gen.Player request,
         io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.State> responseObserver) {
       asyncUnaryCall(
@@ -452,6 +505,13 @@ public final class GameGrpc {
 
     /**
      */
+    public inc.roguelike.babusya.network.gen.Response leaveRoom(inc.roguelike.babusya.network.gen.Player request) {
+      return blockingUnaryCall(
+          getChannel(), getLeaveRoomMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public inc.roguelike.babusya.network.gen.State getState(inc.roguelike.babusya.network.gen.Player request) {
       return blockingUnaryCall(
           getChannel(), getGetStateMethod(), getCallOptions(), request);
@@ -504,6 +564,14 @@ public final class GameGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<inc.roguelike.babusya.network.gen.Response> leaveRoom(
+        inc.roguelike.babusya.network.gen.Player request) {
+      return futureUnaryCall(
+          getChannel().newCall(getLeaveRoomMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<inc.roguelike.babusya.network.gen.State> getState(
         inc.roguelike.babusya.network.gen.Player request) {
       return futureUnaryCall(
@@ -530,9 +598,10 @@ public final class GameGrpc {
   private static final int METHODID_CREATE_ROOM = 0;
   private static final int METHODID_GET_ROOMS = 1;
   private static final int METHODID_JOIN_ROOM = 2;
-  private static final int METHODID_GET_STATE = 3;
-  private static final int METHODID_SEND_INPUT_DATA = 4;
-  private static final int METHODID_RECEIVE_NEXT_ID = 5;
+  private static final int METHODID_LEAVE_ROOM = 3;
+  private static final int METHODID_GET_STATE = 4;
+  private static final int METHODID_SEND_INPUT_DATA = 5;
+  private static final int METHODID_RECEIVE_NEXT_ID = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -561,6 +630,10 @@ public final class GameGrpc {
           break;
         case METHODID_JOIN_ROOM:
           serviceImpl.joinRoom((inc.roguelike.babusya.network.gen.Player) request,
+              (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Response>) responseObserver);
+          break;
+        case METHODID_LEAVE_ROOM:
+          serviceImpl.leaveRoom((inc.roguelike.babusya.network.gen.Player) request,
               (io.grpc.stub.StreamObserver<inc.roguelike.babusya.network.gen.Response>) responseObserver);
           break;
         case METHODID_GET_STATE:
@@ -639,6 +712,7 @@ public final class GameGrpc {
               .addMethod(getCreateRoomMethod())
               .addMethod(getGetRoomsMethod())
               .addMethod(getJoinRoomMethod())
+              .addMethod(getLeaveRoomMethod())
               .addMethod(getGetStateMethod())
               .addMethod(getSendInputDataMethod())
               .addMethod(getReceiveNextIdMethod())

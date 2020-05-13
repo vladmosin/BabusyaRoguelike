@@ -37,6 +37,8 @@ class PlayersHolder {
      * Removes players who disconnects
      * */
     fun removePlayerById(id: Int) {
+        // TODO: correctly remove player from game
+
         val updatedPlayers = ArrayList<Player>()
         for (player in players) {
             if (player.id != id) {
