@@ -12,19 +12,19 @@ import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.levels.LevelInfo
 import inc.roguelike.babusya.network.Client
 import tornadofx.Controller
+import java.util.concurrent.atomic.AtomicReference
 
 /**
  * Controller, which choose game to start and performs basic initialization
  * */
 class OvertureController: Controller() {
-    private var client: Client? = null
-
+    private var client: AtomicReference<Client> = AtomicReference()
 
     /**
      * Connects to server with given login, address and port
      * */
     fun connectToServer(login: String, address: String, port: Int) {
-        client = Client(address, port, login)
+        client.set(Client(address, port, login))
     }
 
     /**
@@ -37,17 +37,17 @@ class OvertureController: Controller() {
     /**
      * Creates room
      * */
-    fun createRoom(): Pair<Boolean, String> = client?.createRoom() ?: Pair(false, "Error")
+    fun createRoom(): Pair<Boolean, String> = client.get()?.createRoom() ?: Pair(false, "Error")
 
     /**
      * Returns list of rooms id
      * */
-    fun getRooms(): List<Int> = client?.getRooms()?.map { room -> room.id } ?: emptyList()
+    fun getRooms(): List<Int> = client.get()?.getRooms()?.map { room -> room.id } ?: emptyList()
 
     /**
      * Joins room
      * */
-    fun joinRoom(roomId: Int): Boolean = client?.joinRoom(roomId) ?: false
+    fun joinRoom(roomId: Int): Boolean = client.get()?.joinRoom(roomId) ?: false
 
     /**
      * Start multiplayer game
@@ -64,7 +64,7 @@ class OvertureController: Controller() {
 
         fun receive(input: InputData) {
             println("Receive input data = ${input.name}")
-            client!!.sendInputData(input.toString())
+            client.get()!!.sendInputData(input.toString())
             inputListener.addCommand { inputData -> receive(inputData) }
         }
 
@@ -73,12 +73,12 @@ class OvertureController: Controller() {
         inputListener.start()
         inputListener.addCommand { input -> receive(input) }
 
-        val gameOnClient = GameOnClient(renderSystem, client!!, roomId)
+        val gameOnClient = GameOnClient(renderSystem, client.get()!!, roomId)
 
         try {
             gameOnClient.launch()
         } finally {
-            client?.leaveRoom(roomId)
+            client.get()?.leaveRoom(roomId)
             renderSystem.close()
         }
     }
