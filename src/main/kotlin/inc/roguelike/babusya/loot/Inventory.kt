@@ -41,6 +41,10 @@ class Inventory(val owner: Hero) {
         }
     }
 
+    fun getLoot(): List<Loot> {
+        return inPossesionOf.toList().sortedBy { loot -> loot.getDescrition() }
+    }
+
     fun selectPreviousLoot() {
         var previousLoot: Loot? = null
         for (loot in inPossesionOf) {

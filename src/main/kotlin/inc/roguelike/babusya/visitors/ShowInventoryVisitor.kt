@@ -30,7 +30,7 @@ class ShowInventoryVisitor(
 
     override fun visitHero(hero: Hero): Unit {
         var yShift = 0
-        for (loot in hero.inventory.inPossesionOf) {
+        for (loot in hero.inventory.getLoot()) {
             textGraphics.foregroundColor = TextColor.ANSI.RED
             textGraphics.putString(xOffset, yOffset + yShift, if (hero.inventory.selected == loot) "* " else "  ")
 
