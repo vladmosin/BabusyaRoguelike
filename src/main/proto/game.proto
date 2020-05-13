@@ -40,6 +40,7 @@ service Game {
     rpc createRoom (Empty) returns (Response);
     rpc getRooms (Empty) returns (stream Room);
     rpc joinRoom (Player) returns (Response);
+    rpc leaveRoom (Player) returns (Response);
     rpc getState (Player) returns (State);
     rpc sendInputData (InputData) returns (Empty);
     rpc receiveNextId (Empty) returns (PlayerId);
