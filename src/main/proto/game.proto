@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package inc.roguelike.babusya.network.gen;
+
+option java_multiple_files = true;
+
+message Empty {}
+
+message State {
+    string level = 1;
+    bool ends = 2;
+    string log = 3;
+}
+
+message Response {
+    bool status = 1;
+    string message = 2;
+}
+
+message Room {
+    int32 id = 1;
+}
+
+message PlayerId {
+    int32 id = 1;
+}
+
+message Player {
+    PlayerId playerId = 1;
+    string login = 2;
+    Room room = 3;
+}
+
+message InputData {
+    int32 playerId = 1;
+    string data = 2;
+}
+
+service Game {
+    rpc createRoom (Empty) returns (Response);
+    rpc getRooms (Empty) returns (stream Room);
+    rpc joinRoom (Player) returns (Response);
+    rpc leaveRoom (Player) returns (Response);
+    rpc getState (Player) returns (stream State);
+    rpc sendInputData (InputData) returns (Empty);
+    rpc receiveNextId (Empty) returns (PlayerId);
+}
