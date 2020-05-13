@@ -26,6 +26,10 @@ class Game(val inputListener: InputListener,
     val gameState = GameState(levelCreator, levelInfo)
     private val deathObserver = DeathObserver(gameState.getLevel().getMap())
 
+    init {
+        deathObserver.observe(gameState.getLevel().getMap())
+    }
+
     /**
      * Launches new game
      * */

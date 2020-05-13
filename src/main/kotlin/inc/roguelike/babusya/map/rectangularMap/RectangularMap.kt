@@ -1,6 +1,7 @@
 package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
+import inc.roguelike.babusya.DeathObserver
 import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.element.concrete.EmptyGameElement
@@ -234,6 +235,8 @@ class RectangularMap(
     override fun addCreature(creature: Creature) {
         val emptyPositions = getEmptyCellsPositions()
         val emptyCellsNumber = emptyPositions.size
+
+        DeathObserver(this).observe(creature)
 
         check(emptyCellsNumber > 0) { "No place for creature" }
 
