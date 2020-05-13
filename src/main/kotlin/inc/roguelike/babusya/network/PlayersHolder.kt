@@ -6,8 +6,8 @@ import inc.roguelike.babusya.element.concrete.Hero
  * Stores active players for concrete game
  * */
 class PlayersHolder {
-    var players = ArrayList<Player>()
     val newClients = ArrayList<Int>()
+    var players = ArrayList<Player>()
 
     fun addClient(client: Int) {
         newClients.add(client)
@@ -51,7 +51,8 @@ class PlayersHolder {
      * Returns recently connected ids
      * */
     fun newClients(): List<Int> {
-        val clients = ArrayList(newClients)
+        val clients = ArrayList<Int>()
+        clients.addAll(newClients)
         newClients.clear()
         return clients
     }

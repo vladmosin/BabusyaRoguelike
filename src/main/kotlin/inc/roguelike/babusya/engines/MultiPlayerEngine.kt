@@ -26,7 +26,18 @@ class MultiPlayerEngine(val actionSystem: MultiplayerActionSystem): Engine {
 
     override fun actionSystem() = actionSystem
 
+    var msg = "ABC"
+
     private fun addNewPlayers(gameMap: GameMap) {
+        if (actionSystem.playersHolder.newClients.size > 0) {
+            println("YEP ${actionSystem.playersHolder.newClients.size}")
+        } else {
+            if (msg.isNotEmpty()) {
+                println("addNewPlayers ${actionSystem.playersHolder.newClients}")
+                msg = ""
+            }
+        }
+
         val playersHolder = actionSystem.playersHolder
         val newClients = playersHolder.newClients()
 

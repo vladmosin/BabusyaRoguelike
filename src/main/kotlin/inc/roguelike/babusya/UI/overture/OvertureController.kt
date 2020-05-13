@@ -26,7 +26,6 @@ class OvertureController: Controller() {
     }
 
     fun createRoom(roomId: Int): Pair<Boolean, String> {
-        println(client == null)
         val status = client?.createRoom(roomId) ?: false
         val message = if (status) "OK" else "Error"
         return Pair(status, message)
@@ -51,6 +50,7 @@ class OvertureController: Controller() {
         val inputListener = ConsoleKeyboardListener(terminal)
 
         fun receive(input: InputData) {
+            println("Receive input data = ${input.name}")
             client!!.sendInputData(input.toString())
             inputListener.addCommand { inputData -> receive(inputData) }
         }

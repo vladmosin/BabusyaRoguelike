@@ -28,8 +28,12 @@ class Server constructor(port: Int) {
         val levelInfo = LevelInfo(1, LevelsType.MULTIPLE_HEROES)
         val game = Game(inputListener, engine, levelInfo)
 
-        val room = Room(game, roomId, client)
+        val room = Room(game, roomId, client, engine.actionSystem.playersHolder)
+
+        println("createRoom ${room.playersHolder.newClients}")
+        
         rooms.add(room)
+        room.launch()
     }
 
     fun getRoom(roomId: Int): Room? {
@@ -91,7 +95,7 @@ class Server constructor(port: Int) {
 
             createRoom(roomId, playerId)
             val result =  Response.newBuilder().setMessage("").setStatus(true).build()
-            println("after creating room size = ${rooms.size}")
+            println("after creating num of rooms = ${rooms.size}")
 
             return result
         }
@@ -109,13 +113,14 @@ class Server constructor(port: Int) {
             val playerLogin = request.login
             val roomId = request.room.id
 
-            for (room in rooms) {
-                if (room.id == roomId) {
-                    joinRoom(roomId, playerId)
-                }
-            }
+            val status = joinRoom(roomId, playerId)
 
-            return Response.newBuilder().setMessage("").setStatus(true).build()
+            if (status)
+                println("Join room playerId=$playerId, playerLogin=$playerLogin, roomId=$roomId")
+            else
+                println("NOT Join room playerId=$playerId, playerLogin=$playerLogin, roomId=$roomId")
+
+            return Response.newBuilder().setMessage("").setStatus(status).build()
         }
 
         override suspend fun getState(request: Player): State {
@@ -139,8 +144,11 @@ class Server constructor(port: Int) {
             val playerId = request.playerId
             val data = request.data
 
+            println("Input from player with id = ${playerId}, data = $data")
+
             for (room in rooms) {
                 val player = room.findPlayer(playerId)
+                println("room = ${room.id}, player = ${player?.id ?: -1}")
                 if (player != null) {
                     player.lastInputData = inc.roguelike.babusya.inputListeners.InputData.valueOf(data)
                 }
