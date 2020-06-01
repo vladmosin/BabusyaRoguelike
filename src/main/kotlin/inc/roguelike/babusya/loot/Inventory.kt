@@ -24,7 +24,7 @@ class Inventory(val owner: Hero) {
             selected = inPossesionOf.firstOrNull()
         }
     }
-    
+
     fun removeFromInventory(item: Loot) {
         if (item is Equipment && equipped[item.type] == item) {
             equip(EmptyEquipment(item.type))
@@ -39,6 +39,10 @@ class Inventory(val owner: Hero) {
         if (item in inPossesionOf) {
             selected = item
         }
+    }
+
+    fun getLoot(): List<Loot> {
+        return inPossesionOf.toList().sortedBy { loot -> loot.getDescrition() }
     }
 
     fun selectPreviousLoot() {
@@ -140,6 +144,9 @@ class Inventory(val owner: Hero) {
         private fun serializeMap(equipped: Map<EquipmentType, Equipment>, items: ArrayList<Loot>): String {
             val args = ArrayList<String>()
             for (item in equipped) {
+                if (item.value is EmptyEquipment) {
+                    continue
+                }
                 val index = items.indexOf(item.value)
                 assert(index > -1)
                 args.add(collectToString(keyValueName, listOf(item.key.name, index.toString())))
