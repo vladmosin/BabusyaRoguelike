@@ -141,6 +141,9 @@ class RectangularMapBuilder(
         }
     }
 
+    /**
+     * Add walls to map
+     * */
     fun addRandomWalls(): RectangularMapBuilder {
         val importantPositions = getPositions {
                 cell -> cell.storesActiveItem() ||
@@ -170,6 +173,9 @@ class RectangularMapBuilder(
         return this
     }
 
+    /**
+     * Adds monsters to map
+     * */
     fun addRandomMonsters(): RectangularMapBuilder {
         val emptyPositions = getPositions { cell -> !cell.storesActiveItem() }
         emptyPositions.shuffle()
@@ -225,6 +231,9 @@ class RectangularMapBuilder(
         return this
     }
 
+    /**
+     * Adds loot to map
+     * */
     fun addRandomLoot(): RectangularMapBuilder {
         val emptyPositions = getPositions { cell -> !cell.storesActiveItem() }
         emptyPositions.shuffle()

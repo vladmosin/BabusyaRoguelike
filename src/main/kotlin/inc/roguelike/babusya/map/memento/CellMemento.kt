@@ -8,10 +8,16 @@ import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.loot.Loot
 import inc.roguelike.babusya.map.Cell
 
+/**
+ * Memento for cell
+ * */
 class CellMemento {
     companion object {
         private const val name = "Cell"
 
+        /**
+         * Deserialize cell
+         * */
         fun deserialize(controllerFactory: ControllerFactory, line: String): Cell? {
             val name = getName(line)
             val args = getArguments(line)
@@ -34,6 +40,9 @@ class CellMemento {
             }
         }
 
+        /**
+         * Serialize cell
+         * */
         fun serialize(cell: Cell): String {
             return collectToString(name, listOf(cell.storedItem.serialize(),
                 if (cell.loot == null) "null" else cell.loot!!.serialize()))

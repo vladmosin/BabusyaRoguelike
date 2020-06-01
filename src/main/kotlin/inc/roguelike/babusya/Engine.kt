@@ -8,6 +8,9 @@ import java.lang.Thread.sleep
  */
 class Engine(val renderSystem: RenderSystem, val actionSystem: ActionSystem) {
 
+    /**
+     * Performs game tick
+     * */
     fun tick(gameState: GameState) {
         renderSystem.render(gameState.getLevel(), gameState.gameLog)
         actionSystem.action()

@@ -16,6 +16,10 @@ class DeathObserver(val map: GameMap): ElementStatusObserver {
             }
         }
     }
+
+    /**
+     * Pin observer
+     * */
     override fun onStatusUpdate(gameElement: GameElement) {
         map.getCellByElement(gameElement)?.storedItem = EmptyGameElement()
     }

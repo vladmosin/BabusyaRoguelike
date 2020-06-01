@@ -15,9 +15,15 @@ class ShowHPVisitor(
     var xOffset = 0
     var yOffset = 0
 
+    /**
+     * Visits wall
+     * */
     override fun visitWall(wall: Wall) {
     }
 
+    /**
+     * Visits empty game element
+     * */
     override fun visitEmptyGameElement(emptyGameElement: EmptyGameElement) {
     }
 
@@ -32,14 +38,23 @@ class ShowHPVisitor(
         yOffset++
     }
 
+    /**
+     * Visits hero
+     * */
     override fun visitHero(hero: Hero) {
         visitAbstractCreature(hero)
     }
 
+    /**
+     * Visits monster
+     * */
     override fun visitMonster(monster: Monster) {
         visitAbstractCreature(monster)
     }
 
+    /**
+     * Visits wall
+     * */
     override fun visitConfused(decorableCreature: DecorableCreature) {
         visitAbstractCreature(decorableCreature.creature as AbstractCreature)
     }

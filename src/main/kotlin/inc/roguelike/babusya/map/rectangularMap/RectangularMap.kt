@@ -9,6 +9,7 @@ import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
+import inc.roguelike.babusya.map.memento.RectangularMapMemento
 
 /**
  * Implements simple rectangular game map.
@@ -18,59 +19,24 @@ class RectangularMap(
     private val rectangle: Array<Array<Cell>>
 ) : GameMap {
 
-    private val height = rectangle.size
-    private val width = rectangle.get(0).size
+    val height = rectangle.size
+    val width = rectangle.get(0).size
     private val indexByCell = HashMap<Cell, Pair<Int, Int>>()
     private val cellByElement = HashMap<GameElement, Cell>()
 
     companion object {
-        private const val name = "RectangularMap"
-
         /**
          * Creates RectangularMap from string
          * */
         fun deserialize(line: String, inputListener: InputListener): RectangularMap? {
-            val name = getName(line)
-            val args = getArguments(line)
-
-            if (name == null || args == null || args.size < 2 || name != this.name) {
-                return null
-            }
-
-            try {
-                val height = args[0].toInt()
-                val width = args[1].toInt()
-
-                if (args.size != height * width + 2) {
-                    return null
-                }
-
-                val map = RectangularMap(Array(height) { Array(width) { Cell() } })
-                val controllerFactory = ControllerFactory(map, inputListener)
-
-                for (i in 0 until height) {
-                    for (j in 0 until width) {
-                        val cell = Cell.deserialize(controllerFactory, args[2 + i * width + j])
-                        if (cell == null) {
-                            return null
-                        } else {
-                            map.rectangle[i][j].storedItem = cell.storedItem
-                            map.rectangle[i][j].loot = cell.loot
-                        }
-                    }
-                }
-
-                map.updateControllers()
-
-                return map
-
-            } catch (e: NumberFormatException) {
-                return null
-            }
+            return RectangularMapMemento.deserialize(line, inputListener)
         }
     }
 
-    private fun updateControllers() {
+    /**
+     * Updates controllers
+     * */
+    fun updateControllers() {
         for (i in 0 until height) {
             for (j in 0 until width) {
                 val item = rectangle[i][j].storedItem
@@ -82,6 +48,9 @@ class RectangularMap(
         }
     }
 
+    /**
+     * Returns rectangle
+     * */
     fun getRectangle(): Array<Array<Cell>> = rectangle
 
     private fun initIndexByCell() {
@@ -92,6 +61,9 @@ class RectangularMap(
         }
     }
 
+    /**
+     * Operation on cell update
+     * */
     override fun onCellUpdate(cell: Cell) {
         cellByElement[cell.storedItem] = cell
     }
@@ -104,10 +76,16 @@ class RectangularMap(
         }
     }
 
+    /**
+     * Returns position on screen
+     * */
     override fun positionOnScreen(cell: Cell): Pair<Int, Int> {
         return indexByCell[cell]!!
     }
 
+    /**
+     * Returns cell by element
+     * */
     override fun getCellByElement(gameElement: GameElement): Cell? {
         return cellByElement[gameElement]
     }
@@ -126,21 +104,11 @@ class RectangularMap(
      * Second line is board parameters (height and width)
      * Next height lines contains width number of serialized GameElements
      * */
-    override fun serialize(): String {
-        val args = ArrayList<String>()
+    override fun serialize() = RectangularMapMemento.serialize(this)
 
-        args.add(height.toString())
-        args.add(width.toString())
-
-        for (i in 0 until height) {
-            for (j in 0 until width) {
-                args.add(rectangle[i][j].serialize())
-            }
-        }
-
-        return collectToString(name, args)
-    }
-
+    /**
+     * Clones map
+     * */
     override fun clone(): RectangularMap {
         val map = RectangularMap(Array(height) {Array(width) {Cell()}})
         for (i in 0 until height) {
@@ -166,14 +134,29 @@ class RectangularMap(
         }
     }
 
+    /**
+     * Returns lefter cell
+     * */
     override fun getLefterCell(cell: Cell): Cell? = getMovedCell(cell, 0, -1)
 
+    /**
+     * Returns righter cell
+     * */
     override fun getRighterCell(cell: Cell): Cell? = getMovedCell(cell, 0, +1)
 
+    /**
+     * Returns upper cell
+     * */
     override fun getUpperCell(cell: Cell): Cell? = getMovedCell(cell, -1, 0)
 
+    /**
+     * Returns downer cell
+     * */
     override fun getDownerCell(cell: Cell): Cell? = getMovedCell(cell, +1, 0)
 
+    /**
+     * Returns iterator
+     * */
     override fun iterator(): Iterator<Cell> = object: Iterator<Cell> {
         var i = 0
         var j = 0
@@ -193,6 +176,9 @@ class RectangularMap(
         }
     }
 
+    /**
+     * Returns cell by its position
+     * */
     override fun cellByPosition(x: Int, y: Int): Cell? {
         return if (x < height && y < width) {
             rectangle[x][y]

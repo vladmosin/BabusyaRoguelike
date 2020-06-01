@@ -10,10 +10,16 @@ class ActionSystem {
 
     private val queue: Deque<Creature> = LinkedList<Creature>()
 
+    /**
+     * Adds elemens to observe
+     * */
     fun addElement(creature: Creature) {
         queue.add(creature)
     }
 
+    /**
+     * Processes action
+     * */
     fun action() {
         val elem = queue.pollFirst()
         if (elem != null && elem.isActive()) {

@@ -77,4 +77,7 @@ fun askUserForLevelsType(): LevelInfo {
     }
 }
 
+/**
+ * Checks that there is a saved game
+ * */
 fun haveSavedGame() = FileSystem.fileExists(SAVED_PATH)

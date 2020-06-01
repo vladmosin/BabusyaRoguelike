@@ -25,14 +25,26 @@ class Cell {
 
     var loot: Loot? = null
 
+    /**
+     * Checks that storing element is active
+     * */
     fun storesActiveItem(): Boolean = storedItem.isActive()
 
+    /**
+     * Attaches observer
+     * */
     fun attachObserver(cellObserver: CellObserver) {
         observers.add(cellObserver)
     }
 
+    /**
+     * Serializes cell
+     * */
     fun serialize() = CellMemento.serialize(this)
 
+    /**
+     * Clones cell
+     * */
     fun clone(): Cell {
         val newCell = Cell()
         newCell.storedItem = storedItem.clone()
@@ -41,6 +53,9 @@ class Cell {
     }
 
     companion object {
+        /**
+         * Deserializes cell
+         * */
         fun deserialize(controllerFactory: ControllerFactory, line: String): Cell? {
             return CellMemento.deserialize(controllerFactory, line)
         }

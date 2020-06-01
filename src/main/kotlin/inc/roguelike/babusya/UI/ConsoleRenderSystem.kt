@@ -35,6 +35,9 @@ class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
         screen.startScreen()
     }
 
+    /**
+     * Renders game
+     * */
     override fun render(level: Level, gameLog: GameLog) {
         textGraphics.fill(' ')
         textGraphics.foregroundColor = TextColor.ANSI.GREEN
