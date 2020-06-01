@@ -5,7 +5,7 @@ import java.lang.StringBuilder
 fun collectToString(name: String, args: List<String>): String {
     val builder = StringBuilder(name)
     builder.append("(")
-    for (i in 0..args.size-2) {
+    for (i in 0..args.size - 2) {
         builder.append(args[i])
         builder.append(", ")
     }
@@ -42,7 +42,7 @@ fun splitIntoParts(line: String): ArrayList<String> {
     }
 
     var brackets = 0
-    for (i in line.length-1 downTo 1) {
+    for (i in line.length - 1 downTo 1) {
         if (line[i] == ')') {
             brackets += 1
         }
@@ -66,7 +66,7 @@ fun splitIntoParts(line: String): ArrayList<String> {
 
 fun findFirstBracket(line: String): Int? {
     for (i in line.indices) {
-        if (line[i] == '(')  {
+        if (line[i] == '(') {
             return i
         }
     }
