@@ -54,10 +54,7 @@ interface GameMap : Iterable<Cell>, CellObserver {
 
     fun cellByPosition(x: Int, y: Int): Cell?
 
-    /**
-     * Takes som cell on the map and finds the width of the map
-     */
-    fun getWidth(cell: Cell): Int {
+    private fun getSize(cell: Cell): Pair<Int, Int> {
         var helper_cell = cell
         while (true) {
             val next_cell = getRighterCell(helper_cell)
@@ -67,6 +64,30 @@ interface GameMap : Iterable<Cell>, CellObserver {
                 break
             }
         }
-        return positionOnScreen(helper_cell).second + 1
+        val width = positionOnScreen(helper_cell).second + 1
+        while (true) {
+            val next_cell = getDownerCell(helper_cell)
+            if (next_cell != null) {
+                helper_cell = next_cell
+            } else {
+                break
+            }
+        }
+        val height = positionOnScreen(helper_cell).first + 1
+        return Pair(height, width)
+    }
+
+    /**
+     * Takes som cell on the map and finds the width of the map
+     */
+    fun getWidth(cell: Cell): Int {
+        return getSize(cell).second
+    }
+
+    /**
+     * Takes som cell on the map and finds the height of the map
+     */
+    fun getHeight(cell: Cell): Int {
+        return getSize(cell).first
     }
 }
