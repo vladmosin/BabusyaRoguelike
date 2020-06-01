@@ -1,4 +1,4 @@
-import inc.roguelike.babusya.inputListeners.InputData
+import inc.roguelike.babusya.commands.AbstractCommand
 
 /**
  * Receives input and processes it using registered commands
@@ -9,6 +9,6 @@ interface InputListener {
      * Received input processed by commands in order of registration
      * Returns unique command identification
      */
-    fun addCommand(command: (InputData) -> Unit): Int
+    fun addCommand(command: (AbstractCommand) -> Unit): Int
 
 }
