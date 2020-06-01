@@ -8,7 +8,7 @@ import inc.roguelike.babusya.element.concrete.*
 /**
  * Visitor, which shows inventory on console
  * */
-class ShowHPVisitor(
+class ShowCharacteristicsVisitor(
     private val textGraphics: TextGraphics
 ) : ElementVisitor<Unit> {
 
@@ -34,7 +34,9 @@ class ShowHPVisitor(
         textGraphics.foregroundColor = TextColor.ANSI.GREEN
         textGraphics.putString(xOffset + 20, yOffset,
             "${creature.characteristics.hitPoints} hp")
-
+        textGraphics.foregroundColor = TextColor.ANSI.RED
+        textGraphics.putString(xOffset + 35, yOffset,
+            "${creature.characteristics.attack} attack")
         yOffset++
     }
 

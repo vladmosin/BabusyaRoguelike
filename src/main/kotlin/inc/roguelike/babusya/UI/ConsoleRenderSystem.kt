@@ -10,7 +10,7 @@ import inc.roguelike.babusya.element.concrete.EmptyGameElement
 import inc.roguelike.babusya.levels.Level
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.visitors.ShowConsoleVisitor
-import inc.roguelike.babusya.visitors.ShowHPVisitor
+import inc.roguelike.babusya.visitors.ShowCharacteristicsVisitor
 import inc.roguelike.babusya.visitors.ShowInventoryVisitor
 
 
@@ -28,7 +28,7 @@ class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
 
     private val showConsoleVisitor = ShowConsoleVisitor()
     private val showInventoryVisitor = ShowInventoryVisitor(screen, textGraphics)
-    private val showHPVisitor = ShowHPVisitor(textGraphics)
+    private val showCharacteristicsVisitor = ShowCharacteristicsVisitor(textGraphics)
 
     init {
         screen.cursorPosition = null
@@ -104,10 +104,10 @@ class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
         for (cell in map) {
             if (height == -1) {
                 height = map.getHeight(cell)
-                showHPVisitor.xOffset = LEFT_FRAME
-                showHPVisitor.yOffset = UP_FRAME + height + 2
+                showCharacteristicsVisitor.xOffset = LEFT_FRAME
+                showCharacteristicsVisitor.yOffset = UP_FRAME + height + 2
             }
-            cell.storedItem.accept(showHPVisitor)
+            cell.storedItem.accept(showCharacteristicsVisitor)
         }
     }
 
