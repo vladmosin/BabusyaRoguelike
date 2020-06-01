@@ -49,9 +49,9 @@ class RectangularMapTest {
     @Test
     fun testClone() {
         for (i in 0..0) {
-            val map = RectangularMapBuilder(15, 10)
-                .addRandomWalls()
+            val map = RectangularMapBuilder(10, 20)
                 .addHero()
+                .addRandomWalls()
                 .addRandomMonsters()
                 .addRandomLoot()
                 .buildMap(EmptyInputListener())

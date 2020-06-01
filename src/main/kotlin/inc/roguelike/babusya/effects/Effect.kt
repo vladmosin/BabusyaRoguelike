@@ -9,8 +9,6 @@ import inc.roguelike.babusya.visitors.ElementVisitor
  * Interface for effects implementing visitor pattern and able to affect game elements
  * */
 interface Effect : ElementVisitor<Boolean> {
-    override fun visitStairs(stairs: Stairs): Boolean = false
-    override fun visitDoor(door: Door): Boolean = false
     override fun visitWall(wall: Wall): Boolean = false
     override fun visitEmptyGameElement(emptyGameElement: EmptyGameElement): Boolean = false
     override fun visitHero(hero: Hero): Boolean = false
