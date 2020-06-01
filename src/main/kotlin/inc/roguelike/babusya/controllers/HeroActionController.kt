@@ -71,14 +71,23 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
 
     }
 
+    /**
+     * Clones controller
+     * */
     override fun clone(): HeroActionController {
         return HeroActionController(gameMap, inputListener)
     }
 
+    /**
+     * Serializes controller
+     * */
     override fun serialize(): String {
         return collectToString(ControllerType.HeroController.name, listOf())
     }
 
+    /**
+     * Sets info and return controller
+     * */
     override fun setDeserializeInfo(args: List<String>): ActionController? {
         return this
     }

@@ -1,7 +1,12 @@
 package inc.roguelike.babusya
 
+import inc.roguelike.babusya.element.interfaces.GameElement
+import inc.roguelike.babusya.map.GameMap
 import java.lang.StringBuilder
 
+/**
+ * Collects name and args to one string
+ * */
 fun collectToString(name: String, args: List<String>): String {
     val builder = StringBuilder(name)
     builder.append("(")
@@ -17,6 +22,9 @@ fun collectToString(name: String, args: List<String>): String {
     return builder.toString()
 }
 
+/**
+ * Returns name
+ * */
 fun getName(line: String): String? {
     val endName = findFirstBracket(line)
     return if (endName == null || line.last() != ')') {
@@ -26,6 +34,9 @@ fun getName(line: String): String? {
     }
 }
 
+/**
+ * Returns parsed arguments
+ * */
 fun getArguments(line: String): List<String>? {
     val endName = findFirstBracket(line)
     if (endName == null || line.last() != ')') {
@@ -36,6 +47,9 @@ fun getArguments(line: String): List<String>? {
     return splitIntoParts(argPart)
 }
 
+/**
+ * Splits line into parts by ', '
+ * */
 fun splitIntoParts(line: String): ArrayList<String> {
     if (line.isEmpty()) {
         return ArrayList()
@@ -64,6 +78,9 @@ fun splitIntoParts(line: String): ArrayList<String> {
     return result
 }
 
+/**
+ * Finds first bracket (
+ * */
 fun findFirstBracket(line: String): Int? {
     for (i in line.indices) {
         if (line[i] == '(') {
@@ -72,4 +89,22 @@ fun findFirstBracket(line: String): Int? {
     }
 
     return null
+}
+
+/**
+ * Returns element position on map
+ * */
+fun findOnMap(gameMap: GameMap, gameElement: GameElement?): Pair<Int, Int> {
+    var x = -1
+    var y = -1
+    if (gameElement != null) {
+        val cell = gameMap.getCellByElement(gameElement)
+        if (cell != null) {
+            val position = gameMap.positionOnScreen(cell)
+            x = position.first
+            y = position.second
+        }
+    }
+
+    return Pair(x, y)
 }

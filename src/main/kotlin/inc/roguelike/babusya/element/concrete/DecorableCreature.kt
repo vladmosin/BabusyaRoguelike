@@ -24,8 +24,8 @@ class DecorableCreature(val creature: Creature, var randomController: ActionCont
         }
 
         if (decorator != null) {
-            decorator!!.applyEffect(creature)
-            if (decorator!!.makeTurn(creature)) {
+            decorator!!.applyEffect(this)
+            if (decorator!!.makeTurn(this)) {
                 return true
             }
         }

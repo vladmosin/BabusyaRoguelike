@@ -3,6 +3,7 @@ package inc.roguelike.babusya.controllers
 import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
+import inc.roguelike.babusya.findOnMap
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.map.shortestPath
 
@@ -11,6 +12,9 @@ class CowardController(gameMap: GameMap, var scaryElement: GameElement?): Abstra
     private var positionX = -1
     private var positionY = -1
 
+    /**
+     * Makes turn due to coward policy
+     * */
     override fun makeTurn(creature: Creature): Boolean {
         if (scaryElement == null) {
             return true
@@ -32,6 +36,9 @@ class CowardController(gameMap: GameMap, var scaryElement: GameElement?): Abstra
         return true
     }
 
+    /**
+     * Clones controller
+     * */
     override fun clone(): CowardController {
         if (scaryElement != null) {
             val cell = gameMap.getCellByElement(scaryElement!!)
@@ -44,17 +51,11 @@ class CowardController(gameMap: GameMap, var scaryElement: GameElement?): Abstra
         return CowardController(gameMap, null)
     }
 
+    /**
+     * Serializes controller
+     * */
     override fun serialize(): String {
-        var x = -1
-        var y = -1
-        if (scaryElement != null) {
-            val cell = gameMap.getCellByElement(scaryElement!!)
-            if (cell != null) {
-                val position = gameMap.positionOnScreen(cell)
-                x = position.first
-                y = position.second
-            }
-        }
+        val (x, y) = findOnMap(gameMap, scaryElement)
 
         return collectToString(ControllerType.CowardController.name, listOf(x.toString(), y.toString()))
     }
@@ -74,6 +75,9 @@ class CowardController(gameMap: GameMap, var scaryElement: GameElement?): Abstra
         }
     }
 
+    /**
+     * Changes game map
+     * */
     override fun changeGameMap(gameMap: GameMap) {
         super.changeGameMap(gameMap)
         if (positionX != -1 && positionY != -1) {

@@ -9,6 +9,9 @@ enum class ControllerType {
     RandomController;
 
     companion object {
+        /**
+         * Serializes controller type
+         * */
         fun serialize(type: ControllerType): String {
             return type.name
         }

@@ -3,6 +3,7 @@ package inc.roguelike.babusya.controllers
 import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
+import inc.roguelike.babusya.findOnMap
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.map.shortestPath
 
@@ -14,6 +15,9 @@ class AggressiveController(gameMap: GameMap, var attackTarget: GameElement?): Ab
     private var positionX: Int = -1
     private var positionY: Int = -1
 
+    /**
+     * Moves creature due to aggressive policy
+     * */
     override fun makeTurn(creature: Creature): Boolean {
         if (attackTarget == null) {
             return true
@@ -26,6 +30,9 @@ class AggressiveController(gameMap: GameMap, var attackTarget: GameElement?): Ab
         return true
     }
 
+    /**
+     * Clones controller
+     * */
     override fun clone(): AggressiveController {
         if (attackTarget != null) {
             val cell = gameMap.getCellByElement(attackTarget!!)
@@ -39,16 +46,7 @@ class AggressiveController(gameMap: GameMap, var attackTarget: GameElement?): Ab
     }
 
     override fun serialize(): String {
-        var x = -1
-        var y = -1
-        if (attackTarget != null) {
-            val cell = gameMap.getCellByElement(attackTarget!!)
-            if (cell != null) {
-                val position = gameMap.positionOnScreen(cell)
-                x = position.first
-                y = position.second
-            }
-        }
+        val (x, y) = findOnMap(gameMap, attackTarget)
 
         return collectToString(ControllerType.AggressiveController.name, listOf(x.toString(), y.toString()))
     }

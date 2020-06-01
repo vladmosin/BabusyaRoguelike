@@ -17,6 +17,9 @@ import inc.roguelike.babusya.map.GameMap
 abstract class AbstractActionController(var gameMap: GameMap): ActionController {
     protected var log : GameLog? = null
 
+    /**
+     * Sets log to use
+     * */
     override fun useLog(gameLog: GameLog) {
         log = gameLog
     }
