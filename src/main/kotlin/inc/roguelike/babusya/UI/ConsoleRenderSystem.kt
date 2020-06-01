@@ -10,6 +10,7 @@ import inc.roguelike.babusya.element.concrete.EmptyGameElement
 import inc.roguelike.babusya.levels.Level
 import inc.roguelike.babusya.map.GameMap
 import inc.roguelike.babusya.visitors.ShowConsoleVisitor
+import inc.roguelike.babusya.visitors.ShowHPVisitor
 import inc.roguelike.babusya.visitors.ShowInventoryVisitor
 
 
@@ -27,6 +28,7 @@ class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
 
     private val showConsoleVisitor = ShowConsoleVisitor()
     private val showInventoryVisitor = ShowInventoryVisitor(screen, textGraphics)
+    private val showHPVisitor = ShowHPVisitor(textGraphics)
 
     init {
         screen.cursorPosition = null
@@ -41,6 +43,7 @@ class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
         showMap(level.getMap(), LEFT_FRAME, UP_FRAME + 1)
         showLog(gameLog, 0, UP_FRAME, LOG_ROWS)
         showInventory(level.getMap())
+        showHP(level.getMap())
 
         screen.refresh()
     }
@@ -90,6 +93,18 @@ class ConsoleRenderSystem(terminal: Terminal): RenderSystem {
                 showInventoryVisitor.yOffset = UP_FRAME
             }
             cell.storedItem.accept(showInventoryVisitor)
+        }
+    }
+
+    private fun showHP(map: GameMap) {
+        var height = -1
+        for (cell in map) {
+            if (height == -1) {
+                height = map.getHeight(cell)
+                showHPVisitor.xOffset = LEFT_FRAME
+                showHPVisitor.yOffset = UP_FRAME + height + 2
+            }
+            cell.storedItem.accept(showHPVisitor)
         }
     }
 
