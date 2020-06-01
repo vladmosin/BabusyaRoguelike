@@ -3,7 +3,7 @@ package inc.roguelike.babusya.effects
 import inc.roguelike.babusya.controllers.RandomActionController
 import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
-import inc.roguelike.babusya.element.concrete.ConfusableCreature
+import inc.roguelike.babusya.element.concrete.DecorableCreature
 import inc.roguelike.babusya.element.concrete.Monster
 import inc.roguelike.babusya.mocks.MockMap
 import junit.framework.Assert.assertEquals
@@ -13,7 +13,7 @@ class ConfusionEffectTest {
 
     @Test
     fun confusionSureEffect() {
-        val monster = ConfusableCreature(
+        val monster = DecorableCreature(
             Monster(
                 CreatureCharacteristics(10, 10, 0),
                 null,

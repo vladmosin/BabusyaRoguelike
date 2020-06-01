@@ -4,7 +4,7 @@ import inc.roguelike.babusya.controllers.ActionController
 import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
-import inc.roguelike.babusya.element.concrete.ConfusableCreature
+import inc.roguelike.babusya.element.concrete.DecorableCreature
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.concrete.Monster
 import inc.roguelike.babusya.element.interfaces.Creature
@@ -31,7 +31,7 @@ abstract class AbstractCreature(
             val deserializers = listOf(
                 { s: String -> Hero.deserialize(controllerFactory, s) },
                 { s: String -> Monster.deserialize(controllerFactory, s) },
-                { s: String -> ConfusableCreature.deserialize(controllerFactory, s) }
+                { s: String -> DecorableCreature.deserialize(controllerFactory, s) }
             )
 
             for (deserializer in deserializers) {

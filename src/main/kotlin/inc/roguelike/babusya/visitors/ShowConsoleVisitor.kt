@@ -30,7 +30,7 @@ class ShowConsoleVisitor : ElementVisitor<Pair<Char, TextColor>> {
         return Pair(if (monster.id.isNotEmpty()) monster.id.first() else 'M', TextColor.ANSI.RED)
     }
 
-    override fun visitConfused(confusableCreature: ConfusableCreature): Pair<Char, TextColor> {
-        return confusableCreature.creature.accept(this)
+    override fun visitConfused(decorableCreature: DecorableCreature): Pair<Char, TextColor> {
+        return decorableCreature.creature.accept(this)
     }
 }

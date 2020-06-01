@@ -4,6 +4,7 @@ import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
+import inc.roguelike.babusya.loot.memento.EquipmentMemento
 import kotlin.math.min
 
 /**
@@ -24,9 +25,7 @@ open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus:
         }
     }
     
-    override fun serialize(): String {
-        return collectToString(name, listOf(type.name, hpBonus.toString(), attackBonus.toString()))
-    }
+    override fun serialize() = EquipmentMemento.serialize(this)
 
     /**
      * Add buffs for wearing equipment
@@ -50,23 +49,8 @@ open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus:
     }
   
     companion object {
-        private const val name = "Equipment"
-
         fun deserialize(line: String): Equipment? {
-            val name = getName(line)
-            val args = getArguments(line)
-
-            return if (name == null || args == null || name != this.name || args.size != 3) {
-                null
-            } else {
-                val type = EquipmentType.deserialize(args[0]) ?: return null
-                try {
-                    return Equipment(type, args[1].toInt(), args[2].toInt())
-                } catch (e: NumberFormatException) {
-                    null
-                }
-            }
+            return EquipmentMemento.deserialize(line)
         }
     }
-
 }

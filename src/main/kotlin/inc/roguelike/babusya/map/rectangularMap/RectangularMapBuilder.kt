@@ -6,7 +6,7 @@ import inc.roguelike.babusya.effects.HealEffect
 import inc.roguelike.babusya.element.*
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.CreatureCharacteristics
-import inc.roguelike.babusya.element.concrete.ConfusableCreature
+import inc.roguelike.babusya.element.concrete.DecorableCreature
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.concrete.Monster
 import inc.roguelike.babusya.element.concrete.Wall
@@ -46,7 +46,7 @@ class RectangularMapBuilder(
 
         for (cell in map) {
             if (cell.storedItem is Monster) {
-                cell.storedItem = ConfusableCreature(
+                cell.storedItem = DecorableCreature(
                     cell.storedItem as Creature,
                     controllerFactory.createController(ControllerType.RandomController)
                 )
