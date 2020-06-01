@@ -3,6 +3,7 @@ package inc.roguelike.babusya.element.concrete
 import inc.roguelike.babusya.controllers.ActionController
 import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.element.concrete.decorator.ConfuseDecorator
+import inc.roguelike.babusya.element.concrete.decorator.MonsterDecorator
 import inc.roguelike.babusya.element.concrete.memento.ConfusableCreatureMemento
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.visitors.ElementVisitor
@@ -15,15 +16,21 @@ import inc.roguelike.babusya.visitors.ElementVisitor
  * */
 class DecorableCreature(val creature: Creature, var randomController: ActionController): Creature by creature {
     var moreStepsWhileConfused = 0
-    val decorator = ConfuseDecorator(randomController)
+    var decorator: MonsterDecorator? = null
 
     override fun makeTurn(): Boolean {
         if (moreStepsWhileConfused > 0) {
             moreStepsWhileConfused--
-            return randomController.makeTurn(this)
-        } else {
-            return creature.actionController?.makeTurn(this) ?: true
         }
+
+        if (decorator != null) {
+            decorator!!.applyEffect(creature)
+            if (decorator!!.makeTurn(creature)) {
+                return true
+            }
+        }
+
+        return creature.actionController?.makeTurn(this) ?: true
     }
 
     override fun serialize(): String {
