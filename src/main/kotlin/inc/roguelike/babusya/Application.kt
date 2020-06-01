@@ -14,7 +14,7 @@ import inc.roguelike.babusya.levels.LevelsType
 fun main() {
     val levelInfo = askUserForLevelsType()
     val terminal = DefaultTerminalFactory()
-        .setInitialTerminalSize(TerminalSize(100, 30))
+        .setInitialTerminalSize(TerminalSize(130, 30))
         .createTerminalEmulator()
 
     val renderSystem = ConsoleRenderSystem(terminal)
