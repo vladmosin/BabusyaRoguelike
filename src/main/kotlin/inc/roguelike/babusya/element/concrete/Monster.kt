@@ -8,6 +8,7 @@ import inc.roguelike.babusya.effects.MonsterPunchEffect
 import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractCreature
+import inc.roguelike.babusya.element.concrete.memento.MonsterMemento
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.visitors.ElementVisitor
@@ -43,8 +44,7 @@ class Monster(creatureCharacteristics: CreatureCharacteristics, actionController
     }
 
     override fun serialize(): String {
-        return collectToString(name, listOf(characteristics.serialize(),
-            actionController!!.serialize(), id, elementStatus.name))
+        return MonsterMemento.serialize(this)
     }
 
     override fun clone(): Monster {
@@ -53,27 +53,8 @@ class Monster(creatureCharacteristics: CreatureCharacteristics, actionController
     }
 
     companion object {
-        private const val name = "Monster"
-
         fun deserialize(controllerFactory: ControllerFactory, line: String): Monster? {
-            val name = getName(line)
-            val args = getArguments(line)
-
-            return if (name == null || args == null || name != this.name || args.size != 4) {
-                null
-            } else {
-                val elementStatus =
-                    ElementStatus.deserialize(args[3])
-                val creatureCharacteristics =
-                    CreatureCharacteristics.deserialize(args[0])
-                val controller = controllerFactory.deserializeController(args[1])
-
-                if (controller == null || elementStatus == null || creatureCharacteristics == null) {
-                    null
-                } else {
-                    Monster(creatureCharacteristics, controller, args[2], elementStatus)
-                }
-            }
+            return MonsterMemento.deserialize(controllerFactory, line)
         }
     }
 }

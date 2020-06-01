@@ -1,6 +1,7 @@
 package inc.roguelike.babusya.effects
 
 import inc.roguelike.babusya.collectToString
+import inc.roguelike.babusya.effects.memento.PunchEffectMemento
 import inc.roguelike.babusya.element.*
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.element.interfaces.GameElement
@@ -32,7 +33,7 @@ open class PunchEffect(val damage: Int): Effect {
         return "Hit: $fromId --[$damage]--> $toId"
     }
 
-    override fun serialize() = collectToString(name, listOf(damage.toString()))
+    override fun serialize() = PunchEffectMemento.serialize(this)
 
     private fun punchCreature(creature: Creature) {
         creature.characteristics.hitPoints = max(0, creature.characteristics.hitPoints - damage)
@@ -42,21 +43,8 @@ open class PunchEffect(val damage: Int): Effect {
     }
 
     companion object {
-        private const val name = "PunchEffect"
-
         fun deserialize(line: String): PunchEffect? {
-            val name = getName(line)
-            val args = getArguments(line)
-
-            return if (name == null || args == null || name != this.name || args.size != 1) {
-                null
-            } else {
-                try {
-                    PunchEffect(args[0].toInt())
-                } catch (e: NumberFormatException) {
-                    null
-                }
-            }
+            return PunchEffectMemento.deserialize(line)
         }
     }
 }

@@ -3,6 +3,7 @@ package inc.roguelike.babusya.element.concrete
 import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
+import inc.roguelike.babusya.element.concrete.memento.WallMemento
 import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
@@ -22,7 +23,7 @@ class Wall(id: String, elementStatus: ElementStatus) : AbstractStaticElement(id,
     }
 
     override fun serialize(): String {
-        return collectToString(name, listOf(id, elementStatus.name))
+        return WallMemento.serialize(this)
     }
 
     override fun clone(): Wall {
@@ -31,21 +32,7 @@ class Wall(id: String, elementStatus: ElementStatus) : AbstractStaticElement(id,
 
     companion object {
         fun deserialize(string: String): Wall? {
-            val name = getName(string)
-            val args = getArguments(string)
-
-            if (name == null || args == null || args.size != 2 || name != this.name) {
-                return null
-            }
-
-            val status = ElementStatus.deserialize(args[1])
-            return if (status == null) {
-                null
-            } else {
-                Wall(args[0], status)
-            }
+            return WallMemento.deserialize(string)
         }
-
-        private const val name = "Wall"
     }
 }

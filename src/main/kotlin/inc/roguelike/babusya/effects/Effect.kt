@@ -1,5 +1,6 @@
 package inc.roguelike.babusya.effects
 
+import inc.roguelike.babusya.effects.memento.EffectMemento
 import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.element.concrete.*
 import inc.roguelike.babusya.visitors.ElementVisitor
@@ -33,22 +34,7 @@ interface Effect : ElementVisitor<Boolean> {
 
     companion object {
         fun deserialize(line: String): Effect? {
-            val deserializers = listOf(
-                { s: String -> ConfusionChanceEffect.deserialize(s) },
-                { s: String -> HealEffect.deserialize(s) },
-                { s: String -> MonsterPunchEffect.deserialize(s) },
-                { s: String -> PunchEffect.deserialize(s) }
-
-            )
-
-            for (deserializer in deserializers) {
-                val gameElement = deserializer(line)
-                if (gameElement != null) {
-                    return gameElement
-                }
-            }
-
-            return null
+            return EffectMemento.deserialize(line)
         }
     }
 }

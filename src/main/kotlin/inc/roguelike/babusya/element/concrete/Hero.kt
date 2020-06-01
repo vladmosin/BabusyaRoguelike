@@ -9,6 +9,7 @@ import inc.roguelike.babusya.effects.PunchEffect
 import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.abstracts.AbstractCreature
+import inc.roguelike.babusya.element.concrete.memento.HeroMemento
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.loot.Inventory
@@ -46,8 +47,7 @@ class Hero(
     }
 
     override fun serialize(): String {
-        return collectToString(name, listOf(characteristics.serialize(), id, elementStatus.name,
-            experience.toString(), actionController!!.serialize(), inventory.serialize()))
+        return HeroMemento.serialize(this);
     }
 
     override fun clone(): Hero {
@@ -56,37 +56,8 @@ class Hero(
 }
 
     companion object {
-        private const val name = "Hero"
-
         fun deserialize(controllerFactory: ControllerFactory, string: String): Hero? {
-            val name = getName(string)
-            val args = getArguments(string)
-
-            if (name == null || args == null || name != this.name || args.size != 6) {
-                return null
-            }
-
-            val elementStatus =
-                ElementStatus.deserialize(args[2])
-            val creatureCharacteristics =
-                CreatureCharacteristics.deserialize(args[0])
-            val controller = controllerFactory.deserializeController(args[4])
-
-            return if (elementStatus == null || creatureCharacteristics == null || controller == null) {
-                null
-            } else {
-                try {
-                    val hero = Hero(creatureCharacteristics, controller,
-                        args[1], elementStatus, args[3].toInt()
-                    )
-                    val inventory = Inventory.deserialize(args[5], hero) ?: return null
-                    hero.inventory = inventory
-
-                    hero
-                } catch (e: NumberFormatException) {
-                    null
-                }
-            }
+            return HeroMemento.deserialize(controllerFactory, string)
         }
     }
 }

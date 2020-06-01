@@ -5,6 +5,7 @@ import inc.roguelike.babusya.controllers.ActionController
 import inc.roguelike.babusya.controllers.ControllerFactory
 import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
+import inc.roguelike.babusya.element.concrete.memento.ConfusableCreatureMemento
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
@@ -16,7 +17,7 @@ import inc.roguelike.babusya.visitors.ElementVisitor
  * Confusing means that creature strategy changes
  * and for given number of steps becomes defined by randomController
  * */
-class ConfusableCreature(val creature: Creature, private var randomController: ActionController): Creature by creature {
+class ConfusableCreature(val creature: Creature, var randomController: ActionController): Creature by creature {
     var moreStepsWhileConfused = 0
 
     override fun makeTurn(): Boolean {
@@ -29,7 +30,7 @@ class ConfusableCreature(val creature: Creature, private var randomController: A
     }
 
     override fun serialize(): String {
-        return collectToString(name, listOf(creature.serialize(), randomController.serialize()))
+        return ConfusableCreatureMemento.serialize(this)
     }
 
     override fun <T> accept(visitor: ElementVisitor<T>): T {
@@ -44,24 +45,8 @@ class ConfusableCreature(val creature: Creature, private var randomController: A
     }
 
     companion object {
-        private const val name = "ConfusableCreature"
-
         fun deserialize(controllerFactory: ControllerFactory, line: String): ConfusableCreature? {
-            val name = getName(line)
-            val args = getArguments(line)
-
-            return if (name == null || args == null || name != this.name || args.size != 2) {
-                null
-            } else {
-                val creature = Creature.deserialize(controllerFactory, args[0])
-                val controller = controllerFactory.deserializeController(args[1])
-
-                if (creature == null || controller == null) {
-                    null
-                } else {
-                    ConfusableCreature(creature, controller)
-                }
-            }
+            return ConfusableCreatureMemento.deserialize(controllerFactory, line)
         }
     }
 }

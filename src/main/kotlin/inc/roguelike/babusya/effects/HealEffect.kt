@@ -1,6 +1,7 @@
 package inc.roguelike.babusya.effects
 
 import inc.roguelike.babusya.collectToString
+import inc.roguelike.babusya.effects.memento.HealEffectMemento
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.concrete.Monster
@@ -29,7 +30,7 @@ class HealEffect(val healAmount: Int): Effect {
     }
 
     override fun serialize(): String {
-        return collectToString(name, listOf(healAmount.toString()))
+        return HealEffectMemento.serialize(this)
     }
 
     private fun healCreature(creature: Creature) {
@@ -38,21 +39,8 @@ class HealEffect(val healAmount: Int): Effect {
     }
 
     companion object {
-        private const val name = "HealEffect"
-
         fun deserialize(line: String): HealEffect? {
-            val name = getName(line)
-            val args = getArguments(line)
-
-            return if (name == null || args == null || name != this.name || args.size != 1) {
-                null
-            } else {
-                try {
-                    HealEffect(args[0].toInt())
-                } catch (e: NumberFormatException) {
-                    null
-                }
-            }
+            return HealEffectMemento.deserialize(line)
         }
     }
 }
