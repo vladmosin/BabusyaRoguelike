@@ -2,6 +2,7 @@ package inc.roguelike.babusya.effects
 
 import inc.roguelike.babusya.effects.memento.ConfusionChanceEffectMemento
 import inc.roguelike.babusya.element.concrete.DecorableCreature
+import inc.roguelike.babusya.element.concrete.decorator.ConfuseDecorator
 import inc.roguelike.babusya.element.interfaces.GameElement
 import java.lang.Integer.max
 import kotlin.random.Random
@@ -21,6 +22,7 @@ class ConfusionChanceEffect(val probability: Double, val effectDuration: Int): E
 
     override fun visitConfused(decorableCreature: DecorableCreature): Boolean {
         if (Random.nextDouble() < probability) {
+            decorableCreature.decorator = ConfuseDecorator(decorableCreature.randomController)
             decorableCreature.moreStepsWhileConfused = max(decorableCreature.moreStepsWhileConfused, effectDuration)
             return true
         }
