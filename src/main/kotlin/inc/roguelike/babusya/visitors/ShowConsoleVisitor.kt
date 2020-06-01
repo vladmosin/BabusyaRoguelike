@@ -6,14 +6,6 @@ import com.googlecode.lanterna.TextColor
  * Visitor, which shows elements to console
  * */
 class ShowConsoleVisitor : ElementVisitor<Pair<Char, TextColor>> {
-    override fun visitStairs(stairs: Stairs): Pair<Char, TextColor> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun visitDoor(door: Door): Pair<Char, TextColor> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun visitWall(wall: Wall): Pair<Char, TextColor> {
         return Pair('#', TextColor.ANSI.WHITE)
     }

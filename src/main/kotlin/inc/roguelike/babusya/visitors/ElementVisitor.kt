@@ -7,10 +7,6 @@ import inc.roguelike.babusya.element.concrete.*
  * Game elements have method accept, which call appropriate visitor's method
  * */
 interface ElementVisitor<T> {
-    fun visitStairs(stairs: Stairs): T
-
-    fun visitDoor(door: Door): T
-
     fun visitWall(wall: Wall): T
 
     fun visitEmptyGameElement(emptyGameElement: EmptyGameElement): T
