@@ -153,53 +153,26 @@ class RectangularMap(
         return map
     }
 
-    override fun getLefterCell(cell: Cell): Cell? {
+    private fun getMovedCell(cell: Cell, di: Int, dj: Int): Cell? {
         val position = indexByCell[cell]
         assert(position != null)
-
-        val (i, j) = position!!
-        return if (j == 0) {
-            null
+        var (i, j) = position!!
+        i += di
+        j += dj
+        return if (i in 0 until height && j in 0 until width) {
+            rectangle[i][j]
         } else {
-            rectangle[i][j - 1]
+            null
         }
     }
 
-    override fun getRighterCell(cell: Cell): Cell? {
-        val position = indexByCell[cell]
-        assert(position != null)
+    override fun getLefterCell(cell: Cell): Cell? = getMovedCell(cell, 0, -1)
 
-        val (i, j) = position!!
-        return if (j == width - 1) {
-            null
-        } else {
-            rectangle[i][j + 1]
-        }
-    }
+    override fun getRighterCell(cell: Cell): Cell? = getMovedCell(cell, 0, +1)
 
-    override fun getUpperCell(cell: Cell): Cell? {
-        val position = indexByCell[cell]
-        assert(position != null)
+    override fun getUpperCell(cell: Cell): Cell? = getMovedCell(cell, -1, 0)
 
-        val (i, j) = position!!
-        return if (i == 0) {
-            null
-        } else {
-            rectangle[i - 1][j]
-        }
-    }
-
-    override fun getDownerCell(cell: Cell): Cell? {
-        val position = indexByCell[cell]
-        assert(position != null)
-
-        val (i, j) = position!!
-        return if (i == height - 1) {
-            null
-        } else {
-            rectangle[i + 1][j]
-        }
-    }
+    override fun getDownerCell(cell: Cell): Cell? = getMovedCell(cell, +1, 0)
 
     override fun iterator(): Iterator<Cell> = object: Iterator<Cell> {
         var i = 0
@@ -218,7 +191,6 @@ class RectangularMap(
                 }
             }
         }
-
     }
 
     override fun cellByPosition(x: Int, y: Int): Cell? {
