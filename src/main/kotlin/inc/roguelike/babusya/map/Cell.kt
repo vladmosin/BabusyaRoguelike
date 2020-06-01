@@ -7,6 +7,7 @@ import inc.roguelike.babusya.element.interfaces.GameElement
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.loot.Loot
+import inc.roguelike.babusya.map.memento.CellMemento
 
 /**
  * Implement a cell for game map.
@@ -30,9 +31,7 @@ class Cell {
         observers.add(cellObserver)
     }
 
-    fun serialize(): String {
-        return collectToString(name, listOf(storedItem.serialize(), if (loot == null) "null" else loot!!.serialize()))
-    }
+    fun serialize() = CellMemento.serialize(this)
 
     fun clone(): Cell {
         val newCell = Cell()
@@ -42,30 +41,8 @@ class Cell {
     }
 
     companion object {
-        private const val name = "Cell"
-
         fun deserialize(controllerFactory: ControllerFactory, line: String): Cell? {
-            val name = getName(line)
-            val args = getArguments(line)
-
-            return if (name == null || args == null || name != this.name || args.size != 2) {
-                null
-            } else {
-                val item = GameElement.deserialize(controllerFactory, args[0])
-                val loot = Loot.deserialize(args[1])
-
-                if (item == null) {
-                    null
-                } else {
-                    val cell = Cell()
-                    cell.loot = loot
-                    cell.storedItem = item
-
-                    cell
-                }
-            }
+            return CellMemento.deserialize(controllerFactory, line)
         }
     }
-
-
 }

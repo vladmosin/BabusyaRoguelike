@@ -82,6 +82,4 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
     override fun setDeserializeInfo(args: List<String>): ActionController? {
         return this
     }
-
-
 }
