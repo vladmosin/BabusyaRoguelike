@@ -53,6 +53,6 @@ class ShowInventoryVisitor(
 
     }
 
-    override fun visitConfused(confusableCreature: ConfusableCreature): Unit {
+    override fun visitConfused(decorableCreature: DecorableCreature): Unit {
     }
 }

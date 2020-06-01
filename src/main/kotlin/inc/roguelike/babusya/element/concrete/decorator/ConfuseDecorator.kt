@@ -1,4 +1,7 @@
-package inc.roguelike.babusya.element.concrete
+package inc.roguelike.babusya.element.concrete.decorator
 
-class ConfuseDecorator {
+import inc.roguelike.babusya.controllers.ActionController
+
+class ConfuseDecorator(val randomController: ActionController) {
+
 }

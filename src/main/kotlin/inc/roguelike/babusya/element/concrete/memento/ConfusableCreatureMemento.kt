@@ -2,7 +2,7 @@ package inc.roguelike.babusya.element.concrete.memento
 
 import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.controllers.ControllerFactory
-import inc.roguelike.babusya.element.concrete.ConfusableCreature
+import inc.roguelike.babusya.element.concrete.DecorableCreature
 import inc.roguelike.babusya.element.interfaces.Creature
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
@@ -11,7 +11,7 @@ class ConfusableCreatureMemento {
     companion object {
         private const val name = "ConfusableCreature"
 
-        fun deserialize(controllerFactory: ControllerFactory, line: String): ConfusableCreature? {
+        fun deserialize(controllerFactory: ControllerFactory, line: String): DecorableCreature? {
             val name = getName(line)
             val args = getArguments(line)
 
@@ -24,14 +24,14 @@ class ConfusableCreatureMemento {
                 if (creature == null || controller == null) {
                     null
                 } else {
-                    ConfusableCreature(creature, controller)
+                    DecorableCreature(creature, controller)
                 }
             }
         }
 
-        fun serialize(confusableCreature: ConfusableCreature): String {
-            return collectToString(name, listOf(confusableCreature.creature.serialize(),
-                confusableCreature.randomController.serialize()))
+        fun serialize(decorableCreature: DecorableCreature): String {
+            return collectToString(name, listOf(decorableCreature.creature.serialize(),
+                decorableCreature.randomController.serialize()))
         }
     }
 }

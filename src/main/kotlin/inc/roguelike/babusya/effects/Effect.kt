@@ -15,7 +15,7 @@ interface Effect : ElementVisitor<Boolean> {
     override fun visitEmptyGameElement(emptyGameElement: EmptyGameElement): Boolean = false
     override fun visitHero(hero: Hero): Boolean = false
     override fun visitMonster(monster: Monster): Boolean = false
-    override fun visitConfused(confusableCreature: ConfusableCreature): Boolean = confusableCreature.creature.accept(this)
+    override fun visitConfused(decorableCreature: DecorableCreature): Boolean = decorableCreature.creature.accept(this)
 
     /**
      * Applying effect to given game element

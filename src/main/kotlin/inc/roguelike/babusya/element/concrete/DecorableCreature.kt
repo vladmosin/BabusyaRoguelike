@@ -1,14 +1,10 @@
 package inc.roguelike.babusya.element.concrete
 
-import inc.roguelike.babusya.collectToString
 import inc.roguelike.babusya.controllers.ActionController
 import inc.roguelike.babusya.controllers.ControllerFactory
-import inc.roguelike.babusya.element.CreatureCharacteristics
-import inc.roguelike.babusya.element.ElementStatus
+import inc.roguelike.babusya.element.concrete.decorator.ConfuseDecorator
 import inc.roguelike.babusya.element.concrete.memento.ConfusableCreatureMemento
 import inc.roguelike.babusya.element.interfaces.Creature
-import inc.roguelike.babusya.getArguments
-import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.visitors.ElementVisitor
 
 
@@ -17,8 +13,9 @@ import inc.roguelike.babusya.visitors.ElementVisitor
  * Confusing means that creature strategy changes
  * and for given number of steps becomes defined by randomController
  * */
-class ConfusableCreature(val creature: Creature, var randomController: ActionController): Creature by creature {
+class DecorableCreature(val creature: Creature, var randomController: ActionController): Creature by creature {
     var moreStepsWhileConfused = 0
+    val decorator = ConfuseDecorator(randomController)
 
     override fun makeTurn(): Boolean {
         if (moreStepsWhileConfused > 0) {
@@ -37,15 +34,15 @@ class ConfusableCreature(val creature: Creature, var randomController: ActionCon
         return visitor.visitConfused(this)
     }
 
-    override fun clone(): ConfusableCreature {
-        val confusableCreature = ConfusableCreature(creature.clone(), randomController.clone())
+    override fun clone(): DecorableCreature {
+        val confusableCreature = DecorableCreature(creature.clone(), randomController.clone())
         confusableCreature.moreStepsWhileConfused = moreStepsWhileConfused
 
         return confusableCreature
     }
 
     companion object {
-        fun deserialize(controllerFactory: ControllerFactory, line: String): ConfusableCreature? {
+        fun deserialize(controllerFactory: ControllerFactory, line: String): DecorableCreature? {
             return ConfusableCreatureMemento.deserialize(controllerFactory, line)
         }
     }

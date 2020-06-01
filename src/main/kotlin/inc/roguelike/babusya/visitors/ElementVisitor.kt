@@ -19,5 +19,5 @@ interface ElementVisitor<T> {
 
     fun visitMonster(monster: Monster): T
 
-    fun visitConfused(confusableCreature: ConfusableCreature): T
+    fun visitConfused(decorableCreature: DecorableCreature): T
 }
