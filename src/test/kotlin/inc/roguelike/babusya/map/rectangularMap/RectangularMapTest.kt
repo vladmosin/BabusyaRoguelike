@@ -2,6 +2,7 @@ package inc.roguelike.babusya.map.rectangularMap
 
 import InputListener
 import inc.roguelike.babusya.FileSystem.Companion.saveToFile
+import inc.roguelike.babusya.commands.AbstractCommand
 import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
@@ -14,7 +15,7 @@ class RectangularMapTest {
     private val map = RectangularMap(Array(5) {Array(5) { Cell() } })
 
     private class EmptyInputListener: InputListener {
-        override fun addCommand(command: (InputData) -> Unit): Int {
+        override fun addCommand(command: (AbstractCommand) -> Unit): Int {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }

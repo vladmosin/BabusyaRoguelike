@@ -1,5 +1,6 @@
 package inc.roguelike.babusya.controllers
 
+import inc.roguelike.babusya.commands.LeftCommand
 import inc.roguelike.babusya.element.CreatureCharacteristics
 import inc.roguelike.babusya.element.ElementStatus
 import inc.roguelike.babusya.element.concrete.Hero
@@ -26,7 +27,7 @@ class HeroActionControllerTest {
 
     @Test
     fun testMakeTurnHeroToEmpty() {
-        val inputListener = MockInputListener(LinkedList(listOf(InputData.LEFT)))
+        val inputListener = MockInputListener(LinkedList(listOf(LeftCommand())))
         val map = MockMap()
         val hero = Hero(
             actionController = HeroActionController(map, inputListener),
@@ -47,7 +48,7 @@ class HeroActionControllerTest {
 
     @Test
     fun testMakeMoveHeroToWall() {
-        val inputListener = MockInputListener(LinkedList(listOf(InputData.LEFT)))
+        val inputListener = MockInputListener(LinkedList(listOf(LeftCommand())))
         val map = MockMap()
         val hero = Hero(
             actionController = HeroActionController(map, inputListener),
