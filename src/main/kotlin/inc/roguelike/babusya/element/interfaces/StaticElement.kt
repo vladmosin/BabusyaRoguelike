@@ -10,6 +10,9 @@ import inc.roguelike.babusya.element.abstracts.AbstractStaticElement
  * */
 interface StaticElement : GameElement {
     companion object {
+        /**
+         * Deserializes static element
+         * */
         fun deserialize(string: String): StaticElement? {
             return AbstractStaticElement.deserialize(string)
         }

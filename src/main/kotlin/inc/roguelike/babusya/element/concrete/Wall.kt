@@ -14,23 +14,39 @@ import inc.roguelike.babusya.visitors.ElementVisitor
  * Creatures cannot walk through the wall.
  * */
 class Wall(id: String, elementStatus: ElementStatus) : AbstractStaticElement(id, elementStatus) {
+
+    /**
+     * Accept function for visitor
+     * */
     override fun <T> accept(visitor: ElementVisitor<T>): T {
         return visitor.visitWall(this)
     }
 
+    /**
+     * Checks that wall is active
+     * */
     override fun isActive(): Boolean {
         return elementStatus == ElementStatus.ALIVE
     }
 
+    /**
+     * Serializes wall
+     * */
     override fun serialize(): String {
         return WallMemento.serialize(this)
     }
 
+    /**
+     * Clones wall
+     * */
     override fun clone(): Wall {
         return Wall(id, elementStatus)
     }
 
     companion object {
+        /**
+         * Deserializes wall
+         * */
         fun deserialize(string: String): Wall? {
             return WallMemento.deserialize(string)
         }

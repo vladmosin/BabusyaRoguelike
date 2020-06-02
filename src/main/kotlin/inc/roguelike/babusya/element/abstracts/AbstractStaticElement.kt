@@ -11,6 +11,9 @@ import inc.roguelike.babusya.element.interfaces.StaticElement
 abstract class AbstractStaticElement(id: String, elementStatus: ElementStatus) :
     AbstractGameElement(id, elementStatus), StaticElement {
     companion object {
+        /**
+         * Deserializes static element
+         * */
         fun deserialize(string: String): StaticElement? {
             val deserializers = listOf(
                 { s: String -> Wall.deserialize(s) },

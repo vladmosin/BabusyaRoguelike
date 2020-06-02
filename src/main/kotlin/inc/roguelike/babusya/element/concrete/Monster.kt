@@ -23,10 +23,16 @@ class Monster(creatureCharacteristics: CreatureCharacteristics, actionController
     AbstractCreature(creatureCharacteristics, actionController, id, elementStatus) {
 
 
+    /**
+     * Accept function for monster
+     * */
     override fun <T> accept(visitor: ElementVisitor<T>): T {
         return visitor.visitMonster(this)
     }
 
+    /**
+     * Checks that monster is not dead
+     * */
     override fun isActive(): Boolean {
         return elementStatus == ElementStatus.ALIVE
     }
@@ -35,24 +41,39 @@ class Monster(creatureCharacteristics: CreatureCharacteristics, actionController
         return listOf(MonsterPunchEffect(characteristics.attack))
     }
 
+    /**
+     * Effect when attacking
+     * */
     override fun attackEffects(): List<Effect> {
         return getKickEffects()
     }
 
+    /**
+     * Effect when defending
+     * */
     override fun defensiveEffects(): List<Effect> {
         return getKickEffects()
     }
 
+    /**
+     * Serializes monster
+     * */
     override fun serialize(): String {
         return MonsterMemento.serialize(this)
     }
 
+    /**
+     * Clones monster
+     * */
     override fun clone(): Monster {
         val newCharacteristics = characteristics.clone()
         return Monster(newCharacteristics, actionController?.clone(), id, elementStatus)
     }
 
     companion object {
+        /**
+         * Deserializes monster
+         * */
         fun deserialize(controllerFactory: ControllerFactory, line: String): Monster? {
             return MonsterMemento.deserialize(controllerFactory, line)
         }

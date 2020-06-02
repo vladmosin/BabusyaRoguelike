@@ -88,6 +88,9 @@ class ConsoleKeyboardListener(val terminal: Terminal): InputListener {
         }
     }
 
+    /**
+     * Stops receiving input
+     * */
     fun stop() {
         runBlocking {
             job!!.cancelAndJoin()

@@ -6,10 +6,16 @@ import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import java.lang.NumberFormatException
 
+/**
+ * Memento for for heal effect
+ * */
 class HealEffectMemento {
     companion object {
         private const val name = "HealEffect"
 
+        /**
+         * Deserializes heal effect
+         * */
         fun deserialize(line: String): HealEffect? {
             val name = getName(line)
             val args = getArguments(line)
@@ -25,6 +31,9 @@ class HealEffectMemento {
             }
         }
 
+        /**
+         * Serializes heal effect
+         * */
         fun serialize(healEffect: HealEffect): String {
             return collectToString(name, listOf(healEffect.healAmount.toString()))
         }

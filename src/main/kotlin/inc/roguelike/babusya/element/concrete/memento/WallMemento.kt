@@ -6,10 +6,16 @@ import inc.roguelike.babusya.element.concrete.Wall
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 
+/**
+ * Memento for wall
+ * */
 class WallMemento {
     companion object {
         private const val name = "Wall"
 
+        /**
+         * Deserializes wall
+         * */
         fun deserialize(string: String): Wall? {
             val name = getName(string)
             val args = getArguments(string)
@@ -26,6 +32,9 @@ class WallMemento {
             }
         }
 
+        /**
+         * Serializes wall
+         * */
         fun serialize(wall: Wall): String {
             return collectToString(name, listOf(wall.id, wall.elementStatus.name))
         }

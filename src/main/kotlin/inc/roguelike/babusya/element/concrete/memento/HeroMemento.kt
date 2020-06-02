@@ -9,10 +9,16 @@ import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.loot.Inventory
 
+/**
+ * Memento for hero
+ * */
 class HeroMemento {
     companion object {
         private const val name = "Hero"
 
+        /**
+         * Deserializes hero
+         * */
         fun deserialize(controllerFactory: ControllerFactory, string: String): Hero? {
             val name = getName(string)
             val args = getArguments(string)
@@ -44,6 +50,9 @@ class HeroMemento {
             }
         }
 
+        /**
+         * Serializes hero
+         * */
         fun serialize(hero: Hero): String {
             return collectToString(
                 name, listOf(hero.characteristics.serialize(), hero.id, hero.elementStatus.name,

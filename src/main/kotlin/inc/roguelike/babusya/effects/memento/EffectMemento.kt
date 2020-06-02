@@ -2,8 +2,14 @@ package inc.roguelike.babusya.effects.memento
 
 import inc.roguelike.babusya.effects.*
 
+/**
+ * Memento for effect
+ * */
 class EffectMemento {
     companion object {
+        /**
+         * Deserializes effect
+         * */
         fun deserialize(line: String): Effect? {
             val deserializers = listOf(
                 { s: String -> ConfusionChanceEffect.deserialize(s) },

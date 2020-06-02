@@ -23,19 +23,31 @@ abstract class AbstractGameElement(override val id: String, elementStatus: Eleme
                 observer.onStatusUpdate(this)
         }
 
+    /**
+     * Attaches status observer
+     * */
     override fun attachStatusObserver(observer: ElementStatusObserver) {
         observers.add(observer)
     }
 
+    /**
+     * Get effects when attacking
+     * */
     override fun attackEffects() : List<Effect> {
         return emptyList()
     }
 
+    /**
+     * Get effects when defending
+     * */
     override fun defensiveEffects(): List<Effect> {
         return emptyList()
     }
 
     companion object {
+        /**
+         * Deserializes game element
+         * */
         fun deserialize(controllerFactory: ControllerFactory, string: String): GameElement? {
             val deserializers = listOf(
                 { s: String -> Creature.deserialize(controllerFactory, s)},

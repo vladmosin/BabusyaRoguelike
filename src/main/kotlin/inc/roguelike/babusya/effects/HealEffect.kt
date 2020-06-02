@@ -12,23 +12,39 @@ import inc.roguelike.babusya.getName
 import java.lang.NumberFormatException
 import kotlin.math.min
 
+/**
+ * Implementation of heal effect
+ * */
 class HealEffect(val healAmount: Int): Effect {
+
+    /**
+     * Effect on hero
+     * */
     override fun visitHero(hero: Hero): Boolean {
         healCreature(hero)
         return true
     }
 
+    /**
+     * Effect on monster
+     * */
     override fun visitMonster(monster: Monster): Boolean {
         healCreature(monster)
         return true
     }
 
+    /**
+     * Returns description
+     * */
     override fun getDescription(from: GameElement?, to: GameElement?): String {
         val fromId = from?.id ?: "God"
         val toId = to?.id ?: "Nothing"
         return "Heal: $fromId --[$healAmount]--> $toId"
     }
 
+    /**
+     * Serializes effect
+     * */
     override fun serialize(): String {
         return HealEffectMemento.serialize(this)
     }
@@ -39,6 +55,9 @@ class HealEffect(val healAmount: Int): Effect {
     }
 
     companion object {
+        /**
+         * Serializes effect
+         * */
         fun deserialize(line: String): HealEffect? {
             return HealEffectMemento.deserialize(line)
         }

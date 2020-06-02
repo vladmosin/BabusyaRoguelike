@@ -35,6 +35,9 @@ interface GameElement {
      * */
     fun serialize(): String
 
+    /**
+     * Clones game element
+     * */
     fun clone(): GameElement
 
     companion object {

@@ -18,6 +18,9 @@ class DecorableCreature(val creature: Creature, var randomController: ActionCont
     var moreStepsWhileConfused = 0
     var decorator: MonsterDecorator? = null
 
+    /**
+     * Makes turn
+     * */
     override fun makeTurn(): Boolean {
         if (moreStepsWhileConfused > 0) {
             moreStepsWhileConfused--
@@ -33,14 +36,23 @@ class DecorableCreature(val creature: Creature, var randomController: ActionCont
         return creature.actionController?.makeTurn(this) ?: true
     }
 
+    /**
+     * Serializes confusable creature
+     * */
     override fun serialize(): String {
         return ConfusableCreatureMemento.serialize(this)
     }
 
+    /**
+     * Accept function for visitor
+     * */
     override fun <T> accept(visitor: ElementVisitor<T>): T {
         return visitor.visitConfused(this)
     }
 
+    /**
+     * Clones decorable creature
+     * */
     override fun clone(): DecorableCreature {
         val confusableCreature = DecorableCreature(creature.clone(), randomController.clone())
         confusableCreature.moreStepsWhileConfused = moreStepsWhileConfused
@@ -49,6 +61,9 @@ class DecorableCreature(val creature: Creature, var randomController: ActionCont
     }
 
     companion object {
+        /**
+         * Deserializes decorable creature
+         * */
         fun deserialize(controllerFactory: ControllerFactory, line: String): DecorableCreature? {
             return ConfusableCreatureMemento.deserialize(controllerFactory, line)
         }

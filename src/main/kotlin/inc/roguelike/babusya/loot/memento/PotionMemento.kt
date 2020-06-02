@@ -6,10 +6,16 @@ import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.loot.Potion
 
+/**
+ * Memento implementation for potion
+ * */
 class PotionMemento {
     companion object {
         private const val className = "Potion"
 
+        /**
+         * Deserializes potion
+         * */
         fun deserialize(line: String): Potion? {
             val name = getName(line)
             val args = getArguments(line)
@@ -22,6 +28,9 @@ class PotionMemento {
             }
         }
 
+        /**
+         * Serializes potion
+         * */
         fun serialize(potion: Potion): String {
             return collectToString(className, listOf(potion.name, potion.effect.serialize()))
         }

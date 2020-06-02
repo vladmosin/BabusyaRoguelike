@@ -6,10 +6,16 @@ import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import java.lang.NumberFormatException
 
+/**
+ * Memento for for monster punch effect
+ * */
 class MonsterPunchEffectMemento {
     companion object {
         private const val name = "PunchEffect"
 
+        /**
+         * Deserializes effect
+         * */
         fun deserialize(line: String): MonsterPunchEffect? {
             val name = getName(line)
             val args = getArguments(line)
@@ -25,6 +31,9 @@ class MonsterPunchEffectMemento {
             }
         }
 
+        /**
+         * Serializes effect
+         * */
         fun serialize(monsterPunchEffect: MonsterPunchEffect) =
             collectToString(name, listOf(monsterPunchEffect.damage.toString()))
     }

@@ -9,6 +9,9 @@ import inc.roguelike.babusya.map.rectangularMap.RectangularMap
  * */
 class LevelLoader(val inputListener: InputListener) {
 
+    /**
+     * Loads level
+     * */
     fun loadLevel(path: String, name: String): Level {
         val serializedLevel = FileSystem.loadFile(path)
         val map = RectangularMap.deserialize(serializedLevel, inputListener)

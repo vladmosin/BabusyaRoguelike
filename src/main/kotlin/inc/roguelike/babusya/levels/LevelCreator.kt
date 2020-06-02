@@ -18,6 +18,9 @@ class LevelCreator(inputListener: InputListener) {
         LevelsType.SAVED to {id: Int -> levelLoader.loadLevel(SAVED_PATH, "SavedLevel")}
     )
 
+    /**
+     * Creates level
+     * */
     fun createLevel(id: Int, levelsType: LevelsType): Level {
         return actionMap[levelsType]!!(id)
     }

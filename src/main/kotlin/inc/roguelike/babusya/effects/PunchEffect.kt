@@ -17,22 +17,34 @@ import kotlin.math.max
  * */
 open class PunchEffect(val damage: Int): Effect {
 
+    /**
+     * Effect on visiting hero
+     * */
     override fun visitHero(hero: Hero): Boolean {
         punchCreature(hero)
         return true
     }
 
+    /**
+     * Effect on visiting monster
+     * */
     override fun visitMonster(monster: Monster): Boolean {
         punchCreature(monster)
         return true
     }
 
+    /**
+     * Returns description
+     * */
     override fun getDescription(from: GameElement?, to: GameElement?): String {
         val fromId = from?.id ?: "God"
         val toId = to?.id ?: "Nothing"
         return "Hit: $fromId --[$damage]--> $toId"
     }
 
+    /**
+     * Serializes effect
+     * */
     override fun serialize() = PunchEffectMemento.serialize(this)
 
     private fun punchCreature(creature: Creature) {
@@ -43,6 +55,9 @@ open class PunchEffect(val damage: Int): Effect {
     }
 
     companion object {
+        /**
+         * Deserializes effect
+         * */
         fun deserialize(line: String): PunchEffect? {
             return PunchEffectMemento.deserialize(line)
         }

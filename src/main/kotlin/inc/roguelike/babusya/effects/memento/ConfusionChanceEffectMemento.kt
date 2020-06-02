@@ -6,10 +6,16 @@ import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import java.lang.NumberFormatException
 
+/**
+ * Memento for for confusion effect
+ * */
 class ConfusionChanceEffectMemento {
     companion object {
         private const val name = "ConfusionChanceEffect"
 
+        /**
+         * Deserializes effect
+         * */
         fun deserialize(line: String): ConfusionChanceEffect? {
             val name = getName(line)
             val args = getArguments(line)
@@ -25,6 +31,9 @@ class ConfusionChanceEffectMemento {
             }
         }
 
+        /**
+         * Serializes effect
+         * */
         fun serialize(confusionChanceEffect: ConfusionChanceEffect): String {
             return collectToString(name, listOf(confusionChanceEffect.probability.toString(),
                 confusionChanceEffect.effectDuration.toString()))

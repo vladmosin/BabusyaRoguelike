@@ -9,6 +9,9 @@ enum class ElementStatus {
     ALIVE, DEAD;
 
     companion object {
+        /**
+         * Deserializes element status
+         * */
         fun deserialize(string: String): ElementStatus? {
             return try {
                 valueOf(string)

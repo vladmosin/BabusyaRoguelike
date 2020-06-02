@@ -19,6 +19,9 @@ class Inventory(val owner: Hero) {
     val inPossesionOf = HashSet<Loot>()
     var selected: Loot? = null
 
+    /**
+     * Adds item to inventory
+     * */
     fun addToInventory(item: Loot) {
         inPossesionOf.add(item)
         if (selected == null) {
@@ -26,6 +29,9 @@ class Inventory(val owner: Hero) {
         }
     }
 
+    /**
+     * Removes item from inventory
+     * */
     fun removeFromInventory(item: Loot) {
         if (item is Equipment && equipped[item.type] == item) {
             equip(EmptyEquipment(item.type))
@@ -36,16 +42,25 @@ class Inventory(val owner: Hero) {
         }
     }
 
+    /**
+     * Selects given item
+     * */
     fun selectItem(item: Loot) {
         if (item in inPossesionOf) {
             selected = item
         }
     }
 
+    /**
+     * Returns loot
+     * */
     fun getLoot(): List<Loot> {
         return inPossesionOf.toList().sortedBy { loot -> loot.getDescrition() }
     }
 
+    /**
+     * Selects previous loot
+     * */
     fun selectPreviousLoot() {
         var previousLoot: Loot? = null
         for (loot in inPossesionOf) {
@@ -57,6 +72,9 @@ class Inventory(val owner: Hero) {
         selected = previousLoot ?: selected
     }
 
+    /**
+     * Selects next loot
+     * */
     fun selectNextLoot() {
         if (selected == null) {
             return
@@ -71,23 +89,38 @@ class Inventory(val owner: Hero) {
         }
     }
 
+    /**
+     * Uses selected loot
+     * */
     fun useSelected() {
         selected?.use(this)
     }
 
+    /**
+     * Equips new item
+     * */
     fun equip(newItem: Equipment) {
         equipped[newItem.type]?.removeBuffs(owner)
         equipped[newItem.type] = newItem
         equipped[newItem.type]?.addBuffs(owner)
     }
 
+    /**
+     * Checks that item is equipped
+     * */
     fun isEquipped(loot: Loot?): Boolean {
         return equipped.values.contains(loot)
     }
 
+    /**
+     * Serializes inventory
+     * */
     fun serialize() = InventoryMemento.serialize(this)
 
     companion object {
+        /**
+         * Deserializes inventory
+         * */
         fun deserialize(line: String, owner: Hero): Inventory? {
             return InventoryMemento.deserialize(line, owner)
         }

@@ -11,13 +11,23 @@ import inc.roguelike.babusya.element.abstracts.AbstractCreature
 interface Creature: GameElement {
     val characteristics: CreatureCharacteristics
     var actionController: ActionController?
+
+    /**
+     * Makes turn
+     * */
     fun makeTurn(): Boolean
 
     companion object {
+        /**
+         * Deserializes creature
+         * */
         fun deserialize(controllerFactory: ControllerFactory, string: String): Creature? {
             return AbstractCreature.deserialize(controllerFactory, string)
         }
     }
 
+    /**
+     * Clones creature
+     * */
     override fun clone(): Creature
 }

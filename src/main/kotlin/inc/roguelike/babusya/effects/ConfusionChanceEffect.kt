@@ -11,15 +11,25 @@ import kotlin.random.Random
  * Creature becomes confused with given probability when this effect applied
  * */
 class ConfusionChanceEffect(val probability: Double, val effectDuration: Int): Effect {
+
+    /**
+     * Returns effect description
+     * */
     override fun getDescription(from: GameElement?, to: GameElement?): String {
         return "Confusion: (from = " + (from?.id ?: "?") + ")" +
                 "(to = " + (to?.id ?: "?") + ")"
     }
 
+    /**
+     * Serializes effect
+     * */
     override fun serialize(): String {
         return ConfusionChanceEffectMemento.serialize(this)
     }
 
+    /**
+     * Visitor for confused
+     * */
     override fun visitConfused(decorableCreature: DecorableCreature): Boolean {
         if (Random.nextDouble() < probability) {
             decorableCreature.decorator = ConfuseDecorator(decorableCreature.randomController)
@@ -30,6 +40,9 @@ class ConfusionChanceEffect(val probability: Double, val effectDuration: Int): E
     }
 
     companion object {
+        /**
+         * Deserializes effect
+         * */
         fun deserialize(line: String): ConfusionChanceEffect? {
             return ConfusionChanceEffectMemento.deserialize(line)
         }

@@ -24,7 +24,10 @@ open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus:
             inventory.equip(this)
         }
     }
-    
+
+    /**
+     * Serializes equipment
+     * */
     override fun serialize() = EquipmentMemento.serialize(this)
 
     /**
@@ -44,11 +47,17 @@ open class Equipment(val type: EquipmentType, val hpBonus: Int, val attackBonus:
         hero.characteristics.attack -= attackBonus
     }
 
+    /**
+     * Returns description
+     * */
     override fun getDescrition(): String {
         return "(Eq| ${type.name[0]}, hp: $hpBonus, attack: $attackBonus)"
     }
   
     companion object {
+        /**
+         * Deserializes equipment
+         * */
         fun deserialize(line: String): Equipment? {
             return EquipmentMemento.deserialize(line)
         }

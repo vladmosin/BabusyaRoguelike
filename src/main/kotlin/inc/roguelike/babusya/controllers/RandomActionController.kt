@@ -19,14 +19,23 @@ class RandomActionController(gameMap: GameMap): AbstractActionController(gameMap
         return true
     }
 
+    /**
+     * Clones controller
+     * */
     override fun clone(): RandomActionController {
         return RandomActionController(gameMap)
     }
 
+    /**
+     * Serializes controller
+     * */
     override fun serialize(): String {
         return collectToString(ControllerType.RandomController.name, listOf())
     }
 
+    /**
+     * Sets deserialize info
+     * */
     override fun setDeserializeInfo(args: List<String>): ActionController? {
         return this
     }

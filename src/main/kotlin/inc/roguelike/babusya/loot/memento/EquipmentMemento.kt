@@ -6,10 +6,16 @@ import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.loot.Equipment
 import inc.roguelike.babusya.loot.EquipmentType
 
+/**
+ * Memento implementation for equipment
+ * */
 class EquipmentMemento {
     companion object {
         private const val name = "Equipment"
 
+        /**
+         * Deserializes memento
+         * */
         fun deserialize(line: String): Equipment? {
             val name = getName(line)
             val args = getArguments(line)
@@ -26,6 +32,9 @@ class EquipmentMemento {
             }
         }
 
+        /**
+         * Serializes memento
+         * */
         fun serialize(equipment: Equipment): String {
             return collectToString(name, listOf(equipment.type.name,
                 equipment.hpBonus.toString(), equipment.attackBonus.toString()))

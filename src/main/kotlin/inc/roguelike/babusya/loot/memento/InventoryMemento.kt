@@ -6,12 +6,18 @@ import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 import inc.roguelike.babusya.loot.*
 
+/**
+ * Memento implementation for inventory
+ * */
 class InventoryMemento {
     companion object {
         private const val name = "Inventory"
         private const val mapName = "Map"
         private const val keyValueName = "KeyValue"
 
+        /**
+         * Deserializes memento
+         * */
         fun deserialize(line: String, owner: Hero): Inventory? {
             val name = getName(line)
             val args = getArguments(line)
@@ -92,6 +98,9 @@ class InventoryMemento {
             }
         }
 
+        /**
+         * Serializes inventory
+         * */
         fun serialize(inventory: Inventory): String {
             val items = ArrayList(inventory.inPossesionOf)
             val args = ArrayList<String>()

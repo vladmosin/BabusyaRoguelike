@@ -9,6 +9,9 @@ enum class EquipmentType {
     HAT;
 
     companion object {
+        /**
+         * Deserializes equipment type
+         * */
         fun deserialize(line: String): EquipmentType? {
             return if (values().map { e -> e.name}.contains(line)) {
                 valueOf(line)

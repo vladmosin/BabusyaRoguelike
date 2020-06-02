@@ -19,6 +19,9 @@ abstract class AbstractCreature(
     elementStatus: ElementStatus
 ) : AbstractGameElement(id, elementStatus), Creature {
 
+    /**
+     * Makes turn
+     * */
     override fun makeTurn(): Boolean {
         if (actionController == null) {
             throw IllegalStateException("controller is not set")
@@ -27,6 +30,9 @@ abstract class AbstractCreature(
     }
 
     companion object {
+        /**
+         * Deserializes abstract creature
+         * */
         fun deserialize(controllerFactory: ControllerFactory, string: String): Creature? {
             val deserializers = listOf(
                 { s: String -> Hero.deserialize(controllerFactory, s) },

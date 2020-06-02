@@ -8,10 +8,16 @@ import inc.roguelike.babusya.element.concrete.Monster
 import inc.roguelike.babusya.getArguments
 import inc.roguelike.babusya.getName
 
+/**
+ * Memento for monstr
+ * */
 class MonsterMemento {
     companion object {
         private const val name = "Monster"
 
+        /**
+         * Deserializes monster
+         * */
         fun deserialize(controllerFactory: ControllerFactory, line: String): Monster? {
             val name = getName(line)
             val args = getArguments(line)
@@ -33,6 +39,9 @@ class MonsterMemento {
             }
         }
 
+        /**
+         * Serializes monster
+         * */
         fun serialize(monster: Monster): String {
             return collectToString(
                 name, listOf(monster.characteristics.serialize(),

@@ -8,6 +8,9 @@ import inc.roguelike.babusya.map.rectangularMap.RectangularMapBuilder
  * */
 class LevelGenerator(val inputListener: InputListener) {
 
+    /**
+     * Generates level
+     * */
     fun generateLevel(id: Int): Level {
         val map = RectangularMapBuilder(10, 20)
             .addHero()

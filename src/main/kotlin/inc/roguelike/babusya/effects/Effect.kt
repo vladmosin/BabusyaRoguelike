@@ -9,10 +9,29 @@ import inc.roguelike.babusya.visitors.ElementVisitor
  * Interface for effects implementing visitor pattern and able to affect game elements
  * */
 interface Effect : ElementVisitor<Boolean> {
+    /**
+     * Effect on visiting wall
+     * */
     override fun visitWall(wall: Wall): Boolean = false
+
+    /**
+     * Effect on visiting empty game element
+     * */
     override fun visitEmptyGameElement(emptyGameElement: EmptyGameElement): Boolean = false
+
+    /**
+     * Effect on visiting hero
+     * */
     override fun visitHero(hero: Hero): Boolean = false
+
+    /**
+     * Effect on visiting monster
+     * */
     override fun visitMonster(monster: Monster): Boolean = false
+
+    /**
+     * Effect on visiting confused
+     * */
     override fun visitConfused(decorableCreature: DecorableCreature): Boolean = decorableCreature.creature.accept(this)
 
     /**
@@ -31,6 +50,9 @@ interface Effect : ElementVisitor<Boolean> {
     fun serialize(): String
 
     companion object {
+        /**
+         * Deserializes effect
+         * */
         fun deserialize(line: String): Effect? {
             return EffectMemento.deserialize(line)
         }
