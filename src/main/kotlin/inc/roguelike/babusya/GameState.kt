@@ -1,0 +1,38 @@
+package inc.roguelike.babusya
+
+import inc.roguelike.babusya.element.concrete.Hero
+import inc.roguelike.babusya.levels.Level
+import inc.roguelike.babusya.levels.LevelCreator
+import inc.roguelike.babusya.levels.LevelInfo
+import inc.roguelike.babusya.levels.LevelsType
+
+/**
+ * Keeps information about current game
+ */
+class GameState(private val levelCreator: LevelCreator, private val levelInfo: LevelInfo) {
+    private var level: Level
+    private var didGameEnd = false
+    var gameLog = GameLog()
+    var focusedHero: Hero? = null
+
+    init {
+        level = levelCreator.createLevel(levelInfo.id, levelInfo.levelsType)
+    }
+
+    /**
+     * Ends game
+     * */
+    fun endGame() {
+        didGameEnd = true
+    }
+
+    /**
+     * Checks that game ends
+     * */
+    fun didGameEnd(): Boolean = didGameEnd
+
+    /**
+     * Returns level
+     * */
+    fun getLevel(): Level = level
+}
