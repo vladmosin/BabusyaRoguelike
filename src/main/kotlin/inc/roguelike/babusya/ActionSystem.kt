@@ -13,7 +13,7 @@ class ActionSystem {
     /**
      * Adds elemens to observe
      * */
-    fun addElement(creature: Creature) {
+    fun addCreature(creature: Creature) {
         queue.add(creature)
     }
 

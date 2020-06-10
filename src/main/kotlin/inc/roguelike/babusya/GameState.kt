@@ -20,13 +20,6 @@ class GameState(private val levelCreator: LevelCreator, private val levelInfo: L
     }
 
     /**
-     * Initializes new level
-     */
-    fun startNewLevel() {
-        level = levelCreator.createLevel(level.getId() + 1, levelInfo.levelsType)
-    }
-
-    /**
      * Ends game
      * */
     fun endGame() {

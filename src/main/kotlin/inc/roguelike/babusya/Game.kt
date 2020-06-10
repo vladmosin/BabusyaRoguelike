@@ -4,7 +4,6 @@ import InputListener
 import inc.roguelike.babusya.UI.RenderSystem
 import inc.roguelike.babusya.element.concrete.Hero
 import inc.roguelike.babusya.element.interfaces.Creature
-import inc.roguelike.babusya.inputListeners.InputData
 import inc.roguelike.babusya.levels.LevelCreator
 import inc.roguelike.babusya.levels.LevelInfo
 
@@ -28,7 +27,7 @@ class Game(renderSystem: RenderSystem, val inputListener: InputListener, levelIn
     fun launch() {
         for (cell in gameState.getLevel().getMap()) {
             if (cell.storesActiveItem() && cell.storedItem is Creature) {
-                engine.actionSystem.addElement(cell.storedItem as Creature)
+                engine.actionSystem.addCreature(cell.storedItem as Creature)
                 (cell.storedItem as Creature).actionController?.useLog(gameState.gameLog)
 
                 if (cell.storedItem is Hero) {

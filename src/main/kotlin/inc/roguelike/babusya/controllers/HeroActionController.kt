@@ -20,11 +20,6 @@ class HeroActionController(gameMap: GameMap, val inputListener: InputListener): 
 
     private val inputDataChannel = Channel<AbstractCommand>(capacity = Channel.CONFLATED)
 
-    private fun saveMap() {
-        FileSystem.saveToFile("Levels" + File.separator + "Saved", gameMap.serialize())
-        log?.add("Game saved : successfully")
-    }
-
     private fun receiveStep(): AbstractCommand {
         fun receive(command: AbstractCommand) {
             runBlocking { inputDataChannel.send(command) }
