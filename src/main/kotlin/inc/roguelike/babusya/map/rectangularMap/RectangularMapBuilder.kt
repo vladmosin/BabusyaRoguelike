@@ -12,6 +12,7 @@ import inc.roguelike.babusya.element.concrete.Monster
 import inc.roguelike.babusya.element.concrete.Wall
 import inc.roguelike.babusya.loot.Equipment
 import inc.roguelike.babusya.loot.EquipmentType
+import inc.roguelike.babusya.loot.Loot
 import inc.roguelike.babusya.loot.Potion
 import inc.roguelike.babusya.map.Cell
 import kotlin.math.abs
@@ -27,6 +28,10 @@ class RectangularMapBuilder(
     private val rectangle = Array(height) { Array(width) { Cell() } }
     private var creatureToController : ArrayList<Pair<Creature, ControllerType>> = ArrayList()
     private var heroElement: Hero? = null
+
+    init {
+        addHero()
+    }
 
     /**
      * Creates map
@@ -70,7 +75,7 @@ class RectangularMapBuilder(
     /**
      * Adds hero to the map
      * */
-    fun addHero(): RectangularMapBuilder {
+    private fun addHero(): RectangularMapBuilder {
         val emptyPositions = getPositions { cell -> !cell.storesActiveItem() }
         val emptyCellsNumber = emptyPositions.size
         check(emptyCellsNumber > 0) { "There is no place for hero" }
@@ -143,11 +148,13 @@ class RectangularMapBuilder(
 
     /**
      * Add walls to map
+     * @param density a real number in [0, 1] which indicates denisity of walls in level
+     *  the higher the density, the more walls in the level
      * */
-    fun addRandomWalls(): RectangularMapBuilder {
+    fun addRandomWalls(density: Double): RectangularMapBuilder {
         val importantPositions = getPositions {
                 cell -> cell.storesActiveItem() ||
-                Random.nextDouble(0.0, 1.0) < 10.0 / height / width
+                Random.nextDouble(0.0, 1.0) > density
         }
         val used = Array(height) { Array(width) { false } }
         for (i in 0 until importantPositions.size) {
@@ -174,78 +181,75 @@ class RectangularMapBuilder(
     }
 
     /**
-     * Adds monsters to map
+     * Adds monster to map is there is at least one empty position
      * */
-    fun addRandomMonsters(): RectangularMapBuilder {
+    fun addMonsterRandomly(monster: Monster, controllerType: ControllerType) : RectangularMapBuilder {
         val emptyPositions = getPositions { cell -> !cell.storesActiveItem() }
         emptyPositions.shuffle()
-        if (emptyPositions.size >= 3) {
-            run {
-                val (i, j) = emptyPositions[0]
-                val monster = Monster(
-                    creatureCharacteristics = CreatureCharacteristics(
-                        100,
-                        100,
-                        1
-                    ),
-                    actionController = null,
-                    id = "PinkiePie",
-                    elementStatus = ElementStatus.ALIVE
-                )
-                rectangle[i][j].storedItem = monster
-                creatureToController.add(Pair(monster, ControllerType.PassiveController))
-            }
+        if (emptyPositions.isNotEmpty()) {
+            val (i, j) = emptyPositions[0]
+            rectangle[i][j].storedItem = monster
+            creatureToController.add(Pair(monster, controllerType))
+        }
+        return this;
+    }
 
-            run {
-                val (i, j) = emptyPositions[1]
-                val monster = Monster(
-                    creatureCharacteristics = CreatureCharacteristics(
-                        100,
-                        100,
-                        1
-                    ),
-                    actionController = null,
-                    id = "RainbowDash",
-                    elementStatus = ElementStatus.ALIVE
-                )
-                rectangle[i][j].storedItem = monster
-                creatureToController.add(Pair(monster, ControllerType.AggressiveController))
-            }
-
-            run {
-                val (i, j) = emptyPositions[2]
-                val monster = Monster(
-                    creatureCharacteristics = CreatureCharacteristics(
-                        100,
-                        100,
-                        1
-                    ),
-                    actionController = null,
-                    id = "Fluttershy",
-                    elementStatus = ElementStatus.ALIVE
-                )
-                rectangle[i][j].storedItem = monster
-                creatureToController.add(Pair(monster, ControllerType.CowardController))
-            }
+    /**
+     * Adds ponies!
+     * */
+    fun addBasicMonsters(): RectangularMapBuilder {
+        run {
+            val monster = Monster(
+                creatureCharacteristics = CreatureCharacteristics(
+                    1000,
+                    100,
+                    1
+                ),
+                actionController = null,
+                id = "RainbowDash",
+                elementStatus = ElementStatus.ALIVE
+            )
+            addMonsterRandomly(monster, ControllerType.AggressiveController)
+        }
+        run {
+            val monster = Monster(
+                creatureCharacteristics = CreatureCharacteristics(
+                    100,
+                    100,
+                    1
+                ),
+                actionController = null,
+                id = "PinkiePie",
+                elementStatus = ElementStatus.ALIVE
+            )
+            addMonsterRandomly(monster, ControllerType.PassiveController)
+        }
+        run {
+            val monster = Monster(
+                creatureCharacteristics = CreatureCharacteristics(
+                    100,
+                    100,
+                    20
+                ),
+                actionController = null,
+                id = "Fluttershy",
+                elementStatus = ElementStatus.ALIVE
+            )
+            addMonsterRandomly(monster, ControllerType.CowardController)
         }
         return this
     }
 
     /**
-     * Adds loot to map
+     * Adds loot to map if there is at least one empty position
      * */
-    fun addRandomLoot(): RectangularMapBuilder {
+    fun addLootRandomly(loot: Loot): RectangularMapBuilder {
         val emptyPositions = getPositions { cell -> !cell.storesActiveItem() }
         emptyPositions.shuffle()
 
-        if (emptyPositions.size >= 1) {
+        if (emptyPositions.isNotEmpty()) {
             val (i, j) = emptyPositions[0]
-            rectangle[i][j].loot = Equipment(EquipmentType.HAT, 100, 100)
-        }
-
-        if (emptyPositions.size >= 2) {
-            val (i, j) = emptyPositions[1]
-            rectangle[i][j].loot = Potion("Heal Potion", HealEffect(10000))
+            rectangle[i][j].loot = loot;
         }
         return this
     }
