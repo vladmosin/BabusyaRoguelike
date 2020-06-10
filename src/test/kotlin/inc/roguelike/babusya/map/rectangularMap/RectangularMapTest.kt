@@ -4,6 +4,8 @@ import InputListener
 import inc.roguelike.babusya.FileSystem.Companion.saveToFile
 import inc.roguelike.babusya.commands.AbstractCommand
 import inc.roguelike.babusya.inputListeners.InputData
+import inc.roguelike.babusya.loot.Equipment
+import inc.roguelike.babusya.loot.EquipmentType
 import inc.roguelike.babusya.map.Cell
 import inc.roguelike.babusya.map.GameMap
 import org.junit.Assert.assertEquals
@@ -50,10 +52,9 @@ class RectangularMapTest {
     fun testClone() {
         for (i in 0..0) {
             val map = RectangularMapBuilder(10, 20)
-                .addHero()
-                .addRandomWalls()
-                .addRandomMonsters()
-                .addRandomLoot()
+                .addRandomWalls(0.95)
+                .addBasicMonsters()
+                .addLootRandomly(Equipment(EquipmentType.HAT, 100, 100))
                 .buildMap(EmptyInputListener())
 
             val serialized = map.serialize()

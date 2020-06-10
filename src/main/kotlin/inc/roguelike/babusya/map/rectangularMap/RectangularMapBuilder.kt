@@ -105,8 +105,9 @@ class RectangularMapBuilder(
         val distance = abs(start.first - finish.first) + abs(start.second - finish.second)
         var (i, j) = start
         used[i][j] = true
+
         for (step in 0 until distance) {
-            if (i != finish.first && Random.nextBoolean()) {
+            if ((i != finish.first && Random.nextBoolean()) || j == finish.second) {
                 i += di
             } else {
                 j += dj
